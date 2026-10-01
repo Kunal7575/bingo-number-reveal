@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bingo Draw</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                radial-gradient(circle at top, #243b55, #141e30);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           MAIN BINGO CARD
+        ========================================= */
+
+        .bingo-card {
+
+            width: min(92%, 650px);
+
+            background: rgba(255,255,255,0.10);
+
+            backdrop-filter: blur(14px);
+
+            border: 1px solid rgba(255,255,255,0.20);
+
+            border-radius: 28px;
+
+            padding: 40px;
+
+            text-align: center;
+
+            box-shadow:
+                0 25px 70px rgba(0,0,0,0.40);
+        }
+
+
+        .title {
+
+            font-size: 48px;
+
+            margin: 0;
+
+            letter-spacing: 5px;
+
+            font-weight: 900;
+        }
+
+
+        .subtitle {
+
+            font-size: 19px;
+
+            opacity: 0.8;
+
+            margin-top: 12px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* =========================================
+           BINGO BALL
+        ========================================= */
+
+        .ball-wrapper {
+
+            position: relative;
+
+            width: 270px;
+
+            height: 270px;
+
+            margin: 20px auto 35px;
+        }
+
+
+        .ball {
+
+            width: 270px;
+
+            height: 270px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 25%,
+                    #ffffff,
+                    #ececec 55%,
+                    #b9b9b9
+                );
+
+            border: 12px solid #111;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #111;
+
+            font-size: 105px;
+
+            font-weight: 900;
+
+            box-shadow:
+                inset -18px -18px 35px rgba(0,0,0,0.18),
+                inset 15px 15px 30px rgba(255,255,255,0.9),
+                0 25px 40px rgba(0,0,0,0.40);
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* Highlight on Bingo ball */
+
+        .ball::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 75px;
+
+            height: 45px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.7);
+
+            top: 35px;
+
+            left: 55px;
+
+            transform: rotate(-30deg);
+        }
+
+
+        /* =========================================
+           BALL ROLLING ANIMATION
+        ========================================= */
+
+        .rolling {
+
+            animation:
+                shake 0.12s infinite,
+                pulse 0.45s infinite alternate;
+        }
+
+
+        @keyframes shake {
+
+            0% {
+                transform: translate(-5px, 2px) rotate(-5deg);
+            }
+
+            25% {
+                transform: translate(5px, -3px) rotate(4deg);
+            }
+
+            50% {
+                transform: translate(-3px, -5px) rotate(-3deg);
+            }
+
+            75% {
+                transform: translate(4px, 4px) rotate(5deg);
+            }
+
+            100% {
+                transform: translate(-5px, 2px) rotate(-5deg);
+            }
+        }
+
+
+        @keyframes pulse {
+
+            from {
+                scale: 1;
+            }
+
+            to {
+                scale: 1.05;
+            }
+        }
+
+
+        /* =========================================
+           FINAL NUMBER REVEAL
+        ========================================= */
+
+        .winner {
+
+            animation: winnerPop 0.8s ease forwards;
+        }
+
+
+        @keyframes winnerPop {
+
+            0% {
+                transform: scale(0.5);
+            }
+
+            60% {
+                transform: scale(1.18);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        #message {
+
+            margin-top: 27px;
+
+            min-height: 40px;
+
+            font-size: 24px;
+
+            font-weight: 700;
+        }
+
+
+        .final-message {
+
+            font-size: 30px !important;
+
+            animation: messagePop 0.8s ease;
+        }
+
+
+        @keyframes messagePop {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(20px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           CONFETTI
+        ========================================= */
+
+        .confetti {
+
+            position: fixed;
+
+            width: 11px;
+
+            height: 11px;
+
+            top: -20px;
+
+            z-index: 50;
+
+            animation: fall linear forwards;
+        }
+
+
+        @keyframes fall {
+
+            to {
+
+                transform:
+                    translateY(110vh)
+                    rotate(720deg);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            margin-top: 30px;
+
+            font-size: 13px;
+
+            opacity: 0.55;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media(max-width: 600px) {
+
+            .title {
+
+                font-size: 38px;
+            }
+
+
+            .ball-wrapper,
+            .ball {
+
+                width: 220px;
+
+                height: 220px;
+            }
+
+
+            .ball {
+
+                font-size: 85px;
+            }
+
+
+            .bingo-card {
+
+                padding: 30px 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="bingo-card">
+
+
+    <h1 class="title">
+        BINGO
+    </h1>
+
+
+    <div class="subtitle">
+        Today's number is being drawn...
+    </div>
+
+
+    <div class="ball-wrapper">
+
+        <div
+            id="ball"
+            class="ball">
+
+            ?
+
+        </div>
+
+    </div>
+
+
+    <div id="message">
+
+        🎱 Preparing today's Bingo number...
+
+    </div>
+
+
+    <div class="footer">
+
+        Good luck everyone!
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================================
+   CHANGE ONLY THIS NUMBER EACH DAY
+
+   Example:
+
+   const FINAL_NUMBER = 42;
+
+   or
+
+   const FINAL_NUMBER = 89;
+
+================================================== */
+
+const FINAL_NUMBER = 89;
+
+
+
+/* ==================================================
+   START AUTOMATICALLY WHEN PAGE OPENS
+================================================== */
+
+window.addEventListener("load", function () {
+
+    /*
+       Small delay so everyone sees the page
+       before the animation begins.
+    */
+
+    setTimeout(function () {
+
+        rollBingo();
+
+    }, 1000);
+
+});
+
+
+
+/* ==================================================
+   BINGO ANIMATION
+================================================== */
+
+function rollBingo() {
+
+
+    const ball =
+        document.getElementById("ball");
+
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent =
+        "🎱 Drawing today's Bingo number...";
+
+
+    ball.classList.remove("winner");
+
+    ball.classList.add("rolling");
+
+
+    let count = 0;
+
+    let speed = 70;
+
+
+
+    function spin() {
+
+
+        let randomNumber =
+            Math.floor(Math.random() * 90) + 1;
+
+
+
+        /*
+           Don't accidentally display
+           the real final number early.
+        */
+
+        while (randomNumber === FINAL_NUMBER) {
+
+            randomNumber =
+                Math.floor(Math.random() * 90) + 1;
+
+        }
+
+
+
+        ball.textContent =
+            randomNumber;
+
+
+        count++;
+
+
+
+        /*
+           Start quickly and gradually
+           slow down before the final reveal.
+        */
+
+
+        if (count < 18) {
+
+            speed = 70;
+
+        }
+
+
+        else if (count < 23) {
+
+            speed = 120;
+
+        }
+
+
+        else if (count < 27) {
+
+            speed = 200;
+
+        }
+
+
+        else if (count < 30) {
+
+            speed = 350;
+
+        }
+
+
+
+        if (count < 30) {
+
+            setTimeout(spin, speed);
+
+        }
+
+
+        else {
+
+            revealFinalNumber();
+
+        }
+
+    }
+
+
+    spin();
+
+}
+
+
+
+/* ==================================================
+   FINAL NUMBER REVEAL
+================================================== */
+
+function revealFinalNumber() {
+
+
+    const ball =
+        document.getElementById("ball");
+
+
+    const message =
+        document.getElementById("message");
+
+
+
+    ball.classList.remove("rolling");
+
+
+    ball.textContent =
+        FINAL_NUMBER;
+
+
+    ball.classList.add("winner");
+
+
+
+    message.innerHTML =
+        "🎉 BINGO! Today's number is <strong>"
+        + FINAL_NUMBER +
+        "</strong> 🎉";
+
+
+    message.classList.add(
+        "final-message"
+    );
+
+
+    createConfetti();
+
+}
+
+
+
+/* ==================================================
+   CONFETTI
+================================================== */
+
+function createConfetti() {
+
+
+    const colors = [
+
+        "#ff4757",
+
+        "#ffa502",
+
+        "#2ed573",
+
+        "#1e90ff",
+
+        "#eccc68",
+
+        "#ff6b81",
+
+        "#a55eea"
+
+    ];
+
+
+
+    for (let i = 0; i < 120; i++) {
+
+
+        const piece =
+            document.createElement("div");
+
+
+        piece.classList.add(
+            "confetti"
+        );
+
+
+        piece.style.left =
+            Math.random() * 100 + "vw";
+
+
+        piece.style.backgroundColor =
+            colors[
+                Math.floor(
+                    Math.random()
+                    * colors.length
+                )
+            ];
+
+
+        piece.style.animationDuration =
+            (
+                Math.random() * 2
+                + 2
+            )
+            + "s";
+
+
+        piece.style.animationDelay =
+            (
+                Math.random() * 0.7
+            )
+            + "s";
+
+
+        piece.style.borderRadius =
+            Math.random() > 0.5
+            ? "50%"
+            : "2px";
+
+
+        document.body.appendChild(
+            piece
+        );
+
+
+        setTimeout(
+
+            () => piece.remove(),
+
+            5000
+
+        );
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
