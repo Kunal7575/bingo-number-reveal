@@ -3,369 +3,1764 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Bingo Draw</title>
+<title>Bingo Reveal</title>
 
-    <style>
 
-        * {
-            box-sizing: border-box;
-        }
+<style>
 
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-        body {
+*{
+    box-sizing:border-box;
+}
 
-            margin: 0;
+html,
+body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
 
-            min-height: 100vh;
+body{
 
-            font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(
+            to bottom,
+            #eaf1f6 0%,
+            #eaf1f6 72%,
+            #c1ccd5 72%,
+            #aebac4 100%
+        );
 
-            background:
-                radial-gradient(circle at top, #243b55, #141e30);
+    color:#1f2b36;
+}
 
-            display: flex;
 
-            align-items: center;
+.scene{
 
-            justify-content: center;
+    position:relative;
 
-            overflow: hidden;
+    width:100vw;
+    height:100vh;
 
-            color: white;
-        }
+    overflow:hidden;
+}
 
 
-        /* =========================================
-           MAIN BINGO CARD
-        ========================================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
-        .bingo-card {
+.title{
 
-            width: min(92%, 650px);
+    position:absolute;
 
-            background: rgba(255,255,255,0.10);
+    top:22px;
+    left:50%;
 
-            backdrop-filter: blur(14px);
+    transform:translateX(-50%);
 
-            border: 1px solid rgba(255,255,255,0.20);
+    text-align:center;
 
-            border-radius: 28px;
+    z-index:40;
 
-            padding: 40px;
+    white-space:nowrap;
+}
 
-            text-align: center;
 
-            box-shadow:
-                0 25px 70px rgba(0,0,0,0.40);
-        }
+.title h1{
 
+    margin:0;
 
-        .title {
+    font-size:
+        clamp(32px,4vw,58px);
 
-            font-size: 48px;
+    font-weight:900;
 
-            margin: 0;
+    letter-spacing:7px;
+}
 
-            letter-spacing: 5px;
 
-            font-weight: 900;
-        }
+.title p{
 
+    margin:8px 0 0;
 
-        .subtitle {
+    font-size:
+        clamp(15px,1.5vw,20px);
 
-            font-size: 19px;
+    font-weight:600;
 
-            opacity: 0.8;
+    opacity:.68;
+}
 
-            margin-top: 12px;
 
-            margin-bottom: 35px;
-        }
+/* =========================================================
+   WINDOW
+========================================================= */
 
+.window{
 
-        /* =========================================
-           BINGO BALL
-        ========================================= */
+    position:absolute;
 
-        .ball-wrapper {
+    right:5%;
+    top:9%;
 
-            position: relative;
+    width:290px;
+    height:170px;
 
-            width: 270px;
+    padding:9px;
 
-            height: 270px;
+    background:#75828b;
 
-            margin: 20px auto 35px;
-        }
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.15);
+}
 
 
-        .ball {
+.pane{
 
-            width: 270px;
+    position:relative;
 
-            height: 270px;
+    width:100%;
+    height:100%;
 
-            border-radius: 50%;
+    overflow:hidden;
 
-            background:
-                radial-gradient(
-                    circle at 35% 25%,
-                    #ffffff,
-                    #ececec 55%,
-                    #b9b9b9
-                );
+    background:
+        linear-gradient(
+            #84c8ee,
+            #d9f2ff
+        );
+}
 
-            border: 12px solid #111;
 
-            display: flex;
+.building{
 
-            align-items: center;
+    position:absolute;
 
-            justify-content: center;
+    bottom:0;
 
-            color: #111;
+    background:#8197a4;
 
-            font-size: 105px;
+    opacity:.8;
+}
 
-            font-weight: 900;
 
-            box-shadow:
-                inset -18px -18px 35px rgba(0,0,0,0.18),
-                inset 15px 15px 30px rgba(255,255,255,0.9),
-                0 25px 40px rgba(0,0,0,0.40);
+.b1{
 
-            position: relative;
+    left:18px;
 
-            z-index: 2;
-        }
+    width:65px;
+    height:70px;
+}
 
 
-        /* Highlight on Bingo ball */
+.b2{
 
-        .ball::before {
+    left:105px;
 
-            content: "";
+    width:80px;
+    height:125px;
+}
 
-            position: absolute;
 
-            width: 75px;
+.b3{
 
-            height: 45px;
+    right:22px;
 
-            border-radius: 50%;
+    width:52px;
+    height:90px;
+}
 
-            background: rgba(255,255,255,0.7);
 
-            top: 35px;
+/* =========================================================
+   OFFICE
+========================================================= */
 
-            left: 55px;
+.office-zone{
 
-            transform: rotate(-30deg);
-        }
+    position:absolute;
 
+    left:50%;
+    bottom:65px;
 
-        /* =========================================
-           BALL ROLLING ANIMATION
-        ========================================= */
+    transform:
+        translateX(-50%);
 
-        .rolling {
+    width:850px;
+    height:560px;
+}
 
-            animation:
-                shake 0.12s infinite,
-                pulse 0.45s infinite alternate;
-        }
 
+.floor-shadow{
 
-        @keyframes shake {
+    position:absolute;
 
-            0% {
-                transform: translate(-5px, 2px) rotate(-5deg);
-            }
+    left:50%;
+    bottom:20px;
 
-            25% {
-                transform: translate(5px, -3px) rotate(4deg);
-            }
+    transform:
+        translateX(-50%);
 
-            50% {
-                transform: translate(-3px, -5px) rotate(-3deg);
-            }
+    width:650px;
+    height:70px;
 
-            75% {
-                transform: translate(4px, 4px) rotate(5deg);
-            }
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(0,0,0,.22),
+            transparent 70%
+        );
+}
 
-            100% {
-                transform: translate(-5px, 2px) rotate(-5deg);
-            }
-        }
 
+/* =========================================================
+   DESK
+========================================================= */
 
-        @keyframes pulse {
+.desk-wrap{
 
-            from {
-                scale: 1;
-            }
+    position:absolute;
 
-            to {
-                scale: 1.05;
-            }
-        }
+    left:105px;
+    bottom:80px;
 
+    width:640px;
+    height:330px;
 
-        /* =========================================
-           FINAL NUMBER REVEAL
-        ========================================= */
+    transform-origin:
+        center bottom;
+}
 
-        .winner {
 
-            animation: winnerPop 0.8s ease forwards;
-        }
+.desk-wrap.shake{
 
+    animation:
+        deskShake .08s infinite;
+}
 
-        @keyframes winnerPop {
 
-            0% {
-                transform: scale(0.5);
-            }
+@keyframes deskShake{
 
-            60% {
-                transform: scale(1.18);
-            }
+    0%{
+        transform:translate(0,0);
+    }
 
-            100% {
-                transform: scale(1);
-            }
-        }
+    25%{
+        transform:translate(-5px,2px);
+    }
 
+    50%{
+        transform:translate(5px,-2px);
+    }
 
-        /* =========================================
-           MESSAGE
-        ========================================= */
+    75%{
+        transform:translate(-3px,-1px);
+    }
 
-        #message {
+    100%{
+        transform:translate(4px,2px);
+    }
+}
 
-            margin-top: 27px;
 
-            min-height: 40px;
+.desktop{
 
-            font-size: 24px;
+    position:absolute;
 
-            font-weight: 700;
-        }
+    left:0;
+    bottom:135px;
 
+    width:640px;
+    height:32px;
 
-        .final-message {
+    border-radius:5px;
 
-            font-size: 30px !important;
+    background:
+        linear-gradient(
+            #99673c,
+            #70451f
+        );
 
-            animation: messagePop 0.8s ease;
-        }
+    box-shadow:
+        0 9px 20px rgba(0,0,0,.25);
 
+    z-index:8;
+}
 
-        @keyframes messagePop {
 
-            from {
+.leg{
 
-                opacity: 0;
+    position:absolute;
 
-                transform: translateY(20px);
-            }
+    bottom:0;
 
-            to {
+    width:30px;
+    height:138px;
 
-                opacity: 1;
+    background:#4c3020;
+}
 
-                transform: translateY(0);
-            }
-        }
 
+.leg.left{
 
-        /* =========================================
-           CONFETTI
-        ========================================= */
+    left:40px;
+}
 
-        .confetti {
 
-            position: fixed;
+.leg.right{
 
-            width: 11px;
+    right:40px;
+}
 
-            height: 11px;
 
-            top: -20px;
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
-            z-index: 50;
+.keyboard{
 
-            animation: fall linear forwards;
-        }
+    position:absolute;
 
+    left:320px;
+    bottom:141px;
 
-        @keyframes fall {
+    width:165px;
+    height:20px;
 
-            to {
+    border-radius:4px;
 
-                transform:
-                    translateY(110vh)
-                    rotate(720deg);
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #2e3439 0,
+            #2e3439 8px,
+            #4b5359 8px,
+            #4b5359 10px
+        );
 
-                opacity: 0;
-            }
-        }
+    transform:
+        perspective(140px)
+        rotateX(35deg);
 
+    z-index:12;
+}
 
-        /* =========================================
-           FOOTER
-        ========================================= */
 
-        .footer {
+/* =========================================================
+   COFFEE
+========================================================= */
 
-            margin-top: 30px;
+.coffee{
 
-            font-size: 13px;
+    position:absolute;
 
-            opacity: 0.55;
-        }
+    left:525px;
+    bottom:151px;
 
+    width:48px;
+    height:60px;
 
-        /* =========================================
-           MOBILE
-        ========================================= */
+    border-radius:
+        6px 6px 15px 15px;
 
-        @media(max-width: 600px) {
+    background:
+        linear-gradient(
+            #fff,
+            #ddd
+        );
 
-            .title {
+    box-shadow:
+        0 6px 10px rgba(0,0,0,.15);
 
-                font-size: 38px;
-            }
+    z-index:12;
+}
 
 
-            .ball-wrapper,
-            .ball {
+.coffee::after{
 
-                width: 220px;
+    content:"";
 
-                height: 220px;
-            }
+    position:absolute;
 
+    right:-18px;
+    top:13px;
 
-            .ball {
+    width:22px;
+    height:26px;
 
-                font-size: 85px;
-            }
+    border:6px solid #ddd;
 
+    border-left:0;
 
-            .bingo-card {
+    border-radius:
+        0 14px 14px 0;
+}
 
-                padding: 30px 20px;
-            }
-        }
 
-    </style>
+.coffee.jump{
+
+    animation:
+        coffeeJump .5s ease;
+}
+
+
+@keyframes coffeeJump{
+
+    0%{
+
+        transform:
+            translateY(0)
+            rotate(0);
+    }
+
+    50%{
+
+        transform:
+            translateY(-38px)
+            rotate(15deg);
+    }
+
+    100%{
+
+        transform:
+            translateY(0)
+            rotate(-6deg);
+    }
+}
+
+
+/* =========================================================
+   PERSON
+========================================================= */
+
+.person{
+
+    position:absolute;
+
+    left:120px;
+    bottom:135px;
+
+    width:200px;
+    height:270px;
+
+    z-index:11;
+
+    transition:.3s;
+}
+
+
+.chair{
+
+    position:absolute;
+
+    left:55px;
+    bottom:-65px;
+
+    width:105px;
+    height:165px;
+
+    background:#38424a;
+
+    border-radius:
+        25px 25px 7px 7px;
+
+    z-index:-1;
+}
+
+
+.chair::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:47px;
+    bottom:-55px;
+
+    width:11px;
+    height:65px;
+
+    background:#38424a;
+}
+
+
+.head{
+
+    position:absolute;
+
+    left:70px;
+    top:18px;
+
+    width:68px;
+    height:78px;
+
+    border-radius:48%;
+
+    background:#dfa06d;
+
+    z-index:5;
+
+    transition:.2s;
+}
+
+
+.hair{
+
+    position:absolute;
+
+    left:68px;
+    top:10px;
+
+    width:72px;
+    height:31px;
+
+    border-radius:
+        35px 35px 12px 12px;
+
+    background:#30251f;
+
+    z-index:6;
+
+    transition:.2s;
+}
+
+
+.eye{
+
+    position:absolute;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#222;
+
+    z-index:7;
+}
+
+
+.eye.one{
+
+    left:92px;
+    top:54px;
+}
+
+
+.eye.two{
+
+    left:115px;
+    top:54px;
+}
+
+
+.mouth{
+
+    position:absolute;
+
+    left:99px;
+    top:75px;
+
+    width:15px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#95564d;
+
+    z-index:7;
+
+    transition:.2s;
+}
+
+
+.body{
+
+    position:absolute;
+
+    left:50px;
+    top:88px;
+
+    width:100px;
+    height:135px;
+
+    border-radius:
+        27px 27px 8px 8px;
+
+    background:
+        linear-gradient(
+            #3b6fab,
+            #28517f
+        );
+}
+
+
+.arm{
+
+    position:absolute;
+
+    width:95px;
+    height:18px;
+
+    border-radius:20px;
+
+    background:#dfa06d;
+
+    transform-origin:
+        left center;
+}
+
+
+.arm.left{
+
+    left:100px;
+    top:130px;
+
+    transform:
+        rotate(14deg);
+}
+
+
+.arm.right{
+
+    left:97px;
+    top:151px;
+
+    transform:
+        rotate(4deg);
+}
+
+
+.person.typing
+.arm.left{
+
+    animation:
+        typeLeft .16s
+        infinite alternate;
+}
+
+
+.person.typing
+.arm.right{
+
+    animation:
+        typeRight .18s
+        infinite alternate;
+}
+
+
+@keyframes typeLeft{
+
+    from{
+        transform:rotate(11deg);
+    }
+
+    to{
+        transform:rotate(17deg);
+    }
+}
+
+
+@keyframes typeRight{
+
+    from{
+        transform:rotate(2deg);
+    }
+
+    to{
+        transform:rotate(8deg);
+    }
+}
+
+
+/* =========================================================
+   BLASTED PERSON
+========================================================= */
+
+.person.blasted{
+
+    transform:
+        translateX(-15px)
+        rotate(-5deg);
+}
+
+
+.person.blasted
+.head{
+
+    background:#292929;
+}
+
+
+.person.blasted
+.mouth{
+
+    left:96px;
+    top:69px;
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+
+    background:#050505;
+}
+
+
+.person.blasted
+.hair{
+
+    left:58px;
+    top:-3px;
+
+    width:95px;
+    height:51px;
+
+    border-radius:0;
+
+    background:#151515;
+
+    clip-path:
+        polygon(
+            0% 100%,
+            7% 40%,
+            15% 100%,
+            22% 20%,
+            30% 100%,
+            38% 5%,
+            46% 100%,
+            55% 0%,
+            63% 100%,
+            71% 12%,
+            79% 100%,
+            87% 28%,
+            94% 100%,
+            100% 50%,
+            100% 100%
+        );
+}
+
+
+/* =========================================================
+   MONITOR
+========================================================= */
+
+.monitor-wrap{
+
+    position:absolute;
+
+    left:320px;
+    bottom:160px;
+
+    width:210px;
+    height:190px;
+
+    z-index:20;
+
+    transform-origin:
+        50% 100%;
+}
+
+
+.monitor{
+
+    width:210px;
+    height:130px;
+
+    padding:9px;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            #343b40,
+            #171c20
+        );
+
+    box-shadow:
+        0 12px 24px
+        rgba(0,0,0,.3);
+}
+
+
+.screen{
+
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    border-radius:5px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:12px;
+
+    background:
+        linear-gradient(
+            #d5efff,
+            #9bcfee
+        );
+
+    color:#304653;
+
+    font-size:15px;
+
+    font-weight:700;
+}
+
+
+.screen.glitch{
+
+    animation:
+        screenGlitch .11s infinite,
+        screenFlash .25s infinite;
+}
+
+
+@keyframes screenGlitch{
+
+    0%{
+        transform:translate(0,0);
+    }
+
+    25%{
+        transform:translate(-3px,2px);
+    }
+
+    50%{
+        transform:translate(3px,-1px);
+    }
+
+    75%{
+        transform:translate(-2px,-2px);
+    }
+
+    100%{
+        transform:translate(2px,2px);
+    }
+}
+
+
+@keyframes screenFlash{
+
+    0%{
+        background:#9bcfee;
+    }
+
+    33%{
+        background:#e7f7ff;
+    }
+
+    66%{
+        background:#8fc6e9;
+    }
+
+    100%{
+        background:#beeaff;
+    }
+}
+
+
+.stand{
+
+    position:absolute;
+
+    left:95px;
+    top:128px;
+
+    width:20px;
+    height:40px;
+
+    background:#293036;
+}
+
+
+.base{
+
+    position:absolute;
+
+    left:60px;
+    top:164px;
+
+    width:90px;
+    height:11px;
+
+    border-radius:10px;
+
+    background:#293036;
+}
+
+
+.monitor-wrap.fall{
+
+    animation:
+        monitorFall
+        1.2s
+        cubic-bezier(.5,.05,.85,.35)
+        forwards;
+}
+
+
+@keyframes monitorFall{
+
+    0%{
+
+        transform:
+            translate(0,0)
+            rotate(0);
+    }
+
+    40%{
+
+        transform:
+            translate(35px,30px)
+            rotate(18deg);
+    }
+
+    72%{
+
+        transform:
+            translate(105px,110px)
+            rotate(58deg);
+    }
+
+    100%{
+
+        transform:
+            translate(155px,165px)
+            rotate(94deg);
+    }
+}
+
+
+/* =========================================================
+   ERROR POPUPS
+========================================================= */
+
+.error{
+
+    position:absolute;
+
+    padding:12px 17px;
+
+    border-radius:11px;
+
+    background:#fff;
+
+    color:#25333d;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.18);
+
+    opacity:0;
+
+    z-index:35;
+}
+
+
+.error.show{
+
+    animation:
+        errorPop 1s
+        ease forwards;
+}
+
+
+@keyframes errorPop{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translateY(15px)
+            scale(.8);
+    }
+
+    20%{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1.05);
+    }
+
+    75%{
+
+        opacity:1;
+
+        transform:scale(1);
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+            translateY(-15px)
+            scale(.95);
+    }
+}
+
+
+#error1{
+
+    right:18%;
+    top:25%;
+}
+
+
+#error2{
+
+    right:8%;
+    top:35%;
+}
+
+
+#error3{
+
+    right:25%;
+    top:16%;
+}
+
+
+/* =========================================================
+   SMOKE
+========================================================= */
+
+.smoke{
+
+    position:absolute;
+
+    left:67%;
+    bottom:240px;
+
+    opacity:0;
+
+    z-index:30;
+}
+
+
+.smoke span{
+
+    position:absolute;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:
+        rgba(82,88,94,.55);
+}
+
+
+.smoke span:nth-child(1){
+
+    left:0;
+}
+
+
+.smoke span:nth-child(2){
+
+    left:20px;
+    top:-25px;
+}
+
+
+.smoke span:nth-child(3){
+
+    left:-15px;
+    top:-40px;
+}
+
+
+.smoke.go{
+
+    animation:
+        smokeRise
+        1.4s
+        ease forwards;
+}
+
+
+@keyframes smokeRise{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translateY(25px)
+            scale(.5);
+    }
+
+    40%{
+        opacity:.9;
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+            translateY(-100px)
+            scale(1.9);
+    }
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+.flash{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:70;
+
+    background:white;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+
+.flash.go{
+
+    animation:
+        flash .6s ease;
+}
+
+
+@keyframes flash{
+
+    0%{
+        opacity:0;
+    }
+
+    25%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+.results{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.75);
+
+    width:
+        min(920px,88vw);
+
+    padding:
+        42px 45px 34px;
+
+    border-radius:30px;
+
+    background:
+        rgba(11,22,33,.97);
+
+    color:white;
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.5);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:100;
+}
+
+
+.results.show{
+
+    animation:
+        resultsIn
+        .7s
+        ease forwards;
+}
+
+
+@keyframes resultsIn{
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+        pointer-events:auto;
+    }
+}
+
+
+.results h2{
+
+    margin:0;
+
+    text-align:center;
+
+    font-size:
+        clamp(25px,3vw,40px);
+
+    letter-spacing:4px;
+}
+
+
+.results .sub{
+
+    text-align:center;
+
+    margin-top:10px;
+
+    color:#bdd2e0;
+
+    font-size:17px;
+}
+
+
+/* =========================================================
+   BINGO BALLS
+========================================================= */
+
+.ball-grid{
+
+    margin-top:34px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:24px;
+}
+
+
+.result-ball{
+
+    aspect-ratio:1/1;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at 30% 22%,
+            #fff,
+            #f1f1f1 45%,
+            #c8c8c8 78%,
+            #999
+        );
+
+    color:#101820;
+
+    border:9px solid #111;
+
+    box-shadow:
+
+        inset -18px -18px 28px
+        rgba(0,0,0,.17),
+
+        inset 15px 15px 25px
+        rgba(255,255,255,.9),
+
+        0 18px 30px
+        rgba(0,0,0,.3);
+
+    font-size:
+        clamp(34px,4vw,55px);
+
+    font-weight:900;
+
+    transform:scale(0);
+}
+
+
+.results.show
+.result-ball{
+
+    animation:
+        ballPop
+        .7s
+        cubic-bezier(.18,1.5,.4,1)
+        forwards;
+}
+
+
+.results.show
+.result-ball:nth-child(1){
+
+    animation-delay:.15s;
+}
+
+
+.results.show
+.result-ball:nth-child(2){
+
+    animation-delay:.30s;
+}
+
+
+.results.show
+.result-ball:nth-child(3){
+
+    animation-delay:.45s;
+}
+
+
+.results.show
+.result-ball:nth-child(4){
+
+    animation-delay:.60s;
+}
+
+
+@keyframes ballPop{
+
+    0%{
+
+        transform:
+            scale(0)
+            rotate(-180deg);
+    }
+
+    70%{
+
+        transform:
+            scale(1.15)
+            rotate(7deg);
+    }
+
+    100%{
+
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+
+.result-footer{
+
+    margin-top:27px;
+
+    text-align:center;
+
+    font-size:16px;
+
+    color:#dce8f1;
+}
+
+
+/* =========================================================
+   PREVIOUS NUMBERS BUTTON
+========================================================= */
+
+.previous-button{
+
+    display:block;
+
+    margin:
+        25px auto 0;
+
+    padding:
+        15px 27px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:white;
+
+    color:#14202c;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.22);
+}
+
+
+.previous-button:hover{
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 27px
+        rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   DOG MODAL
+========================================================= */
+
+.dog-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:160;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(6,12,18,.80);
+
+    backdrop-filter:
+        blur(9px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:
+        .3s ease;
+}
+
+
+.dog-modal.show{
+
+    opacity:1;
+
+    pointer-events:auto;
+}
+
+
+.dog-card{
+
+    width:
+        min(980px,92vw);
+
+    min-height:500px;
+
+    display:grid;
+
+    grid-template-columns:
+        46% 54%;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    border-radius:32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef3f7
+        );
+
+    box-shadow:
+        0 35px 100px
+        rgba(0,0,0,.5);
+
+    transform:
+        scale(.86)
+        translateY(20px);
+
+    transition:
+        .42s
+        cubic-bezier(.18,1.5,.4,1);
+}
+
+
+.dog-modal.show
+.dog-card{
+
+    transform:
+        scale(1)
+        translateY(0);
+}
+
+
+/* DOG SIDE */
+
+.dog-left{
+
+    align-self:stretch;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding:
+        30px 0 0 15px;
+
+    overflow:hidden;
+}
+
+
+.dog-image{
+
+    width:115%;
+
+    max-width:520px;
+
+    height:auto;
+
+    display:block;
+
+    object-fit:contain;
+
+    object-position:
+        center bottom;
+}
+
+
+/* TEXT SIDE */
+
+.dog-right{
+
+    padding:
+        45px 55px 45px 35px;
+
+    color:#14202c;
+}
+
+
+.dog-kicker{
+
+    margin-bottom:14px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:5px;
+
+    color:#6d7983;
+}
+
+
+.dog-right h2{
+
+    margin:0 0 22px;
+
+    font-size:
+        clamp(38px,4.5vw,62px);
+
+    line-height:1;
+
+    color:#122033;
+}
+
+
+.dog-right p{
+
+    margin:
+        0 0 19px;
+
+    font-size:
+        clamp(17px,1.5vw,21px);
+
+    line-height:1.6;
+
+    color:#53606b;
+}
+
+
+.back-button{
+
+    margin-top:9px;
+
+    padding:
+        14px 23px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:#14202c;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    box-shadow:
+        0 10px 24px
+        rgba(0,0,0,.18);
+}
+
+
+.back-button:hover{
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+.confetti{
+
+    position:fixed;
+
+    top:-25px;
+
+    width:11px;
+    height:18px;
+
+    z-index:130;
+
+    animation:
+        confettiFall
+        linear forwards;
+}
+
+
+@keyframes confettiFall{
+
+    to{
+
+        transform:
+            translateY(115vh)
+            rotate(900deg);
+
+        opacity:.3;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:850px){
+
+    .office-zone{
+
+        transform:
+            translateX(-50%)
+            scale(.78);
+
+        transform-origin:
+            bottom center;
+    }
+
+
+    .ball-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+
+    .dog-card{
+
+        grid-template-columns:
+            1fr;
+
+        width:
+            min(92vw,650px);
+    }
+
+
+    .dog-left{
+
+        height:280px;
+
+        padding:15px 0 0;
+    }
+
+
+    .dog-image{
+
+        width:auto;
+
+        height:100%;
+
+        max-width:100%;
+    }
+
+
+    .dog-right{
+
+        padding:
+            25px 30px 35px;
+
+        text-align:center;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -373,42 +1768,354 @@
 <body>
 
 
-<div class="bingo-card">
+<div class="scene">
 
 
-    <h1 class="title">
-        BINGO
-    </h1>
+    <!-- HEADER -->
 
+    <div class="title">
 
-    <div class="subtitle">
-        Today's number is being drawn...
+        <h1>
+            BINGO
+        </h1>
+
+        <p>
+            October 15 • Today's Numbers
+        </p>
+
     </div>
 
 
-    <div class="ball-wrapper">
 
-        <div
-            id="ball"
-            class="ball">
+    <!-- WINDOW -->
 
-            ?
+    <div class="window">
+
+        <div class="pane">
+
+            <div class="building b1"></div>
+
+            <div class="building b2"></div>
+
+            <div class="building b3"></div>
 
         </div>
 
     </div>
 
 
-    <div id="message">
 
-        🎱 Preparing today's Bingo number...
+    <!-- OFFICE -->
+
+    <div class="office-zone">
+
+
+        <div class="floor-shadow"></div>
+
+
+
+        <!-- DESK -->
+
+        <div
+            class="desk-wrap"
+            id="deskWrap">
+
+
+            <div class="desktop"></div>
+
+
+            <div class="leg left"></div>
+
+            <div class="leg right"></div>
+
+
+            <div class="keyboard"></div>
+
+
+            <div
+                class="coffee"
+                id="coffee">
+            </div>
+
+
+
+            <!-- COMPUTER -->
+
+            <div
+                class="monitor-wrap"
+                id="monitorWrap">
+
+
+                <div class="monitor">
+
+
+                    <div
+                        class="screen"
+                        id="screen">
+
+
+                        <div id="screenText">
+
+                            Running Bingo operations...
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="stand"></div>
+
+                <div class="base"></div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PERSON -->
+
+        <div
+            class="person typing"
+            id="person">
+
+
+            <div class="chair"></div>
+
+            <div class="head"></div>
+
+            <div class="hair"></div>
+
+            <div class="eye one"></div>
+
+            <div class="eye two"></div>
+
+            <div class="mouth"></div>
+
+            <div class="body"></div>
+
+            <div class="arm left"></div>
+
+            <div class="arm right"></div>
+
+
+        </div>
+
 
     </div>
 
 
-    <div class="footer">
 
-        Good luck everyone!
+    <!-- ERROR POPUPS -->
+
+    <div
+        class="error"
+        id="error1">
+
+        ⚠ Too many Bingo requests
+
+    </div>
+
+
+    <div
+        class="error"
+        id="error2">
+
+        💥 SYSTEM OVERBURDENED
+
+    </div>
+
+
+    <div
+        class="error"
+        id="error3">
+
+        IT recommendation: good luck
+
+    </div>
+
+
+
+    <!-- SMOKE -->
+
+    <div
+        class="smoke"
+        id="smoke">
+
+        <span></span>
+
+        <span></span>
+
+        <span></span>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- FLASH -->
+
+<div
+    class="flash"
+    id="flash">
+</div>
+
+
+
+<!-- =========================================================
+     RESULTS
+========================================================= -->
+
+<div
+    class="results"
+    id="results">
+
+
+    <h2>
+        TODAY'S BINGO NUMBERS
+    </h2>
+
+
+    <div class="sub">
+        October 15
+    </div>
+
+
+
+    <div class="ball-grid">
+
+
+        <div class="result-ball">
+            G50
+        </div>
+
+
+        <div class="result-ball">
+            I26
+        </div>
+
+
+        <div class="result-ball">
+            O73
+        </div>
+
+
+        <div class="result-ball">
+            O66
+        </div>
+
+
+    </div>
+
+
+
+    <div class="result-footer">
+
+        Technology has suffered,
+        but the numbers have been secured.
+
+    </div>
+
+
+
+    <button
+        class="previous-button"
+        onclick="showPreviousNumbers()">
+
+        View Previous Numbers
+
+    </button>
+
+
+</div>
+
+
+
+<!-- =========================================================
+     DOG MODAL
+========================================================= -->
+
+<div
+    class="dog-modal"
+    id="dogModal">
+
+
+    <div class="dog-card">
+
+
+        <!-- DOG -->
+
+        <div class="dog-left">
+
+
+            <img
+                class="dog-image"
+                src="dog.png"
+                alt="Bingo dog">
+
+
+        </div>
+
+
+
+        <!-- TEXT -->
+
+        <div class="dog-right">
+
+
+            <div class="dog-kicker">
+
+                PREVIOUS NUMBERS
+
+            </div>
+
+
+            <h2>
+
+                Hey man... relax. 😭
+
+            </h2>
+
+
+            <p>
+
+                There aren't any previous
+                numbers yet.
+
+            </p>
+
+
+            <p>
+
+                The Bingo archives are still
+                completely empty.
+
+                Come back after the next draw
+                and I'll actually have something
+                to show you.
+
+            </p>
+
+
+            <button
+                class="back-button"
+                onclick="closePreviousNumbers()">
+
+                Fine... take me back 😂
+
+            </button>
+
+
+        </div>
+
 
     </div>
 
@@ -419,250 +2126,168 @@
 
 <script>
 
-
-/* ==================================================
-   CHANGE ONLY THIS NUMBER EACH DAY
-
-   Example:
-
-   const FINAL_NUMBER = 42;
-
-   or
-
-   const FINAL_NUMBER = 89;
-
-================================================== */
-
-const FINAL_NUMBER = 89;
-
-
-
-/* ==================================================
-   START AUTOMATICALLY WHEN PAGE OPENS
-================================================== */
-
-window.addEventListener("load", function () {
-
-    /*
-       Small delay so everyone sees the page
-       before the animation begins.
-    */
-
-    setTimeout(function () {
-
-        rollBingo();
-
-    }, 1000);
-
-});
-
-
-
-/* ==================================================
-   BINGO ANIMATION
-================================================== */
-
-function rollBingo() {
-
-
-    const ball =
-        document.getElementById("ball");
-
-
-    const message =
-        document.getElementById("message");
-
-
-    message.textContent =
-        "🎱 Drawing today's Bingo number...";
-
-
-    ball.classList.remove("winner");
-
-    ball.classList.add("rolling");
-
-
-    let count = 0;
-
-    let speed = 70;
-
-
-
-    function spin() {
-
-
-        let randomNumber =
-            Math.floor(Math.random() * 90) + 1;
-
-
-
-        /*
-           Don't accidentally display
-           the real final number early.
-        */
-
-        while (randomNumber === FINAL_NUMBER) {
-
-            randomNumber =
-                Math.floor(Math.random() * 90) + 1;
-
-        }
-
-
-
-        ball.textContent =
-            randomNumber;
-
-
-        count++;
-
-
-
-        /*
-           Start quickly and gradually
-           slow down before the final reveal.
-        */
-
-
-        if (count < 18) {
-
-            speed = 70;
-
-        }
-
-
-        else if (count < 23) {
-
-            speed = 120;
-
-        }
-
-
-        else if (count < 27) {
-
-            speed = 200;
-
-        }
-
-
-        else if (count < 30) {
-
-            speed = 350;
-
-        }
-
-
-
-        if (count < 30) {
-
-            setTimeout(spin, speed);
-
-        }
-
-
-        else {
-
-            revealFinalNumber();
-
-        }
-
-    }
-
-
-    spin();
-
-}
-
-
-
-/* ==================================================
-   FINAL NUMBER REVEAL
-================================================== */
-
-function revealFinalNumber() {
-
-
-    const ball =
-        document.getElementById("ball");
-
-
-    const message =
-        document.getElementById("message");
-
-
-
-    ball.classList.remove("rolling");
-
-
-    ball.textContent =
-        FINAL_NUMBER;
-
-
-    ball.classList.add("winner");
-
-
-
-    message.innerHTML =
-        "🎉 BINGO! Today's number is <strong>"
-        + FINAL_NUMBER +
-        "</strong> 🎉";
-
-
-    message.classList.add(
-        "final-message"
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const screen =
+    document.getElementById(
+        "screen"
     );
 
 
-    createConfetti();
+const screenText =
+    document.getElementById(
+        "screenText"
+    );
+
+
+const deskWrap =
+    document.getElementById(
+        "deskWrap"
+    );
+
+
+const coffee =
+    document.getElementById(
+        "coffee"
+    );
+
+
+const monitorWrap =
+    document.getElementById(
+        "monitorWrap"
+    );
+
+
+const person =
+    document.getElementById(
+        "person"
+    );
+
+
+const smoke =
+    document.getElementById(
+        "smoke"
+    );
+
+
+const flash =
+    document.getElementById(
+        "flash"
+    );
+
+
+const results =
+    document.getElementById(
+        "results"
+    );
+
+
+const dogModal =
+    document.getElementById(
+        "dogModal"
+    );
+
+
+
+/* =========================================================
+   ERROR POPUP
+========================================================= */
+
+function showError(id){
+
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    element.classList.remove(
+        "show"
+    );
+
+
+    void element.offsetWidth;
+
+
+    element.classList.add(
+        "show"
+    );
 
 }
 
 
 
-/* ==================================================
-   CONFETTI
-================================================== */
+/* =========================================================
+   DOG MODAL
+========================================================= */
 
-function createConfetti() {
+function showPreviousNumbers(){
+
+
+    dogModal.classList.add(
+        "show"
+    );
+
+}
+
+
+function closePreviousNumbers(){
+
+
+    dogModal.classList.remove(
+        "show"
+    );
+
+}
+
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function createConfetti(){
 
 
     const colors = [
 
-        "#ff4757",
-
-        "#ffa502",
-
-        "#2ed573",
-
-        "#1e90ff",
-
-        "#eccc68",
-
-        "#ff6b81",
-
-        "#a55eea"
+        "#ffffff",
+        "#ffd166",
+        "#ff5d73",
+        "#4cc9f0",
+        "#80ed99",
+        "#b388ff"
 
     ];
 
 
-
-    for (let i = 0; i < 120; i++) {
-
-
-        const piece =
-            document.createElement("div");
-
-
-        piece.classList.add(
-            "confetti"
-        );
+    for(
+        let i = 0;
+        i < 130;
+        i++
+    ){
 
 
-        piece.style.left =
-            Math.random() * 100 + "vw";
+        const c =
+            document.createElement(
+                "div"
+            );
 
 
-        piece.style.backgroundColor =
+        c.className =
+            "confetti";
+
+
+        c.style.left =
+            Math.random()
+            * 100
+            + "vw";
+
+
+        c.style.background =
             colors[
                 Math.floor(
                     Math.random()
@@ -671,37 +2296,39 @@ function createConfetti() {
             ];
 
 
-        piece.style.animationDuration =
+        c.style.animationDuration =
             (
-                Math.random() * 2
+                Math.random()
+                * 2.5
                 + 2
             )
             + "s";
 
 
-        piece.style.animationDelay =
+        c.style.animationDelay =
             (
-                Math.random() * 0.7
+                Math.random()
+                * .6
             )
             + "s";
 
 
-        piece.style.borderRadius =
-            Math.random() > 0.5
+        c.style.borderRadius =
+            Math.random() > .5
             ? "50%"
             : "2px";
 
 
         document.body.appendChild(
-            piece
+            c
         );
 
 
         setTimeout(
 
-            () => piece.remove(),
+            () => c.remove(),
 
-            5000
+            5500
 
         );
 
@@ -709,6 +2336,217 @@ function createConfetti() {
 
 }
 
+
+
+/* =========================================================
+   AUTOMATIC REVEAL
+========================================================= */
+
+function startReveal(){
+
+
+    /*
+        Starts automatically.
+        Nobody needs to click anything.
+    */
+
+
+    setTimeout(()=>{
+
+        screenText.innerHTML =
+            "Loading today's numbers...";
+
+    },600);
+
+
+
+    setTimeout(()=>{
+
+        screenText.innerHTML =
+            "Pulling data from the Bingo server...";
+
+    },1400);
+
+
+
+    setTimeout(()=>{
+
+        showError(
+            "error1"
+        );
+
+
+        screenText.innerHTML =
+            "Processing an unreasonable amount of Bingo...";
+
+    },2300);
+
+
+
+    /*
+        OVERLOAD
+    */
+
+    setTimeout(()=>{
+
+
+        screen.classList.add(
+            "glitch"
+        );
+
+
+        deskWrap.classList.add(
+            "shake"
+        );
+
+
+        coffee.classList.add(
+            "jump"
+        );
+
+
+        screenText.innerHTML =
+            "WARNING:<br>OVERBURDENED";
+
+
+    },3200);
+
+
+
+    setTimeout(()=>{
+
+        showError(
+            "error2"
+        );
+
+    },3950);
+
+
+
+    setTimeout(()=>{
+
+
+        showError(
+            "error3"
+        );
+
+
+        screenText.innerHTML =
+            "This was a bad idea.";
+
+
+    },4800);
+
+
+
+    /*
+        EMPLOYEE GETS COOKED
+    */
+
+    setTimeout(()=>{
+
+
+        person.classList.remove(
+            "typing"
+        );
+
+
+        person.classList.add(
+            "blasted"
+        );
+
+
+        smoke.classList.add(
+            "go"
+        );
+
+
+    },5450);
+
+
+
+    /*
+        COMPUTER FALLS
+    */
+
+    setTimeout(()=>{
+
+
+        monitorWrap.classList.add(
+            "fall"
+        );
+
+
+    },6100);
+
+
+
+    /*
+        BIG FLASH
+    */
+
+    setTimeout(()=>{
+
+
+        flash.classList.add(
+            "go"
+        );
+
+
+    },6750);
+
+
+
+    setTimeout(()=>{
+
+
+        deskWrap.classList.remove(
+            "shake"
+        );
+
+
+    },7000);
+
+
+
+    /*
+        FOUR NUMBERS APPEAR
+    */
+
+    setTimeout(()=>{
+
+
+        results.classList.add(
+            "show"
+        );
+
+
+        createConfetti();
+
+
+    },7300);
+
+}
+
+
+
+/* =========================================================
+   START AS SOON AS PAGE LOADS
+========================================================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+
+        setTimeout(
+            startReveal,
+            450
+        );
+
+
+    }
+);
 
 </script>
 
