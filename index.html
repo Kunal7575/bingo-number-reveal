@@ -1,2205 +1,1457 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Bingo Day 2 - October 20, 2026</title>
-
+<title>Kingless Chess Bingo</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 
-*{
-    box-sizing:border-box;
+:root {
+  --gold: #ffd166;
+  --navy: #15152d;
 }
 
-html,
-body{
-    margin:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    font-family:"Segoe UI",Arial,sans-serif;
-}
-
-body{
-    background:#eef2f6;
-    color:#192633;
-}
-
-
-/* =========================================================
-   MAIN SCENE
-========================================================= */
-
-.scene{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #f0f4f7 0%,
-            #f0f4f7 76%,
-            #b8c1c8 76%,
-            #9faab2 100%
-        );
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-    position:absolute;
-
-    top:24px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    z-index:50;
-}
-
-
-.header h1{
-    margin:0;
-
-    font-size:
-        clamp(30px,4vw,54px);
-
-    letter-spacing:6px;
-
-    font-weight:900;
-}
-
-
-.header p{
-    margin:7px 0 0;
-
-    font-size:
-        clamp(14px,1.5vw,19px);
-
-    font-weight:600;
-
-    opacity:.65;
-}
-
-
-/* =========================================================
-   PRESENTATION SCREEN
-========================================================= */
-
-.presentation{
-    position:absolute;
-
-    left:50%;
-    top:46%;
-
-    transform:
-        translate(-50%,-50%);
-
-    width:min(78vw,1050px);
-    height:58vh;
-
-    background:white;
-
-    border:12px solid #38434c;
-
-    border-radius:8px;
-
-    box-shadow:
-        0 24px 60px
-        rgba(0,0,0,.24);
-
-    overflow:hidden;
-
-    z-index:10;
-}
-
-
-/* =========================================================
-   SLIDE AREA
-========================================================= */
-
-.slide{
-    position:absolute;
-
-    left:0;
-    top:0;
-
-    width:67%;
-    height:100%;
-
-    padding:
-        48px 55px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #edf2f7
-        );
-}
-
-
-.slide-kicker{
-    font-size:13px;
-
-    letter-spacing:4px;
-
-    font-weight:800;
-
-    color:#77828c;
-
-    margin-bottom:13px;
-}
-
-
-.slide h2{
-    margin:0;
-
-    font-size:
-        clamp(30px,4vw,52px);
-
-    line-height:1.05;
-
-    color:#172536;
-}
-
-
-.slide p{
-    margin-top:24px;
-
-    max-width:620px;
-
-    font-size:
-        clamp(17px,1.6vw,22px);
-
-    line-height:1.6;
-
-    color:#5b6772;
-}
-
-
-.bullet-list{
-    margin-top:28px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
-}
-
-
-.bullet{
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    font-size:
-        clamp(15px,1.5vw,20px);
-
-    color:#344451;
-}
-
-
-.bullet-dot{
-    width:10px;
-    height:10px;
-
-    border-radius:50%;
-
-    background:#6b5bd2;
-}
-
-
-/* =========================================================
-   ENDLESS RUNNER PANEL
-========================================================= */
-
-.runner-panel{
-    position:absolute;
-
-    right:0;
-    top:0;
-
-    width:33%;
-    height:100%;
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            #88d7ff 0%,
-            #dff6ff 34%,
-            #d8d8d8 35%,
-            #666 100%
-        );
-
-    border-left:
-        3px solid #28343e;
-
-    transition:
-        width .55s
-        cubic-bezier(.2,1,.3,1);
-
-    z-index:7;
-}
-
-
-.runner-panel.grow{
-    width:46%;
-}
-
-
-.runner-title{
-    position:absolute;
-
-    top:10px;
-    left:50%;
-
-    transform:
-        translateX(-50%);
-
-    padding:
-        5px 11px;
-
-    border-radius:20px;
-
-    background:
-        rgba(0,0,0,.58);
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:1px;
-
-    z-index:20;
-
-    white-space:nowrap;
-}
-
-
-/* road */
-
-.road{
-    position:absolute;
-
-    left:50%;
-    bottom:0;
-
-    transform:
-        translateX(-50%);
-
-    width:85%;
-    height:68%;
-
-    background:
-        linear-gradient(
-            to right,
-            #4b5055 0%,
-            #4b5055 32%,
-            #70757a 32%,
-            #70757a 36%,
-            #4b5055 36%,
-            #4b5055 64%,
-            #70757a 64%,
-            #70757a 68%,
-            #4b5055 68%
-        );
-
-    clip-path:
-        polygon(
-            27% 0,
-            73% 0,
-            100% 100%,
-            0 100%
-        );
-}
-
-
-/* track marks */
-
-.track{
-    position:absolute;
-
-    left:50%;
-
-    width:4px;
-    height:50px;
-
-    background:#f7d14c;
-
-    transform:
-        translateX(-50%);
-
-    animation:
-        roadMove .8s linear infinite;
-}
-
-
-.track.t1{
-    top:10%;
-}
-
-
-.track.t2{
-    top:42%;
-
-    animation-delay:.25s;
-}
-
-
-.track.t3{
-    top:72%;
-
-    animation-delay:.5s;
-}
-
-
-@keyframes roadMove{
-
-    from{
-        transform:
-            translate(-50%,-100px)
-            scale(.4);
-
-        opacity:.4;
-    }
-
-    to{
-        transform:
-            translate(-50%,450px)
-            scale(1.4);
-
-        opacity:1;
-    }
-}
-
-
-/* =========================================================
-   RUNNER
-========================================================= */
-
-.runner{
-    position:absolute;
-
-    left:50%;
-    bottom:70px;
-
-    transform:
-        translateX(-50%);
-
-    width:70px;
-    height:120px;
-
-    z-index:14;
-
-    animation:
-        runnerBounce .28s
-        infinite alternate;
-}
-
-
-@keyframes runnerBounce{
-
-    from{
-        transform:
-            translateX(-50%)
-            translateY(0);
-    }
-
-    to{
-        transform:
-            translateX(-50%)
-            translateY(-9px);
-    }
-}
-
-
-.runner-head{
-    position:absolute;
-
-    left:18px;
-    top:0;
-
-    width:36px;
-    height:36px;
-
-    border-radius:50%;
-
-    background:#d99b69;
-}
-
-
-.runner-hair{
-    position:absolute;
-
-    left:15px;
-    top:-4px;
-
-    width:42px;
-    height:18px;
-
-    background:#39302a;
-
-    border-radius:
-        25px 25px 8px 8px;
-}
-
-
-.runner-body{
-    position:absolute;
-
-    left:14px;
-    top:34px;
-
-    width:44px;
-    height:55px;
-
-    border-radius:
-        15px 15px 5px 5px;
-
-    background:#ef495e;
-}
-
-
-.runner-leg{
-    position:absolute;
-
-    top:84px;
-
-    width:13px;
-    height:38px;
-
-    background:#28344b;
-
-    border-radius:8px;
-}
-
-
-.runner-leg.one{
-    left:20px;
-
-    transform:rotate(14deg);
-}
-
-
-.runner-leg.two{
-    right:19px;
-
-    transform:rotate(-14deg);
-}
-
-
-/* =========================================================
-   COINS
-========================================================= */
-
-.coin{
-    position:absolute;
-
-    width:27px;
-    height:27px;
-
-    border-radius:50%;
-
-    border:4px solid #df991c;
-
-    background:#ffd447;
-
-    z-index:13;
-
-    box-shadow:
-        0 0 15px
-        rgba(255,210,60,.7);
-
-    animation:
-        coinMove 1.7s
-        linear infinite;
-}
-
-
-.coin.c1{
-    left:25%;
-    top:-30px;
-}
-
-
-.coin.c2{
-    left:48%;
-    top:-110px;
-
-    animation-delay:.55s;
-}
-
-
-.coin.c3{
-    left:68%;
-    top:-190px;
-
-    animation-delay:1.1s;
-}
-
-
-@keyframes coinMove{
-
-    0%{
-        transform:
-            translateY(0)
-            scale(.55);
-    }
-
-    100%{
-        transform:
-            translateY(620px)
-            scale(1.35);
-    }
-}
-
-
-/* =========================================================
-   OBSTACLE
-========================================================= */
-
-.obstacle{
-    position:absolute;
-
-    left:50%;
-    top:-120px;
-
-    width:65px;
-    height:65px;
-
-    transform:
-        translateX(-50%);
-
-    background:#e54747;
-
-    border:
-        5px solid #982b2b;
-
-    z-index:10;
-
-    animation:
-        obstacleMove 2.7s
-        linear infinite;
-}
-
-
-@keyframes obstacleMove{
-
-    from{
-        transform:
-            translate(-50%,0)
-            scale(.45);
-    }
-
-    to{
-        transform:
-            translate(-50%,650px)
-            scale(1.4);
-    }
-}
-
+* { box-sizing: border-box; }
 
-/* =========================================================
-   PRESENTER
-========================================================= */
-
-.presenter{
-    position:absolute;
-
-    left:5%;
-    bottom:35px;
-
-    width:160px;
-    height:310px;
-
-    z-index:30;
-}
-
-
-.presenter-head{
-    position:absolute;
-
-    left:46px;
-    top:0;
-
-    width:70px;
-    height:78px;
-
-    border-radius:48%;
-
-    background:#e2a575;
-}
-
-
-.presenter-hair{
-    position:absolute;
-
-    left:41px;
-    top:-4px;
-
-    width:80px;
-    height:40px;
-
-    border-radius:
-        40px 40px 18px 18px;
-
-    background:#4b3028;
-}
-
-
-.presenter-body{
-    position:absolute;
-
-    left:30px;
-    top:72px;
-
-    width:100px;
-    height:150px;
-
-    border-radius:
-        25px 25px 8px 8px;
-
-    background:
-        linear-gradient(
-            #7656a8,
-            #523879
-        );
-}
-
-
-.presenter-arm{
-    position:absolute;
-
-    left:105px;
-    top:113px;
-
-    width:110px;
-    height:19px;
-
-    border-radius:20px;
-
-    background:#e2a575;
-
-    transform-origin:
-        left center;
-
-    transform:
-        rotate(-18deg);
-
-    transition:.35s;
-}
-
-
-.presenter.point .presenter-arm{
-    transform:
-        rotate(-6deg);
-}
-
-
-/* =========================================================
-   SPEECH BUBBLE
-========================================================= */
-
-.speech{
-    position:absolute;
-
-    left:50%;
-    top:145px;
-
-    transform:
-        translateX(-50%)
-        scale(.85);
-
-    min-width:360px;
-
-    padding:
-        17px 25px;
-
-    border-radius:18px;
-
-    background:#172534;
-
-    color:white;
-
-    text-align:center;
-
-    font-size:
-        clamp(17px,2vw,25px);
-
-    font-weight:800;
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.24);
-
-    opacity:0;
-
-    z-index:50;
-}
-
-
-.speech.show{
-    animation:
-        speechPop .8s
-        ease forwards;
-}
-
-
-@keyframes speechPop{
-
-    0%{
-        opacity:0;
-
-        transform:
-            translateX(-50%)
-            translateY(12px)
-            scale(.8);
-    }
-
-    15%{
-        opacity:1;
-
-        transform:
-            translateX(-50%)
-            scale(1.05);
-    }
-
-    75%{
-        opacity:1;
-
-        transform:
-            translateX(-50%)
-            scale(1);
-    }
-
-    100%{
-        opacity:0;
-
-        transform:
-            translateX(-50%)
-            translateY(-10px)
-            scale(.98);
-    }
-}
-
-
-/* =========================================================
-   SCREEN COVER
-========================================================= */
-
-.focus-cover{
-    position:absolute;
-
-    right:0;
-    top:0;
-
-    width:33%;
-    height:100%;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:#233443;
-
-    color:white;
-
-    font-size:
-        clamp(20px,2vw,29px);
-
-    font-weight:900;
-
-    text-align:center;
-
-    z-index:30;
-
-    transform:
-        translateX(100%);
-
-    transition:
-        .45s ease;
+body {
+  margin: 0;
+  padding: 24px 12px;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #33316b, #111122 75%);
+  color: white;
+  font-family: 'Fredoka', 'Trebuchet MS', sans-serif;
 }
 
-
-.focus-cover.show{
-    transform:
-        translateX(0);
-}
+body.modal-open { overflow: hidden; }
 
+.app { max-width: 1050px; margin: auto; }
 
-.focus-cover.hide-again{
-    transform:
-        translateX(100%);
+header, footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-
-
-/* =========================================================
-   FLASH
-========================================================= */
-
-.flash{
-    position:fixed;
-
-    inset:0;
-
-    background:white;
-
-    z-index:80;
-
-    opacity:0;
-
-    pointer-events:none;
+
+header { margin-bottom: 16px; }
+
+.logo {
+  font-size: clamp(19px, 3vw, 27px);
+  font-weight: 700;
+  color: var(--gold);
 }
-
 
-.flash.go{
-    animation:
-        flash .6s ease;
+.tag {
+  border: 1px solid #ffffff35;
+  background: #ffffff10;
+  border-radius: 40px;
+  padding: 8px 15px;
+  font-size: 13px;
 }
-
-
-@keyframes flash{
 
-    0%{
-        opacity:0;
-    }
+/* MAIN STAGE */
 
-    30%{
-        opacity:1;
-    }
-
-    100%{
-        opacity:0;
-    }
+.stage {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  min-height: 540px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 2px solid #ffffff30;
+  background: #242444;
+  box-shadow: 0 20px 65px #0008;
 }
-
-
-/* =========================================================
-   RESULTS
-========================================================= */
-
-.results{
-    position:fixed;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%)
-        scale(.75);
-
-    width:min(920px,90vw);
-
-    padding:
-        42px 46px 35px;
 
-    border-radius:30px;
-
-    background:
-        rgba(12,23,34,.98);
-
-    color:white;
-
-    box-shadow:
-        0 30px 90px
-        rgba(0,0,0,.5);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    z-index:100;
+.scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .45s, visibility .45s;
+}
+
+.scene.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
-
-
-.results.show{
-    animation:
-        resultAppear .7s
-        ease forwards;
+
+/* CHESS SCENE */
+
+.game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #454268, #201f40 76%);
+}
+
+.caption {
+  position: absolute;
+  top: 5%;
+  left: 10px;
+  right: 10px;
+  text-align: center;
+  font-size: clamp(17px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 0 3px 7px #0008;
+  z-index: 12;
 }
 
-
-@keyframes resultAppear{
-
-    to{
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-
-        pointer-events:auto;
-    }
+.board-wrap {
+  width: 53%;
+  max-width: 470px;
+  margin-top: 36px;
+  padding: 10px;
+  background: #624433;
+  border: 4px solid #c59664;
+  border-radius: 10px;
+  box-shadow: 0 15px 0 #382b31, 0 25px 35px #0007;
+  transition: opacity .5s, filter .5s, transform .5s;
 }
-
-
-.results h2{
-    margin:0;
-
-    text-align:center;
-
-    font-size:
-        clamp(25px,3vw,40px);
 
-    letter-spacing:4px;
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.square.light { background: #f4dbad; }
+.square.dark { background: #a56c51; }
+
+.chess-piece {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(19px, 3.2vw, 39px);
+  line-height: 1;
+  z-index: 2;
+  transition: left .95s ease, top .95s ease;
+  filter: drop-shadow(1px 3px 2px #0007);
+}
+
+.chess-piece.white {
+  color: #fffdf0;
+  -webkit-text-stroke: 1px #40352f;
+}
+
+.chess-piece.black { color: #24212f; }
+
+/* PLAYERS */
+
+.player {
+  position: absolute;
+  top: 35%;
+  width: 20%;
+  text-align: center;
+  z-index: 3;
+  transition: opacity .35s, visibility .35s,
+              top .45s, left .45s, width .45s,
+              transform .45s;
+}
+
+.player.left { left: 1%; }
+.player.right { right: 1%; }
+
+.portrait {
+  width: min(100%, 140px);
+  aspect-ratio: 1;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  font-size: clamp(50px, 9vw, 105px);
+  border-radius: 50%;
+  background: #ffffff1b;
+  border: 4px solid #ffffff60;
+  box-shadow: 0 8px 20px #0005;
+  animation: idle 2s ease-in-out infinite;
+}
+
+.player-name {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 7px 12px;
+  border-radius: 12px;
+  background: #121227dd;
+  font-weight: 700;
+  font-size: clamp(11px, 1.5vw, 16px);
+}
+
+.hand {
+  font-size: 36px;
+  margin-top: 8px;
+  opacity: 0;
+}
+
+.game.play-one .player.left .hand,
+.game.play-two .player.right .hand {
+  animation: reach 1s ease-in-out;
+}
+
+@keyframes idle {
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+
+@keyframes reach {
+  30% { opacity: 1; transform: translateY(-15px) scale(1.3); }
+  70% { opacity: 1; transform: translateY(5px); }
+}
+
+/* CHESS DIALOGUE */
+
+.board-speech {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 650px);
+  z-index: 20;
+  background: white;
+  color: #29223d;
+  border: 5px solid #ffd166;
+  border-radius: 25px;
+  padding: 17px 22px;
+  text-align: center;
+  font-size: clamp(19px, 3vw, 34px);
+  font-weight: 700;
+  box-shadow: 0 10px 0 #0004;
 }
 
+.board-speech.pop {
+  animation: speechPop .5s ease-out both;
+}
 
-.results .sub{
-    margin-top:10px;
-
-    text-align:center;
-
-    color:#bdd0df;
-
-    font-size:17px;
+@keyframes speechPop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(.3) rotate(-7deg);
+  }
+  75% {
+    transform: translateX(-50%) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
 }
-
-
-/* =========================================================
-   BALLS
-========================================================= */
-
-.ball-grid{
-    margin-top:35px;
-
-    display:grid;
 
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:24px;
+.game.speaking-left .player.right,
+.game.speaking-right .player.left {
+  opacity: 0;
+  visibility: hidden;
 }
-
-
-.result-ball{
-    aspect-ratio:1/1;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle at 30% 22%,
-            #fff,
-            #f0f0f0 46%,
-            #c5c5c5 77%,
-            #969696
-        );
-
-    color:#111922;
 
-    border:
-        9px solid #111;
-
-    box-shadow:
-        inset -18px -18px 28px
-        rgba(0,0,0,.17),
-
-        inset 14px 14px 24px
-        rgba(255,255,255,.9),
-
-        0 18px 30px
-        rgba(0,0,0,.3);
-
-    font-size:
-        clamp(30px,4vw,53px);
-
-    font-weight:900;
-
-    transform:scale(0);
+.game.speaking-left .player.left,
+.game.speaking-right .player.right {
+  top: 21%;
+  left: 50%;
+  right: auto;
+  width: 290px;
+  max-width: 75%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
-
 
-.results.show
-.result-ball{
-    animation:
-        ballPop .7s
-        cubic-bezier(.18,1.5,.4,1)
-        forwards;
+.game.speaking-left .portrait,
+.game.speaking-right .portrait {
+  width: min(100%, 210px);
+  animation: talking .5s infinite alternate;
+  border-color: #ffd166;
+  box-shadow: 0 0 35px #ffd16680;
 }
 
-
-.results.show
-.result-ball:nth-child(1){
-    animation-delay:.12s;
+.game.speaking-left .board-wrap,
+.game.speaking-right .board-wrap {
+  opacity: .32;
+  filter: blur(3px);
+  transform: scale(.96);
 }
-
 
-.results.show
-.result-ball:nth-child(2){
-    animation-delay:.27s;
+@keyframes talking {
+  from { transform: rotate(-4deg) scale(1); }
+  to { transform: rotate(4deg) scale(1.08); }
 }
 
+/* DOUBLE SHOCK */
 
-.results.show
-.result-ball:nth-child(3){
-    animation-delay:.42s;
+.shock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: repeating-conic-gradient(
+    #ffcc38 0deg 18deg,
+    #ff6f52 18deg 36deg
+  );
+  text-align: center;
+  color: #241c38;
 }
 
+.shock.active { animation: shake .45s 2; }
 
-.results.show
-.result-ball:nth-child(4){
-    animation-delay:.57s;
+.shock-people {
+  display: flex;
+  gap: clamp(18px, 7vw, 100px);
+  font-size: clamp(110px, 18vw, 200px);
+  animation: panic .32s infinite alternate;
 }
-
-
-@keyframes ballPop{
 
-    0%{
-        transform:
-            scale(0)
-            rotate(-180deg);
-    }
-
-    70%{
-        transform:
-            scale(1.14)
-            rotate(6deg);
-    }
-
-    100%{
-        transform:
-            scale(1)
-            rotate(0);
-    }
+.shock-title {
+  font-size: clamp(45px, 9vw, 110px);
+  font-weight: 700;
+  line-height: 1;
+  transform: rotate(-4deg);
+  text-shadow: 5px 7px 0 white;
+}
+
+.shock-sub {
+  font-size: clamp(19px, 3vw, 36px);
+  margin-top: 20px;
+  font-weight: 700;
 }
-
-
-.result-footer{
-    margin-top:27px;
 
-    text-align:center;
-
-    font-size:16px;
-
-    color:#dce8ef;
+@keyframes panic {
+  from { transform: translate(-6px, -7px) rotate(-5deg); }
+  to { transform: translate(6px, 7px) rotate(5deg); }
 }
-
-
-/* =========================================================
-   PREVIOUS BUTTON
-========================================================= */
-
-.previous-button{
-    display:block;
-
-    margin:
-        24px auto 0;
-
-    padding:
-        14px 26px;
 
-    border:none;
+@keyframes shake {
+  25% { transform: translateX(-9px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-6px); }
+}
+
+/* BINGO REVEAL */
+
+.reveal {
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: 24px;
+  align-items: center;
+  padding: 5%;
+  background:
+    radial-gradient(circle at 20% 15%, #5653a0, transparent 50%),
+    linear-gradient(140deg, #292657, #171631);
+}
+
+.reveal-left { min-width: 0; }
 
-    border-radius:13px;
-
-    background:white;
-
-    color:#172534;
-
-    font-size:16px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-    box-shadow:
-        0 9px 22px
-        rgba(0,0,0,.2);
+.eyebrow {
+  color: #ffe18d;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
 }
-
 
-.previous-button:hover{
-    transform:
-        translateY(-2px);
+h1 {
+  font-size: clamp(37px, 5.5vw, 70px);
+  line-height: 1.03;
+  margin: 12px 0;
+  color: #ffdc72;
+  text-shadow: 3px 5px 0 #0005;
 }
 
-
-/* =========================================================
-   PREVIOUS NUMBERS MODAL
-========================================================= */
-
-.previous-modal{
-    position:fixed;
-
-    inset:0;
-
-    z-index:160;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:
-        rgba(6,13,20,.82);
-
-    backdrop-filter:
-        blur(8px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:.3s;
+.description {
+  font-size: clamp(14px, 1.7vw, 19px);
+  color: #e7e2ff;
 }
-
 
-.previous-modal.show{
-    opacity:1;
-
-    pointer-events:auto;
+.balls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin: 26px 0;
 }
-
-
-.previous-card{
-    width:
-        min(850px,90vw);
-
-    padding:
-        38px 42px;
 
-    border-radius:30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fff,
-            #eef3f7
-        );
-
-    box-shadow:
-        0 35px 100px
-        rgba(0,0,0,.5);
-
-    transform:
-        scale(.85);
-
-    transition:
-        .4s
-        cubic-bezier(.2,1.4,.4,1);
+.ball {
+  width: clamp(68px, 8vw, 94px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 5px solid #ffffffbb;
+  box-shadow: inset -8px -9px 0 #0002, 0 9px 13px #0005;
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 30px);
 }
+
+.ball:nth-child(1) { background: #ed5072; }
+.ball:nth-child(2) { background: #3b9de0; }
+.ball:nth-child(3) { background: #43ae80; }
+.ball:nth-child(4) { background: #a16bdf; }
 
+.reveal.active .ball {
+  animation: ballDrop .8s cubic-bezier(.2,1.5,.4,1) both;
+}
+
+.reveal.active .ball:nth-child(1) { animation-delay: .2s; }
+.reveal.active .ball:nth-child(2) { animation-delay: .5s; }
+.reveal.active .ball:nth-child(3) { animation-delay: .8s; }
+.reveal.active .ball:nth-child(4) { animation-delay: 1.1s; }
 
-.previous-modal.show
-.previous-card{
-    transform:
-        scale(1);
+@keyframes ballDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-180px) scale(.2) rotate(-140deg);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(12px) scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
-
-
-.previous-kicker{
-    text-align:center;
-
-    font-size:13px;
 
-    font-weight:800;
+/* BUTTONS */
 
-    letter-spacing:5px;
-
-    color:#77828c;
+button {
+  font-family: inherit;
+  cursor: pointer;
 }
-
-
-.previous-card h2{
-    margin:
-        10px 0 5px;
-
-    text-align:center;
 
-    color:#182635;
-
-    font-size:
-        clamp(28px,4vw,45px);
+.download {
+  background: #ffcc58;
+  color: #26203a;
+  border: none;
+  border-radius: 14px;
+  padding: 17px 23px;
+  font-weight: 700;
+  font-size: clamp(14px, 1.7vw, 18px);
+  box-shadow: 0 6px 0 #ba8135;
+  transition: transform .2s;
 }
-
 
-.previous-card p{
-    margin:
-        0 0 25px;
+.download:hover { transform: translateY(-3px); }
+.download:active { transform: translateY(5px); box-shadow: none; }
 
-    text-align:center;
-
-    color:#65717c;
+.previous {
+  margin-top: 20px;
+  background: #ffffff13;
+  border: 1px solid #ffffff4b;
+  border-radius: 17px;
+  padding: 15px;
+  animation: pop .4s both;
 }
-
+
+.previous h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #ffe18d;
+}
 
-.previous-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:18px;
-
-    margin-top:25px;
+.old-numbers {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.6;
 }
-
-
-.previous-ball{
-    aspect-ratio:1/1;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle at 30% 22%,
-            white,
-            #eeeeee 50%,
-            #c1c1c1
-        );
-
-    border:
-        7px solid #151515;
-
-    color:#17202a;
-
-    font-size:
-        clamp(25px,3vw,40px);
-
-    font-weight:900;
-
-    box-shadow:
-        0 14px 25px
-        rgba(0,0,0,.17);
+.previous small { color: #ddd9f5; }
+.previous-day + .previous-day {
+  border-top: 1px solid #ffffff30;
+  margin-top: 12px;
+  padding-top: 12px;
 }
-
-
-.close-button{
-    display:block;
-
-    margin:
-        30px auto 0;
+.previous-day strong {
+  display: block;
+  color: #ffe18d;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
 
-    padding:
-        13px 24px;
 
-    border:none;
+/* DOG MASCOT */
 
-    border-radius:13px;
-
-    background:#172534;
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:800;
-
-    cursor:pointer;
+.dog-panel {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 25px;
+  padding: 18px 13px;
+  background: radial-gradient(circle, #fff2c5, #f5bc87);
+  border: 5px solid #ffdc79;
+  box-shadow: 0 12px 35px #0005;
+  color: #523421;
 }
-
-
-/* =========================================================
-   CONFETTI
-========================================================= */
-
-.confetti{
-    position:fixed;
-
-    top:-25px;
-
-    width:11px;
-    height:18px;
-
-    z-index:130;
-
-    animation:
-        confettiFall
-        linear forwards;
+
+.dog-label {
+  padding: 8px 14px;
+  background: #e94d70;
+  color: white;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.dog-image {
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 10px #683e3a50);
+  animation: dogWiggle 3s ease-in-out infinite;
+}
+
+.missing-dog {
+  font-size: 100px;
+  padding: 25px;
+}
+
+.dog-quote {
+  margin: 5px 0 15px;
+  font-weight: 700;
+  font-size: clamp(16px, 2vw, 23px);
+}
+
+@keyframes dogWiggle {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.045); }
+}
+
+/* BIG, PROMINENT DOG BUTTON */
+
+.dog-action {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  padding: 18px 12px;
+  border: 4px solid white;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ff4d76, #ee2e59);
+  color: white;
+  font-size: clamp(15px, 1.8vw, 20px);
+  font-weight: 700;
+  box-shadow:
+    0 7px 0 #a82047,
+    0 12px 24px #a8204755;
+  transition: transform .2s, box-shadow .2s;
+  animation: buttonPulse 2s infinite;
+}
+
+.dog-action:hover {
+  transform: translateY(-5px) scale(1.025);
+  box-shadow:
+    0 12px 0 #a82047,
+    0 20px 28px #a8204766;
+}
+
+.dog-action:active {
+  transform: translateY(5px);
+}
+
+.dog-action small {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #ffe7af;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 7px 0 #a82047, 0 0 0 0 #ff4d7666;
+  }
+  50% {
+    box-shadow: 0 7px 0 #a82047, 0 0 0 9px #ff4d7600;
+  }
+}
+
+/* =========================================
+   DOG POPUP / FUNNY SURPRISE
+   ========================================= */
+
+.dog-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #080714dc;
+  backdrop-filter: blur(12px);
+}
+
+.dog-modal-card {
+  position: relative;
+  width: min(100%, 530px);
+  max-height: 95vh;
+  overflow-y: auto;
+  background: radial-gradient(circle at top, #fff0c7, #ffb77c);
+  color: #3c2330;
+  border: 7px solid #ffdc6b;
+  border-radius: 32px;
+  padding: 35px 24px 25px;
+  text-align: center;
+  box-shadow: 0 25px 100px #000a;
+  animation: dogEntrance .65s cubic-bezier(.2,1.5,.4,1) both;
+}
+
+@keyframes dogEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(.25) rotate(-20deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.07) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: #4c2b3c;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.dog-modal-title {
+  margin: 4px 0 12px;
+  font-size: clamp(24px, 5vw, 37px);
+  color: #5a263b;
+}
+
+.dog-speech {
+  position: relative;
+  display: inline-block;
+  background: white;
+  border: 4px solid #e94468;
+  border-radius: 22px;
+  padding: 14px 22px;
+  font-size: clamp(21px, 5vw, 34px);
+  font-weight: 700;
+  color: #e72d55;
+  box-shadow: 0 7px 0 #0002;
+  animation: speechWobble .4s infinite alternate;
 }
-
-
-@keyframes confettiFall{
-
-    to{
-        transform:
-            translateY(115vh)
-            rotate(900deg);
-
-        opacity:.3;
-    }
+
+.dog-speech::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  border-width: 18px 13px 0 13px;
+  border-style: solid;
+  border-color: #e94468 transparent transparent transparent;
+}
+
+@keyframes speechWobble {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(2deg); }
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media(max-width:800px){
-
-    .presentation{
-        width:94vw;
-    }
-
-
-    .slide{
-        width:60%;
-
-        padding:
-            35px 28px;
-    }
 
-
-    .runner-panel{
-        width:40%;
-    }
-
-
-    .presenter{
-        transform:
-            scale(.8);
-
-        transform-origin:
-            bottom left;
-    }
-
-
-    .ball-grid,
-    .previous-grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
+.popup-dog {
+  display: block;
+  width: min(100%, 380px);
+  max-height: 300px;
+  object-fit: contain;
+  margin: 12px auto 0;
+  filter: drop-shadow(0 14px 13px #633f3f55);
+  animation: toughDog 1s infinite alternate;
+}
+
+.popup-fallback {
+  font-size: 130px;
+  margin: 20px auto;
+}
+
+@keyframes toughDog {
+  from { transform: rotate(-4deg) scale(.98); }
+  to { transform: rotate(4deg) scale(1.04); }
+}
+
+.modal-note {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 9px 0 18px;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-button {
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.modal-button.keep {
+  background: #2a9e75;
+  color: white;
+}
+
+.modal-button.change {
+  background: #fff;
+  color: #573047;
+  border: 2px solid #b86b85;
+}
+
+/* FOOTER */
+
+footer { margin-top: 17px; }
+.controls { display: flex; gap: 10px; }
+
+.control {
+  background: #ffffff17;
+  color: white;
+  border: 1px solid #ffffff50;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-weight: 600;
+}
+
+.control:hover { background: #ffffff30; }
+
+footer p {
+  color: #bcb9d4;
+  font-size: 13px;
+  margin: 0;
+}
+
+[hidden] { display: none !important; }
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+  .stage {
+    min-height: 800px;
+    aspect-ratio: auto;
+  }
+
+  .game .player {
+    top: 19%;
+    width: 35%;
+  }
+
+  .game .player.left { left: 8%; }
+  .game .player.right { right: 8%; }
+
+  .game .board-wrap {
+    width: 83%;
+    margin-top: 165px;
+  }
+
+  .portrait { width: 100px; }
+
+  .game.speaking-left .player.left,
+  .game.speaking-right .player.right {
+    top: 15%;
+    left: 50%;
+    right: auto;
+    width: 230px;
+    transform: translateX(-50%);
+  }
+
+  .game.speaking-left .portrait,
+  .game.speaking-right .portrait {
+    width: 180px;
+  }
+
+  .board-speech {
+    bottom: 4%;
+    font-size: 22px;
+    padding: 14px;
+  }
+
+  .reveal {
+    grid-template-columns: 1fr;
+    align-content: start;
+    text-align: center;
+    overflow-y: auto;
+    padding: 25px 18px;
+  }
+
+  .balls { justify-content: center; }
+
+  .dog-panel { padding: 12px; }
+  .dog-image { max-height: 215px; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
+<div class="app">
 
-<div class="scene">
+  <header>
+    <div class="logo">♟️ KINGLESS CHESS BINGO</div>
+    <div class="tag">🎉 The Great Bingo Reveal</div>
+  </header>
 
+  <main class="stage">
 
-    <!-- HEADER -->
+    <!-- CHESS GAME -->
 
-    <div class="header">
+    <section id="game" class="scene game active">
 
-        <h1>
-            BINGO
-        </h1>
+      <div class="caption" id="gameCaption">
+        ♟️ A very serious chess match...
+      </div>
 
-        <p>
-            Today's extremely important presentation
+      <div id="boardSpeech" class="board-speech" hidden></div>
+
+      <div class="player left">
+        <div class="portrait">👨🏽‍🦱</div>
+        <div class="player-name">PLAYER ONE</div>
+        <div class="hand">👉</div>
+      </div>
+
+      <div class="board-wrap">
+        <div id="board" class="board"
+             aria-label="Chessboard with no kings"></div>
+      </div>
+
+      <div class="player right">
+        <div class="portrait">👩🏻‍🦰</div>
+        <div class="player-name">PLAYER TWO</div>
+        <div class="hand">👈</div>
+      </div>
+
+    </section>
+
+    <!-- DOUBLE SHOCK -->
+
+    <section id="shock" class="scene shock">
+      <div class="shock-people">
+        <span>😱</span>
+        <span>🤯</span>
+      </div>
+
+      <div class="shock-title">DOUBLE SHOCK!</div>
+
+      <div class="shock-sub">
+        ⚡ TWO PLAYERS. ZERO KINGS. ⚡
+      </div>
+    </section>
+
+    <!-- BINGO REVEAL -->
+
+    <section id="reveal" class="scene reveal">
+
+      <div class="reveal-left">
+
+        <div class="eyebrow">🎊 DAY 3 · WEDNESDAY, OCTOBER 21 🎊</div>
+
+        <h1>CHECKMATE?<br>NOPE. BINGO!</h1>
+
+        <p class="description">
+          The kings have vanished... but today's Day 3 Bingo numbers
+          have arrived!
         </p>
 
-    </div>
+        <!-- DAY 3 - WEDNESDAY, OCTOBER 21, 2026 -->
 
-
-
-    <!-- PRESENTATION -->
-
-    <div class="presentation">
-
-
-        <!-- NORMAL SLIDE -->
-
-        <div class="slide">
-
-
-            <div class="slide-kicker">
-
-                IMPORTANT INFORMATION
-
-            </div>
-
-
-            <h2>
-
-                Please give me
-                your full attention.
-
-            </h2>
-
-
-            <p>
-
-                We have several extremely important
-                updates to review before revealing
-                today's Bingo numbers.
-
-            </p>
-
-
-            <div class="bullet-list">
-
-
-                <div class="bullet">
-
-                    <div class="bullet-dot"></div>
-
-                    Stay focused
-
-
-                </div>
-
-
-                <div class="bullet">
-
-                    <div class="bullet-dot"></div>
-
-                    Please stop looking at the thing
-                    on the right
-
-
-                </div>
-
-
-                <div class="bullet">
-
-                    <div class="bullet-dot"></div>
-
-                    Seriously
-
-
-                </div>
-
-
-            </div>
-
-
+        <div class="balls" id="todayBalls"
+             aria-label="Day 3 Bingo numbers: O70, B10, G47, I27">
+          <div class="ball">O70</div>
+          <div class="ball">B10</div>
+          <div class="ball">G47</div>
+          <div class="ball">I27</div>
         </div>
 
-
-
-        <!-- ENDLESS RUNNER -->
-
-        <div
-            class="runner-panel"
-            id="runnerPanel">
-
-
-            <div class="runner-title">
-
-                DEFINITELY IMPORTANT CONTENT
-
-            </div>
-
-
-            <div class="road">
-
-
-                <div class="track t1"></div>
-
-                <div class="track t2"></div>
-
-                <div class="track t3"></div>
-
-
-            </div>
-
-
-
-            <div class="coin c1"></div>
-
-            <div class="coin c2"></div>
-
-            <div class="coin c3"></div>
-
-
-
-            <div class="obstacle"></div>
-
-
-
-            <div class="runner">
-
-
-                <div class="runner-head"></div>
-
-                <div class="runner-hair"></div>
-
-                <div class="runner-body"></div>
-
-                <div class="runner-leg one"></div>
-
-                <div class="runner-leg two"></div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- PRESENTER TRIES TO HIDE IT -->
-
-        <div
-            class="focus-cover"
-            id="focusCover">
-
-            PLEASE<br>
-            STAY<br>
-            FOCUSED.
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- PRESENTER -->
-
-    <div
-        class="presenter"
-        id="presenter">
-
-
-        <div class="presenter-head"></div>
-
-        <div class="presenter-hair"></div>
-
-        <div class="presenter-body"></div>
-
-        <div class="presenter-arm"></div>
-
-
-    </div>
-
-
-
-    <!-- SPEECH -->
-
-    <div
-        class="speech"
-        id="speech">
-
-    </div>
-
-
-</div>
-
-
-
-<!-- FLASH -->
-
-<div
-    class="flash"
-    id="flash">
-</div>
-
-
-
-<!-- =========================================================
-     RESULTS
-========================================================= -->
-
-<div
-    class="results"
-    id="results">
-
-
-    <h2>
-
-        DAY 2 BINGO NUMBERS
-
-    </h2>
-
-
-    <div class="sub">
-
-        Tuesday, October 20, 2026 · The presentation has officially lost control.
-
-    </div>
-
-
-
-    <div class="ball-grid">
-
-
-        <div class="result-ball">
-
-            G52
-
-        </div>
-
-
-        <div class="result-ball">
-
-            I21
-
-        </div>
-
-
-        <div class="result-ball">
-
-            B14
-
-        </div>
-
-
-        <div class="result-ball">
-
-            I22
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="result-footer">
-
-        Fine. You can stop pretending to pay attention now.
-
-    </div>
-
-
-
-    <button
-        class="previous-button"
-        onclick="showPreviousNumbers()">
-
-        View Previous Numbers
-
-    </button>
-
-
-</div>
-
-
-
-<!-- =========================================================
-     PREVIOUS NUMBERS
-========================================================= -->
-
-<div
-    class="previous-modal"
-    id="previousModal">
-
-
-    <div class="previous-card">
-
-
-        <div class="previous-kicker">
-
-            PREVIOUS NUMBERS
-
-        </div>
-
-
-        <h2>
-
-            Day 1 Numbers
-
-        </h2>
-
-
-        <p>
-
-            October 15, 2026 · In case you were paying attention on Day 1.
-
-        </p>
-
-
-
-        <div class="previous-grid">
-
-
-            <div class="previous-ball">
-
-                G50
-
-            </div>
-
-
-            <div class="previous-ball">
-
-                I26
-
-            </div>
-
-
-            <div class="previous-ball">
-
-                O73
-
-            </div>
-
-
-            <div class="previous-ball">
-
-                O66
-
-            </div>
-
-
-        </div>
-
-
-
-        <button
-            class="close-button"
-            onclick="closePreviousNumbers()">
-
-            Back to Today's Numbers
-
+        <button class="download" id="downloadBtn">
+          ⬇ Download Previous Numbers (Days 1 &amp; 2)
         </button>
 
+        <div class="previous" id="previous" hidden>
+          <h2>📅 Previous Bingo Numbers</h2>
+
+          <div class="previous-day">
+            <strong>Day 2 · Tuesday, October 20</strong>
+            <div class="old-numbers" id="day2Numbers">
+              G52 &nbsp; I21 &nbsp; B14 &nbsp; I22
+            </div>
+          </div>
+
+          <div class="previous-day">
+            <strong>Day 1 · October 15</strong>
+            <div class="old-numbers" id="day1Numbers">
+              G50 &nbsp; I26 &nbsp; O73 &nbsp; O66
+            </div>
+          </div>
+
+          <small>Both previous days' numbers have been downloaded as a text file.</small>
+        </div>
+
+      </div>
+
+      <!-- DOG MASCOT -->
+
+      <div class="dog-panel">
+
+        <div class="dog-label">
+          🐾 OFFICIAL BINGO MASCOT
+        </div>
+
+        <img
+          id="dogImage"
+          class="dog-image"
+          src="Photorealistic Dog Side-Eye Cutout(1).png"
+          alt="Tan dog giving a funny side-eye"
+        >
+
+        <div id="missingDog" class="missing-dog" hidden>🐶</div>
+
+        <div class="dog-quote">
+          "Don't look at me. I didn't eat the kings!" 🐾
+        </div>
+
+        <!-- NEW PROMINENT DOG BUTTON -->
+
+        <button class="dog-action" id="dogActionBtn">
+          📸 CHOOSE / CHANGE DOG PHOTO
+          <small>🐾 Go on... click me if you dare!</small>
+        </button>
+
+        <input id="photoInput" type="file" accept="image/*" hidden>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    <div class="controls">
+
+      <button class="control" id="replayBtn">
+        ↻ Replay Animation
+      </button>
+
+      <button class="control" id="skipBtn">
+        ⏭ Show Numbers
+      </button>
 
     </div>
 
+    <p>
+      ♟️ No kings were harmed in this Bingo announcement.
+    </p>
+
+  </footer>
 
 </div>
 
+<!-- =====================================
+     THE DOG'S FUNNY POPUP
+     ===================================== -->
 
+<div
+  id="dogModal"
+  class="dog-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="dogModalTitle"
+  hidden
+>
+
+  <div class="dog-modal-card">
+
+    <button class="modal-close"
+            id="closeDogBtn"
+            aria-label="Close dog popup">
+      ✕
+    </button>
+
+    <h2 class="dog-modal-title" id="dogModalTitle">
+      🐾 EXCUSE ME?!
+    </h2>
+
+    <div class="dog-speech">
+      YOU GOT A PROBLEM WITH ME?! 😤
+    </div>
+
+    <!-- SAME EXACT DOG IMAGE -->
+
+    <img
+      id="popupDogImage"
+      class="popup-dog"
+      src="Photorealistic Dog Side-Eye Cutout(1).png"
+      alt="The same Bingo dog giving a dramatic side-eye"
+    >
+
+    <div id="popupFallback" class="popup-fallback" hidden>🐶</div>
+
+    <p class="modal-note">
+      I'm literally the star of this Bingo show. 🐕
+    </p>
+
+    <div class="modal-actions">
+
+      <button class="modal-button keep" id="keepDogBtn">
+        😅 NOPE, YOU'RE PERFECT!
+      </button>
+
+      <button class="modal-button change" id="reallyChangeBtn">
+        📷 Change Photo Anyway
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <script>
 
-/* =========================================================
-   EASY NUMBER CONFIGURATION
+/* ==========================================
+   CHESS BOARD - NO KINGS
+   ========================================== */
 
-   Day 2: October 20, 2026. Day 1: October 15, 2026.
-========================================================= */
+const board = document.getElementById("board");
+const game = document.getElementById("game");
+const caption = document.getElementById("gameCaption");
+const speech = document.getElementById("boardSpeech");
 
-const TODAY_NUMBERS = [
-    "G52",
-    "I21",
-    "B14",
-    "I22"
+const scenes = ["game", "shock", "reveal"];
+const timers = [];
+let pieces = [];
+
+const startingPieces = [
+  ["♜","a8","black"],
+  ["♝","c8","black"],
+  ["♛","d8","black"],
+  ["♜","f8","black"],
+  ["♟","a7","black"],
+  ["♟","b7","black"],
+  ["♟","d7","black"],
+  ["♟","f7","black"],
+  ["♟","h7","black"],
+  ["♞","c6","black"],
+  ["♟","e6","black"],
+  ["♝","g5","black"],
+
+  ["♖","a1","white"],
+  ["♕","d1","white"],
+  ["♖","f1","white"],
+  ["♗","c4","white"],
+  ["♘","c3","white"],
+  ["♙","a2","white"],
+  ["♙","b2","white"],
+  ["♙","d4","white"],
+  ["♙","e4","white"],
+  ["♙","f2","white"],
+  ["♙","g2","white"],
+  ["♙","h2","white"]
 ];
 
+function squarePosition(square) {
+  const file = square.charCodeAt(0) - 97;
+  const rank = 8 - Number(square[1]);
 
-const PREVIOUS_NUMBERS = [
-    "G50",
-    "I26",
-    "O73",
-    "O66"
+  return {
+    left: file * 12.5 + "%",
+    top: rank * 12.5 + "%"
+  };
+}
+
+function setupBoard() {
+  board.innerHTML = "";
+  pieces = [];
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const square = document.createElement("div");
+
+      square.className =
+        "square " + ((row + col) % 2 === 0 ? "light" : "dark");
+
+      board.appendChild(square);
+    }
+  }
+
+  startingPieces.forEach(([symbol, position, color]) => {
+    const element = document.createElement("div");
+
+    element.className = "chess-piece " + color;
+    element.textContent = symbol;
+
+    const coordinates = squarePosition(position);
+
+    element.style.left = coordinates.left;
+    element.style.top = coordinates.top;
+
+    board.appendChild(element);
+    pieces.push({ element, position });
+  });
+}
+
+function movePiece(from, to) {
+  const piece = pieces.find(p => p.position === from);
+  if (!piece) return;
+
+  const coordinates = squarePosition(to);
+
+  piece.element.style.left = coordinates.left;
+  piece.element.style.top = coordinates.top;
+  piece.position = to;
+}
+
+/* ANIMATION TIMELINE */
+
+function schedule(fn, delay) {
+  timers.push(setTimeout(fn, delay));
+}
+
+function stopAnimation() {
+  timers.forEach(clearTimeout);
+  timers.length = 0;
+}
+
+function showScene(id) {
+  scenes.forEach(name => {
+    const element = document.getElementById(name);
+    const active = name === id;
+
+    element.classList.toggle("active", active);
+    element.setAttribute("aria-hidden", String(!active));
+  });
+}
+
+function showSpeech(message) {
+  speech.textContent = message;
+  speech.hidden = false;
+  speech.classList.remove("pop");
+  void speech.offsetWidth;
+  speech.classList.add("pop");
+}
+
+function startAnimation() {
+  stopAnimation();
+  closeDogModal();
+
+  setupBoard();
+
+  game.classList.remove(
+    "play-one", "play-two",
+    "speaking-left", "speaking-right"
+  );
+
+  speech.hidden = true;
+  caption.textContent = "♟️ A very serious chess match...";
+
+  document.getElementById("previous").hidden = true;
+
+  showScene("game");
+
+  schedule(() => {
+    caption.textContent = "🤔 Player One makes a clever move!";
+    game.classList.add("play-one");
+    movePiece("c3", "b5");
+  }, 1300);
+
+  schedule(() => {
+    game.classList.remove("play-one");
+    game.classList.add("play-two");
+    caption.textContent = "😏 Player Two strikes back!";
+    movePiece("g5", "e3");
+  }, 2800);
+
+  schedule(() => {
+    game.classList.remove("play-two");
+    caption.textContent = "🤨 Wait a minute...";
+  }, 4200);
+
+  schedule(() => {
+    game.classList.add("speaking-left");
+    game.classList.remove("speaking-right");
+    caption.textContent = "😳 PLAYER ONE IS CONFUSED";
+    showSpeech("HEY! WHERE'S YOUR KING?! 😳");
+  }, 5300);
+
+  schedule(() => {
+    game.classList.remove("speaking-left");
+    game.classList.add("speaking-right");
+    caption.textContent = "😱 PLAYER TWO LOOKS AGAIN";
+    showSpeech("OKAY, HOLD ON... WHERE'S YOUR KING?! 🤯");
+  }, 7900);
+
+  schedule(() => {
+    game.classList.remove("speaking-left", "speaking-right");
+    speech.hidden = true;
+    showScene("shock");
+  }, 10600);
+
+  schedule(() => {
+    showScene("reveal");
+  }, 13200);
+}
+
+/* ==========================================
+   BINGO NUMBERS
+   ========================================== */
+
+// Day 3 - Wednesday, October 21, 2026
+const todayNumbers = ["O70", "B10", "G47", "I27"];
+
+// Previous numbers, newest first
+const previousDays = [
+  {
+    name: "Day 2 - Tuesday, October 20, 2026",
+    elementId: "day2Numbers",
+    numbers: ["G52", "I21", "B14", "I22"]
+  },
+  {
+    name: "Day 1 - October 15, 2026",
+    elementId: "day1Numbers",
+    numbers: ["G50", "I26", "O73", "O66"]
+  }
 ];
 
+// Populate the reveal and history from the same numbers used for download.
+document.querySelectorAll("#todayBalls .ball").forEach((ball, index) => {
+  ball.textContent = todayNumbers[index];
+});
+previousDays.forEach(day => {
+  document.getElementById(day.elementId).textContent = day.numbers.join("  ·  ");
+});
 
+document.getElementById("downloadBtn")
+  .addEventListener("click", () => {
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+    document.getElementById("previous").hidden = false;
 
-const speech =
-    document.getElementById(
-        "speech"
-    );
+    const content =
+      "PREVIOUS BINGO NUMBERS - DAYS 1 & 2\n" +
+      "=================================\n\n" +
+      previousDays.map(day => day.name + "\n" + day.numbers.join("\n")).join("\n\n") +
+      "\n\nThanks for playing Bingo!\n";
 
+    const blob = new Blob([content], {
+      type: "text/plain;charset=utf-8"
+    });
 
-const presenter =
-    document.getElementById(
-        "presenter"
-    );
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
 
+    link.href = url;
+    link.download = "bingo-previous-days-1-and-2.txt";
 
-const runnerPanel =
-    document.getElementById(
-        "runnerPanel"
-    );
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
 
-const focusCover =
-    document.getElementById(
-        "focusCover"
-    );
+/* ==========================================
+   DOG PHOTO HANDLING
+   ========================================== */
 
+const dogImage = document.getElementById("dogImage");
+const missingDog = document.getElementById("missingDog");
+const popupDogImage = document.getElementById("popupDogImage");
+const popupFallback = document.getElementById("popupFallback");
+const photoInput = document.getElementById("photoInput");
 
-const flash =
-    document.getElementById(
-        "flash"
-    );
+const dogCandidates = [
+  "Photorealistic Dog Side-Eye Cutout(1).png",
+  "Photorealistic Dog Side-Eye Cutout.png",
+  "dog.png"
+];
 
+let dogIndex = 0;
+let customPhoto = false;
+let photoURL = null;
 
-const results =
-    document.getElementById(
-        "results"
-    );
-
-
-const previousModal =
-    document.getElementById(
-        "previousModal"
-    );
-
-
-
-/* =========================================================
-   FILL NUMBERS
-========================================================= */
-
-document
-.querySelectorAll(
-    ".result-ball"
-)
-.forEach(
-    (ball,index)=>{
-
-        ball.textContent =
-            TODAY_NUMBERS[index];
-
-    }
-);
-
-
-document
-.querySelectorAll(
-    ".previous-ball"
-)
-.forEach(
-    (ball,index)=>{
-
-        ball.textContent =
-            PREVIOUS_NUMBERS[index];
-
-    }
-);
-
-
-
-/* =========================================================
-   SPEECH
-========================================================= */
-
-function say(text){
-
-    speech.innerHTML =
-        text;
-
-
-    speech.classList.remove(
-        "show"
-    );
-
-
-    void speech.offsetWidth;
-
-
-    speech.classList.add(
-        "show"
-    );
-
+function syncDogImages() {
+  if (dogImage.complete && dogImage.naturalWidth > 0) {
+    popupDogImage.src = dogImage.currentSrc || dogImage.src;
+    popupDogImage.hidden = false;
+    popupFallback.hidden = true;
+  } else {
+    popupDogImage.hidden = true;
+    popupFallback.hidden = false;
+  }
 }
 
+dogImage.addEventListener("error", () => {
+  if (!customPhoto && dogIndex < dogCandidates.length - 1) {
+    dogIndex++;
+    dogImage.src = dogCandidates[dogIndex];
+  } else {
+    dogImage.hidden = true;
+    missingDog.hidden = false;
+    syncDogImages();
+  }
+});
+
+dogImage.addEventListener("load", () => {
+  dogImage.hidden = false;
+  missingDog.hidden = true;
+  syncDogImages();
+});
+
+popupDogImage.addEventListener("error", () => {
+  popupDogImage.hidden = true;
+  popupFallback.hidden = false;
+});
+
+photoInput.addEventListener("change", event => {
+  const file = event.target.files[0];
+
+  if (!file || !file.type.startsWith("image/")) return;
+
+  if (photoURL) URL.revokeObjectURL(photoURL);
+
+  customPhoto = true;
+  photoURL = URL.createObjectURL(file);
+
+  dogImage.src = photoURL;
+  popupDogImage.src = photoURL;
+
+  closeDogModal();
+  photoInput.value = "";
+});
+
+/* ==========================================
+   NEW: FUNNY DOG POPUP
+   ========================================== */
+
+const dogModal = document.getElementById("dogModal");
+const dogActionBtn = document.getElementById("dogActionBtn");
+const closeDogBtn = document.getElementById("closeDogBtn");
+const keepDogBtn = document.getElementById("keepDogBtn");
+const reallyChangeBtn = document.getElementById("reallyChangeBtn");
 
 
-/* =========================================================
-   PREVIOUS NUMBERS
-========================================================= */
+function openDogModal() {
+  syncDogImages();
 
-function showPreviousNumbers(){
+  dogModal.hidden = false;
+  document.body.classList.add("modal-open");
 
-    previousModal.classList.add(
-        "show"
-    );
+  closeDogBtn.focus();
 
+  // The dog delivers its funny line!
+  
 }
 
+function closeDogModal() {
+  if (dogModal.hidden) return;
 
-function closePreviousNumbers(){
+  dogModal.hidden = true;
+  document.body.classList.remove("modal-open");
 
-    previousModal.classList.remove(
-        "show"
-    );
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
 
+  dogActionBtn.focus();
 }
 
+// BIG PHOTO BUTTON OPENS FUNNY DOG REACTION
 
+dogActionBtn.addEventListener("click", openDogModal);
 
-/* =========================================================
-   CONFETTI
-========================================================= */
+// CLOSE POPUP
 
-function createConfetti(){
+closeDogBtn.addEventListener("click", closeDogModal);
+keepDogBtn.addEventListener("click", closeDogModal);
 
-    const colors = [
+// OPTION TO ACTUALLY CHANGE PHOTO
 
-        "#ffffff",
-        "#ffd166",
-        "#ff5d73",
-        "#4cc9f0",
-        "#80ed99",
-        "#b388ff"
+reallyChangeBtn.addEventListener("click", () => {
+  photoInput.click();
+});
 
+// CLICK BACKDROP TO CLOSE
+
+dogModal.addEventListener("click", event => {
+  if (event.target === dogModal) {
+    closeDogModal();
+  }
+});
+
+// ESC KEY CLOSES POPUP
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !dogModal.hidden) {
+    closeDogModal();
+  }
+
+  // Keep keyboard focus inside the popup.
+  if (event.key === "Tab" && !dogModal.hidden) {
+    const controls = [
+      closeDogBtn,
+      keepDogBtn,
+      reallyChangeBtn
     ];
 
+    const first = controls[0];
+    const last = controls[controls.length - 1];
 
-    for(
-        let i = 0;
-        i < 130;
-        i++
-    ){
-
-        const c =
-            document.createElement(
-                "div"
-            );
-
-
-        c.className =
-            "confetti";
-
-
-        c.style.left =
-            Math.random()
-            * 100
-            + "vw";
-
-
-        c.style.background =
-            colors[
-                Math.floor(
-                    Math.random()
-                    * colors.length
-                )
-            ];
-
-
-        c.style.animationDuration =
-            (
-                Math.random()
-                * 2.5
-                + 2
-            )
-            + "s";
-
-
-        c.style.animationDelay =
-            (
-                Math.random()
-                * .6
-            )
-            + "s";
-
-
-        c.style.borderRadius =
-            Math.random() > .5
-            ? "50%"
-            : "2px";
-
-
-        document.body.appendChild(
-            c
-        );
-
-
-        setTimeout(
-
-            () => c.remove(),
-
-            5500
-
-        );
-
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey &&
+               document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
+  }
+});
 
-}
+/* ==========================================
+   REPLAY / SKIP
+   ========================================== */
 
+document.getElementById("replayBtn")
+  .addEventListener("click", startAnimation);
 
+document.getElementById("skipBtn")
+  .addEventListener("click", () => {
+    stopAnimation();
+    showScene("reveal");
+  });
 
-/* =========================================================
-   AUTOMATIC DAY 2 ANIMATION
-========================================================= */
+/* START */
 
-function startPresentation(){
-
-
-    /*
-       Presenter starts professionally
-    */
-
-    setTimeout(()=>{
-
-        say(
-            "Good afternoon. Please stay focused."
-        );
-
-    },900);
-
-
-
-    /*
-       She notices the runner
-    */
-
-    setTimeout(()=>{
-
-        presenter.classList.add(
-            "point"
-        );
-
-
-        say(
-            "The presentation is over here. 👈"
-        );
-
-    },2300);
-
-
-
-    /*
-       Game gets BIGGER 😂
-    */
-
-    setTimeout(()=>{
-
-        runnerPanel.classList.add(
-            "grow"
-        );
-
-
-        say(
-            "No. Seriously. Please stay focused."
-        );
-
-    },3800);
-
-
-
-    /*
-       Presenter covers it
-    */
-
-    setTimeout(()=>{
-
-        focusCover.classList.add(
-            "show"
-        );
-
-
-        say(
-            "There. Problem solved."
-        );
-
-    },5400);
-
-
-
-    /*
-       But it comes back
-    */
-
-    setTimeout(()=>{
-
-        focusCover.classList.add(
-            "hide-again"
-        );
-
-
-        say(
-            "ARE YOU KIDDING ME?"
-        );
-
-    },6800);
-
-
-
-    /*
-       Gives up
-    */
-
-    setTimeout(()=>{
-
-        say(
-            "Fine. Nobody is listening anyway. 😭"
-        );
-
-    },8100);
-
-
-
-    setTimeout(()=>{
-
-        say(
-            "Here are the Bingo numbers."
-        );
-
-    },9300);
-
-
-
-    /*
-       Flash
-    */
-
-    setTimeout(()=>{
-
-        flash.classList.add(
-            "go"
-        );
-
-    },10400);
-
-
-
-    /*
-       Reveal
-    */
-
-    setTimeout(()=>{
-
-        results.classList.add(
-            "show"
-        );
-
-
-        createConfetti();
-
-    },10800);
-
-}
-
-
-
-/* =========================================================
-   AUTO START
-========================================================= */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        setTimeout(
-            startPresentation,
-            400
-        );
-
-    }
-);
+startAnimation();
 
 </script>
 
-
 </body>
-
 </html>
