@@ -1,1055 +1,1520 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bingo Surprise Reel | Day 4 - October 22, 2026</title>
+
+<title>United Way BINGO | Day 5 | October 23, 2026</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: radial-gradient(circle at top, #443b82, #111020 75%);
-  color: white;
-  font-family: 'Fredoka', sans-serif;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
+*{
+  box-sizing:border-box;
 }
 
-button { cursor: pointer; font-family: inherit; }
-
-.reel {
-  position: relative;
-  width: min(100%, 430px);
-  height: 100dvh;
-  max-height: 850px;
-  overflow: hidden;
-  background: linear-gradient(160deg, #2f2867, #14132f);
-  box-shadow: 0 25px 75px #0008;
+html,
+body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:"Segoe UI",Arial,sans-serif;
 }
 
-/* TOP REEL UI */
-
-.reel-top {
-  position: absolute;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px 17px;
-  background: linear-gradient(#0006, transparent);
+body{
+  background:#f3ead9;
 }
 
-.progress {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
-}
 
-.progress span {
-  flex: 1;
-  height: 4px;
-  border-radius: 10px;
-  background: #ffffff40;
-}
+/* =====================================================
+   SCENE
+===================================================== */
 
-.progress span.done { background: #ffdc69; }
+.scene{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
 
-.brand {
-  font-size: 14px;
-  font-weight: 700;
-  color: #ffe087;
-}
-
-/* SCENES */
-
-.scene {
-  position: absolute;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 70px 22px 70px;
-  text-align: center;
-  overflow-y: auto;
-}
-
-.scene.active {
-  display: flex;
-  animation: sceneEnter .45s ease both;
-}
-
-@keyframes sceneEnter {
-  from { opacity: 0; transform: scale(1.04); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.story-title {
-  font-size: clamp(27px, 6vw, 37px);
-  line-height: 1.08;
-  color: #ffda65;
-  margin: 0 0 12px;
-  text-shadow: 3px 4px 0 #0004;
-}
-
-.sub {
-  font-size: 15px;
-  color: #e6ddff;
-  margin: 0 0 15px;
-}
-
-/* SCENE 1: PERSON SCROLLING */
-
-.scrolling {
-  background: radial-gradient(circle at 50% 25%, #5952a2, #211c43 72%);
-}
-
-.person {
-  font-size: 80px;
-  line-height: 1.2;
-  animation: personBob 1.3s infinite alternate;
-}
-
-@keyframes personBob {
-  from { transform: rotate(-3deg); }
-  to { transform: rotate(3deg) translateY(-5px); }
-}
-
-.phone {
-  position: relative;
-  width: 205px;
-  height: 320px;
-  margin: 8px auto;
-  background: #121119;
-  border: 9px solid #0a0915;
-  border-radius: 29px;
-  box-shadow: 0 15px 30px #0009;
-  overflow: hidden;
-  transform: rotate(-5deg);
-}
-
-.notch {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70px;
-  height: 13px;
-  border-radius: 0 0 13px 13px;
-  background: #08070c;
-  z-index: 5;
-}
-
-.phone-screen {
-  height: 100%;
-  overflow: hidden;
-  background: #282441;
-}
-
-.feed {
-  height: 100%;
-  padding: 30px 9px 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: linear-gradient(160deg, #e67989, #6c5bbf);
-}
-
-.feed-label {
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.feed-visual {
-  height: 160px;
-  border-radius: 13px;
-  background: linear-gradient(#76bff2, #72ca9f);
-  display: grid;
-  place-items: center;
-  font-size: 72px;
-  position: relative;
-  overflow: hidden;
-}
-
-.feed-visual.runner-post {
   background:
-    linear-gradient(125deg, transparent 44%, #48485c 45%, #48485c 56%, transparent 57%),
-    linear-gradient(#8ed5ff 0 40%, #81ca9b 40%);
+    linear-gradient(
+      to bottom,
+      #f7efe0 0%,
+      #f7efe0 72%,
+      #d0b48b 72%,
+      #b99568 100%
+    );
 }
 
-.feed-visual.runner-post::before {
-  content: "";
-  position: absolute;
-  width: 90px;
-  height: 140px;
-  bottom: -30px;
-  background: repeating-linear-gradient(
-    to bottom,
-    #56566c 0 19px,
-    #ffdf80 20px 24px,
-    #56566c 25px 46px
-  );
-  animation: roadMove .45s linear infinite;
-  clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
+
+/* =====================================================
+   CLASSROOM / GYM WALL
+===================================================== */
+
+.wall-line{
+  position:absolute;
+  left:0;
+  right:0;
+  top:72%;
+  height:5px;
+  background:#ad8b65;
 }
 
-.feed-visual span {
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 5px 5px #0005);
-}
 
-@keyframes roadMove {
-  to { background-position: 0 46px; }
-}
+.banner{
+  position:absolute;
 
-.feed-caption {
-  font-size: 12px;
-  text-align: left;
-  background: #0005;
-  padding: 9px;
-  border-radius: 10px;
-}
+  top:28px;
+  left:50%;
 
-.swipe-finger {
-  position: absolute;
-  right: -22px;
-  bottom: 25px;
-  z-index: 8;
-  font-size: 58px;
-  transform: rotate(-20deg);
-  animation: swipe 1.1s infinite;
-}
+  transform:translateX(-50%);
 
-@keyframes swipe {
-  0% { transform: translateY(25px) rotate(-20deg); opacity: .4; }
-  40% { opacity: 1; }
-  80% { transform: translateY(-110px) rotate(-20deg); opacity: 1; }
-  100% { transform: translateY(-125px) rotate(-20deg); opacity: 0; }
-}
+  padding:12px 28px;
 
-.scroll-label {
-  margin-top: 18px;
-  background: #ffffff15;
-  padding: 10px 18px;
-  border-radius: 30px;
-  font-size: 17px;
-  font-weight: 700;
-}
+  border-radius:50px;
 
-/* SCENE 2: PHONE GETS ANGRY */
+  background:#23364a;
 
-.angry {
-  background: radial-gradient(circle, #661e39, #0b0710 75%);
-}
+  color:white;
 
-.angry-phone {
-  width: 230px;
-  height: 355px;
-  margin: 15px auto;
-  border: 11px solid #282332;
-  border-radius: 38px;
-  background: #020204;
+  font-size:clamp(17px,2vw,27px);
+
+  font-weight:800;
+
+  letter-spacing:3px;
+
   box-shadow:
-    0 0 30px #ff385a90,
-    0 0 80px #ff385a40;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: phoneShake .2s infinite alternate;
+    0 8px 20px rgba(0,0,0,.15);
+
+  white-space:nowrap;
 }
 
-@keyframes phoneShake {
-  from { transform: rotate(-4deg) translateX(-4px); }
-  to { transform: rotate(4deg) translateX(4px); }
+
+/* =====================================================
+   BOARD
+===================================================== */
+
+.board-frame{
+
+  position:absolute;
+
+  left:50%;
+  top:37%;
+
+  transform:translate(-50%,-50%);
+
+  width:min(78vw,1000px);
+  height:43vh;
+
+  padding:15px;
+
+  background:#9a673c;
+
+  border-radius:8px;
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.22);
 }
 
-.phone-face {
-  font-size: 100px;
-  line-height: 1.3;
-  animation: faceZoom .5s infinite alternate;
-}
 
-@keyframes faceZoom {
-  from { transform: scale(.94); }
-  to { transform: scale(1.12); }
-}
+.board{
 
-.phone-warning {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ff4e70;
-  padding: 0 8px;
-}
+  position:relative;
 
-.shocked-person {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  background: #090611;
-  padding: 12px 17px;
-  border: 2px solid #ff6e81;
-  border-radius: 22px;
-  animation: shock .35s infinite alternate;
-}
+  width:100%;
+  height:100%;
 
-.shocked-person span { font-size: 55px; }
+  overflow:hidden;
 
-.shocked-person strong {
-  font-size: 22px;
-  color: #ffdf70;
-}
+  display:flex;
+  flex-direction:column;
 
-@keyframes shock {
-  from { transform: translateX(-6px) rotate(-3deg); }
-  to { transform: translateX(6px) rotate(3deg); }
-}
+  align-items:center;
+  justify-content:center;
 
-/* SCENE 3: DOG REVEAL */
-
-.reveal {
-  justify-content: flex-start;
   background:
-    radial-gradient(circle at top, #6753af, transparent 60%),
-    linear-gradient(#30235c, #14122e);
+    radial-gradient(
+      circle at center,
+      #315b46,
+      #173c2b
+    );
+
+  color:white;
 }
 
-.reveal-tag {
-  display: inline-block;
-  border-radius: 25px;
-  padding: 8px 17px;
-  background: #ffdc6b;
-  color: #543c18;
-  font-size: 12px;
-  font-weight: 700;
-  margin: 7px 0 12px;
+
+.board::after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  opacity:.09;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 7px,
+      white 8px
+    );
+
+  pointer-events:none;
 }
 
-.dog-card {
-  width: 100%;
-  max-width: 350px;
-  border-radius: 25px;
-  background: radial-gradient(circle, #ffe6b7, #eeb07c);
-  border: 5px solid #ffdc79;
-  padding: 10px 12px 16px;
-  margin: 7px auto 15px;
-  color: #483121;
+
+.board-small{
+
+  position:absolute;
+
+  top:22px;
+
+  font-family:"Comic Sans MS",cursive;
+
+  font-size:clamp(15px,1.5vw,21px);
+
+  opacity:.72;
+
+  letter-spacing:2px;
 }
 
-.dog-image {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  max-height: 230px;
-  object-fit: contain;
-  animation: dogPresent 2s infinite alternate;
-  filter: drop-shadow(0 9px 8px #77533c55);
+
+/* =====================================================
+   CHANT TEXT
+===================================================== */
+
+.chant{
+
+  position:relative;
+
+  z-index:5;
+
+  font-size:clamp(100px,17vw,220px);
+
+  line-height:.9;
+
+  font-weight:1000;
+
+  letter-spacing:-8px;
+
+  opacity:0;
+
+  text-shadow:
+    0 8px 0 rgba(0,0,0,.17);
 }
 
-@keyframes dogPresent {
-  from { transform: rotate(-3deg) translateY(0); }
-  to { transform: rotate(3deg) translateY(-7px); }
+
+.chant.pop{
+
+  animation:
+    chantPop .6s
+    cubic-bezier(.15,1.55,.4,1)
+    forwards;
 }
 
-.dog-fallback {
-  font-size: 100px;
-  padding: 15px;
-}
 
-.dog-speech {
-  background: white;
-  color: #3b2646;
-  border: 4px solid #ed4d76;
-  border-radius: 18px;
-  padding: 12px;
-  font-size: 20px;
-  font-weight: 700;
-}
+@keyframes chantPop{
 
-.bingo-heading {
-  margin: 5px 0 12px;
-  font-size: 17px;
-  color: #ffe699;
-  font-weight: 700;
-}
+  0%{
+    opacity:0;
 
-.numbers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  width: 100%;
-  max-width: 350px;
-}
+    transform:
+      scale(.2)
+      rotate(-12deg);
+  }
 
-.ball {
-  aspect-ratio: 1;
-  border: 4px solid #ffffffbc;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: clamp(16px, 4vw, 23px);
-  font-weight: 700;
-  box-shadow: inset -7px -8px 0 #0002, 0 8px 12px #0004;
-  animation: ballIn .7s cubic-bezier(.2,1.5,.4,1) both;
-}
+  65%{
+    opacity:1;
 
-.ball:nth-child(1) { background: #e84c72; animation-delay: .2s; }
-.ball:nth-child(2) { background: #399de4; animation-delay: .5s; }
-.ball:nth-child(3) { background: #3eb480; animation-delay: .8s; }
-.ball:nth-child(4) { background: #9f68e4; animation-delay: 1.1s; }
+    transform:
+      scale(1.2)
+      rotate(5deg);
+  }
 
-@keyframes ballIn {
-  from { transform: translateY(-100px) scale(.2); opacity: 0; }
-  70% { transform: translateY(8px) scale(1.12); opacity: 1; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
+  100%{
+    opacity:1;
 
-.primary-button {
-  width: 100%;
-  max-width: 350px;
-  border: 0;
-  border-radius: 15px;
-  background: #ffd160;
-  color: #302544;
-  font-size: 17px;
-  font-weight: 700;
-  padding: 17px 15px;
-  margin-top: 19px;
-  box-shadow: 0 6px 0 #b9812e;
-}
-
-.primary-button:active { transform: translateY(4px); }
-
-/* PREVIOUS NUMBERS OVERLAY */
-
-.history {
-  position: absolute;
-  inset: 0;
-  z-index: 45;
-  background: #15112ff5;
-  backdrop-filter: blur(12px);
-  padding: 70px 22px 22px;
-  overflow-y: auto;
-}
-
-.history[hidden] { display: none; }
-
-.history h2 {
-  color: #ffda65;
-  margin: 0 0 5px;
-  font-size: 29px;
-}
-
-.history-note {
-  font-size: 13px;
-  color: #c8c0e9;
-  margin: 0 0 20px;
-}
-
-.day-card {
-  margin: 12px 0;
-  border: 1px solid #ffffff35;
-  border-radius: 18px;
-  padding: 16px 13px;
-  background: #ffffff13;
-}
-
-.day-card h3 {
-  margin: 0 0 11px;
-  color: #ffe18e;
-  font-size: 20px;
-}
-
-.mini-numbers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-}
-
-.mini-number {
-  padding: 12px 1px;
-  border-radius: 12px;
-  text-align: center;
-  background: #5550a4;
-  border: 1px solid #ffffff55;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.history-actions {
-  display: grid;
-  gap: 13px;
-  padding-bottom: 15px;
-}
-
-.history-actions button {
-  border: 0;
-  border-radius: 13px;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.download-button {
-  background: #ffd160;
-  color: #302544;
-}
-
-.back-button {
-  background: #ffffff20;
-  color: white;
-}
-
-/* BOTTOM REEL CONTROLS */
-
-.controls {
-  position: absolute;
-  z-index: 35;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 15px 14px;
-  background: linear-gradient(transparent, #0008);
-}
-
-.controls button {
-  border: 1px solid #ffffff50;
-  background: #ffffff20;
-  color: white;
-  border-radius: 20px;
-  padding: 9px 15px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-@media (min-width: 500px) {
-  body { padding: 20px; }
-  .reel { border-radius: 27px; }
-}
-
-@media (max-height: 700px) {
-  .scene { padding-top: 57px; padding-bottom: 52px; }
-  .person { font-size: 62px; }
-  .phone { height: 255px; width: 170px; }
-  .feed-visual { height: 115px; }
-  .angry-phone { height: 275px; width: 195px; }
-  .phone-face { font-size: 76px; }
-  .dog-image { max-height: 155px; }
-  .dog-card { padding: 8px; }
-  .dog-speech { padding: 8px; font-size: 17px; }
-  .story-title { font-size: 27px; }
-  .reveal-tag { margin: 0 0 7px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
+    transform:
+      scale(1)
+      rotate(0);
   }
 }
+
+
+.caption{
+
+  position:absolute;
+
+  bottom:20px;
+
+  font-size:clamp(15px,1.7vw,23px);
+
+  font-weight:700;
+
+  opacity:.75;
+}
+
+
+/* =====================================================
+   KIDS
+===================================================== */
+
+.kids{
+
+  position:absolute;
+
+  left:50%;
+  bottom:67px;
+
+  transform:translateX(-50%);
+
+  width:min(94vw,1200px);
+  height:270px;
+
+  display:flex;
+
+  justify-content:space-around;
+
+  align-items:flex-end;
+
+  z-index:20;
+}
+
+
+.kid{
+
+  position:relative;
+
+  width:120px;
+  height:230px;
+
+  transform-origin:bottom center;
+}
+
+
+/* alternate dancing timing */
+
+.kid:nth-child(1){
+  animation:danceA .38s infinite alternate ease-in-out;
+}
+
+.kid:nth-child(2){
+  animation:danceB .42s infinite alternate ease-in-out;
+}
+
+.kid:nth-child(3){
+  animation:danceA .34s infinite alternate ease-in-out;
+}
+
+.kid:nth-child(4){
+  animation:danceB .39s infinite alternate ease-in-out;
+}
+
+.kid:nth-child(5){
+  animation:danceA .36s infinite alternate ease-in-out;
+}
+
+.kid:nth-child(6){
+  animation:danceB .41s infinite alternate ease-in-out;
+}
+
+
+@keyframes danceA{
+
+  from{
+    transform:
+      translateY(4px)
+      rotate(-3deg);
+  }
+
+  to{
+    transform:
+      translateY(-22px)
+      rotate(4deg);
+  }
+}
+
+
+@keyframes danceB{
+
+  from{
+    transform:
+      translateY(-17px)
+      rotate(4deg);
+  }
+
+  to{
+    transform:
+      translateY(5px)
+      rotate(-4deg);
+  }
+}
+
+
+/* head */
+
+.head{
+
+  position:absolute;
+
+  left:34px;
+  top:10px;
+
+  width:54px;
+  height:58px;
+
+  border-radius:48%;
+
+  background:#d99766;
+
+  z-index:5;
+}
+
+
+/* hair */
+
+.hair{
+
+  position:absolute;
+
+  left:32px;
+  top:6px;
+
+  width:58px;
+  height:28px;
+
+  border-radius:
+    35px 35px 10px 15px;
+
+  background:#30231c;
+
+  z-index:6;
+}
+
+
+/* face */
+
+.eye{
+
+  position:absolute;
+
+  top:33px;
+
+  width:5px;
+  height:5px;
+
+  background:#222;
+
+  border-radius:50%;
+
+  z-index:7;
+}
+
+.eye.one{
+  left:49px;
+}
+
+.eye.two{
+  left:70px;
+}
+
+
+.smile{
+
+  position:absolute;
+
+  left:55px;
+  top:47px;
+
+  width:18px;
+  height:9px;
+
+  border-bottom:3px solid #8e4c42;
+
+  border-radius:50%;
+
+  z-index:7;
+}
+
+
+/* body */
+
+.kid-body{
+
+  position:absolute;
+
+  left:24px;
+  top:62px;
+
+  width:75px;
+  height:105px;
+
+  border-radius:
+    22px 22px 10px 10px;
+
+  background:#4477b5;
+
+  z-index:3;
+}
+
+
+.kid:nth-child(2) .kid-body{
+  background:#d15f5f;
+}
+
+.kid:nth-child(3) .kid-body{
+  background:#4f9368;
+}
+
+.kid:nth-child(4) .kid-body{
+  background:#7b63b5;
+}
+
+.kid:nth-child(5) .kid-body{
+  background:#d88940;
+}
+
+.kid:nth-child(6) .kid-body{
+  background:#438c9a;
+}
+
+
+/* =====================================================
+   ARMS
+   This is the stupid alternating 6-7 style motion 😂
+===================================================== */
+
+.arm{
+
+  position:absolute;
+
+  top:83px;
+
+  width:82px;
+  height:17px;
+
+  border-radius:20px;
+
+  background:#d99766;
+
+  transform-origin:10px center;
+
+  z-index:2;
+}
+
+
+.arm.left{
+
+  left:-17px;
+
+  animation:
+    armLeft .32s
+    infinite alternate
+    ease-in-out;
+}
+
+
+.arm.right{
+
+  right:-17px;
+
+  transform-origin:72px center;
+
+  animation:
+    armRight .32s
+    infinite alternate
+    ease-in-out;
+}
+
+
+@keyframes armLeft{
+
+  from{
+    transform:
+      rotate(-52deg)
+      translateY(-8px);
+  }
+
+  to{
+    transform:
+      rotate(25deg)
+      translateY(10px);
+  }
+}
+
+
+@keyframes armRight{
+
+  from{
+    transform:
+      rotate(-25deg)
+      translateY(10px);
+  }
+
+  to{
+    transform:
+      rotate(52deg)
+      translateY(-8px);
+  }
+}
+
+
+/* hands */
+
+.hand{
+
+  position:absolute;
+
+  width:23px;
+  height:23px;
+
+  border-radius:50%;
+
+  background:#d99766;
+}
+
+
+.arm.left .hand{
+
+  left:-8px;
+  top:-3px;
+}
+
+
+.arm.right .hand{
+
+  right:-8px;
+  top:-3px;
+}
+
+
+/* =====================================================
+   LEGS
+===================================================== */
+
+.leg{
+
+  position:absolute;
+
+  top:160px;
+
+  width:18px;
+  height:70px;
+
+  border-radius:10px;
+
+  background:#253445;
+
+  z-index:1;
+}
+
+
+.leg.one{
+  left:37px;
+
+  transform:rotate(4deg);
+}
+
+
+.leg.two{
+  left:70px;
+
+  transform:rotate(-4deg);
+}
+
+
+/* =====================================================
+   GIANT FLOATING 6 AND 7
+===================================================== */
+
+.float-number{
+
+  position:absolute;
+
+  z-index:18;
+
+  font-size:95px;
+
+  font-weight:1000;
+
+  opacity:0;
+
+  color:#23364a;
+
+  text-shadow:
+    0 5px 0 rgba(0,0,0,.12);
+}
+
+
+.float-number.six{
+
+  left:7%;
+  top:43%;
+}
+
+
+.float-number.seven{
+
+  right:7%;
+  top:43%;
+}
+
+
+.float-number.show-six{
+
+  animation:
+    floatSix .7s ease forwards;
+}
+
+
+.float-number.show-seven{
+
+  animation:
+    floatSeven .7s ease forwards;
+}
+
+
+@keyframes floatSix{
+
+  0%{
+    opacity:0;
+
+    transform:
+      translateX(-80px)
+      rotate(-25deg)
+      scale(.4);
+  }
+
+  70%{
+    opacity:1;
+
+    transform:
+      translateX(10px)
+      rotate(5deg)
+      scale(1.2);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translateX(0)
+      scale(1);
+  }
+}
+
+
+@keyframes floatSeven{
+
+  0%{
+    opacity:0;
+
+    transform:
+      translateX(80px)
+      rotate(25deg)
+      scale(.4);
+  }
+
+  70%{
+    opacity:1;
+
+    transform:
+      translateX(-10px)
+      rotate(-5deg)
+      scale(1.2);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translateX(0)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   SCREEN SHAKE
+===================================================== */
+
+.scene.chaos{
+
+  animation:
+    wholeSceneShake .1s infinite;
+}
+
+
+@keyframes wholeSceneShake{
+
+  0%{
+    transform:translate(0,0);
+  }
+
+  25%{
+    transform:translate(-3px,1px);
+  }
+
+  50%{
+    transform:translate(3px,-1px);
+  }
+
+  75%{
+    transform:translate(-2px,-2px);
+  }
+
+  100%{
+    transform:translate(2px,2px);
+  }
+}
+
+
+/* =====================================================
+   FLASH
+===================================================== */
+
+.flash{
+
+  position:fixed;
+
+  inset:0;
+
+  background:white;
+
+  opacity:0;
+
+  z-index:80;
+
+  pointer-events:none;
+}
+
+
+.flash.go{
+
+  animation:
+    flash .55s ease;
+}
+
+
+@keyframes flash{
+
+  0%{
+    opacity:0;
+  }
+
+  30%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+  }
+}
+
+
+/* =====================================================
+   FINAL REVEAL
+===================================================== */
+
+.final{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:100;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  background:
+
+    radial-gradient(
+      circle at center,
+      #ffec78 0%,
+      #ffbf36 38%,
+      #f47b20 100%
+    );
+}
+
+
+.final.show{
+
+  animation:
+    finalBackground .5s forwards;
+}
+
+
+@keyframes finalBackground{
+
+  to{
+    opacity:1;
+  }
+}
+
+
+.final-small{
+
+  font-size:
+    clamp(17px,2vw,28px);
+
+  font-weight:900;
+
+  letter-spacing:7px;
+
+  color:#382813;
+
+  margin-bottom:20px;
+
+  opacity:0;
+}
+
+
+.final.show .final-small{
+
+  animation:
+    fadeUp .6s .2s forwards;
+}
+
+
+.final-number{
+
+  font-size:
+    clamp(180px,31vw,430px);
+
+  line-height:.8;
+
+  font-weight:1000;
+
+  letter-spacing:-20px;
+
+  color:#171717;
+
+  text-shadow:
+
+    0 8px 0 white,
+
+    0 18px 35px
+    rgba(0,0,0,.25);
+
+  transform:
+    scale(0)
+    rotate(-12deg);
+}
+
+
+.final.show .final-number{
+
+  animation:
+    massive67
+    1s
+    .15s
+    cubic-bezier(.15,1.55,.4,1)
+    forwards;
+}
+
+
+@keyframes massive67{
+
+  0%{
+    transform:
+      scale(0)
+      rotate(-15deg);
+  }
+
+  65%{
+    transform:
+      scale(1.23)
+      rotate(5deg);
+  }
+
+  82%{
+    transform:
+      scale(.94)
+      rotate(-2deg);
+  }
+
+  100%{
+    transform:
+      scale(1)
+      rotate(0);
+  }
+}
+
+
+.final-caption{
+
+  margin-top:40px;
+
+  padding:13px 24px;
+
+  border-radius:50px;
+
+  background:rgba(255,255,255,.65);
+
+  font-size:
+    clamp(18px,2vw,27px);
+
+  font-weight:900;
+
+  color:#3a2916;
+
+  opacity:0;
+}
+
+
+.final.show .final-caption{
+
+  animation:
+    fadeUp .7s 1s forwards;
+}
+
+
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+
+    transform:
+      translateY(20px);
+  }
+
+  to{
+    opacity:1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+
+.confetti{
+
+  position:fixed;
+
+  top:-30px;
+
+  width:12px;
+  height:20px;
+
+  z-index:130;
+
+  animation:
+    confettiFall
+    linear
+    forwards;
+}
+
+
+@keyframes confettiFall{
+
+  to{
+
+    transform:
+      translateY(115vh)
+      rotate(1000deg);
+
+    opacity:.5;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+  .kid:nth-child(1),
+  .kid:nth-child(6){
+    display:none;
+  }
+
+  .kids{
+    width:100%;
+  }
+
+  .kid{
+    transform:scale(.8);
+  }
+
+  .float-number{
+    font-size:65px;
+  }
+
+}
+
+
+/* -------------------------------------------------------
+   DAY 5: THE REAL NUMBERS + PREVIOUS NUMBERS
+------------------------------------------------------- */
+.skip-btn {
+  position:fixed; right:20px; bottom:17px; z-index:145;
+  background:rgba(35,54,74,.9); border:1px solid rgba(255,255,255,.4);
+  color:#fff; border-radius:999px; padding:10px 17px;
+  font:700 13px "Segoe UI",Arial,sans-serif; cursor:pointer;
+  box-shadow:0 5px 14px rgba(0,0,0,.15);
+}
+.skip-btn:hover,.skip-btn:focus-visible {background:#476079; outline:2px solid #fff; outline-offset:2px;}
+.results {
+  position:fixed; inset:0; z-index:150; opacity:0;
+  visibility:hidden; pointer-events:none;
+  background:radial-gradient(circle at 51% 0%,#fff8e3 0%,#f5e8cd 50%,#e6d1ab 100%);
+  overflow-y:auto; padding:clamp(18px,3.5vh,36px) 18px;
+  transition:opacity .5s ease,visibility .5s ease;
+}
+.results.show {opacity:1; visibility:visible; pointer-events:auto;}
+.results-inner {width:min(960px,100%); margin:0 auto; text-align:center;}
+.eyebrow {display:inline-block; background:#243a4b; color:white; padding:9px 18px;
+  border-radius:999px; font-size:clamp(12px,1.3vw,15px); letter-spacing:2px;
+  font-weight:900;}
+.results h1 {font-size:clamp(28px,5vw,55px); margin:17px 0 7px;
+  line-height:1.08; color:#25384b; letter-spacing:-1.6px;}
+.subtitle {color:#674c38; margin:0 0 21px; font-size:clamp(14px,1.6vw,18px); font-weight:650;}
+.number-grid {display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px;
+  margin:0 auto 22px;}
+.number-card {min-height:132px; display:flex; flex-direction:column; justify-content:center;
+  align-items:center; border-radius:20px; border:3px solid rgba(43,58,73,.12);
+  background:#fffef9; box-shadow:0 8px 0 rgba(111,74,42,.12),0 14px 22px rgba(72,51,32,.10);
+  opacity:0; transform:translateY(60px) scale(.7);}
+.results.show .number-card {animation:cardPop .7s cubic-bezier(.15,1.45,.3,1) forwards;}
+.results.show .number-card:nth-child(1) {animation-delay:.15s;}
+.results.show .number-card:nth-child(2) {animation-delay:.45s;}
+.results.show .number-card:nth-child(3) {animation-delay:.75s;}
+.results.show .number-card:nth-child(4) {animation-delay:1.05s;}
+@keyframes cardPop{70%{opacity:1;transform:translateY(-9px) scale(1.05)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.ball-letter {display:flex; align-items:center; justify-content:center; font-weight:1000;
+  color:#fff; width:45px; height:45px; border-radius:50%; font-size:27px;
+  box-shadow:inset -4px -6px 0 rgba(0,0,0,.13), 0 4px 10px rgba(0,0,0,.12);}
+.ball-number {font-size:clamp(34px,5vw,63px); font-weight:1000; color:#1c3045;
+  line-height:1.05; margin-top:7px;}
+.i-ball {background:#117d97;} .b-ball {background:#ad3a50;} .g-ball {background:#348660;}
+.history {background:rgba(255,255,255,.77); border:2px solid rgba(112,82,54,.15);
+  box-shadow:0 10px 26px rgba(86,61,35,.1); border-radius:18px; padding:17px 20px 13px;}
+.history-top {display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:10px;}
+.history h2 {font-size:20px; margin:0; color:#25384b; text-align:left;}
+.history-tag {font-size:12px; font-weight:750; color:#805333;}
+.history-row {display:grid; grid-template-columns:130px repeat(4,1fr); gap:5px;
+  text-align:center; padding:9px 3px; border-top:1px solid #e9dfcf;
+  align-items:center; font-weight:800; color:#3b4857;}
+.history-row .date {text-align:left; font-size:13px; color:#746453;}
+.past-number {display:inline-flex; justify-content:center; align-items:center; min-height:26px;
+  padding:3px 7px; border-radius:8px; font-size:14px;}
+.famous {background:#ffe17b; color:#5d3710; border:2px solid #ec9a24; box-shadow:0 0 0 3px rgba(236,154,36,.13);}
+.history-note {color:#745437; font-size:12px; margin:9px 0 0; font-weight:700;}
+.action-row {display:flex; align-items:center; justify-content:center; gap:10px; margin-top:16px;}
+.action-row button {cursor:pointer; border:0; border-radius:999px; padding:11px 20px;
+  background:#243a4b; color:white; font-weight:800; font-size:14px;}
+.action-row button:hover,.action-row button:focus-visible {background:#43637e;}
+.results-confetti {pointer-events:none;}
+@media(max-width:650px){
+  .number-grid {grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px;}
+  .number-card {min-height:110px;}
+  .ball-letter {width:36px; height:36px; font-size:22px;}
+  .results h1 {font-size:clamp(27px,7vw,42px);}
+  .history {padding:12px 9px;}
+  .history-top {flex-direction:column; align-items:start;}
+  .history-row {grid-template-columns:90px repeat(4,minmax(0,1fr)); gap:2px; padding:8px 0;}
+  .history-row .date {font-size:11px;}
+  .past-number {font-size:12px; padding:4px 0;}
+  .history h2 {font-size:17px;}
+  .banner {font-size:11px; letter-spacing:1px; padding:12px 14px;}
+  .final-number {letter-spacing:-6px;}
+  .final-caption {font-size:17px; text-align:center; margin:28px 15px 0;}
+}
+@media(prefers-reduced-motion:reduce){
+  .results.show .number-card{animation:none; opacity:1; transform:none;}
+  .kid,.arm.left,.arm.right {animation:none!important;}
+  .scene.chaos {animation:none!important;}
+  .results {transition:none;}
+}
+
 </style>
 </head>
 
+
 <body>
 
-<div class="reel">
 
-  <div class="reel-top">
-    <div class="progress">
-      <span id="p1"></span>
-      <span id="p2"></span>
-      <span id="p3"></span>
-    </div>
-    <div class="brand">🐾 BINGO REELS</div>
+<div
+  class="scene"
+  id="scene">
+
+
+  <div class="banner">
+
+    UNITED WAY BINGO · DAY 5 · OCT 23
+
   </div>
 
-  <!-- SCENE 1: THE PERSON SCROLLS -->
 
-  <section class="scene scrolling active" id="sceneScroll">
+  <div class="board-frame">
 
-    <h1 class="story-title">JUST ONE MORE REEL...</h1>
+    <div class="board">
 
-    <p class="sub">Someone has been scrolling for hours. 📱</p>
+      <div class="board-small">
 
-    <div class="person">🧑🏽‍🦱</div>
+        One more thing about yesterday...
 
-    <div class="phone">
-      <div class="notch"></div>
-      <div class="phone-screen">
-        <div class="feed" id="feed">
-          <div class="feed-label">▶ FOR YOU • REELS</div>
-          <div class="feed-visual runner-post" id="feedVisual">
-            <span id="feedEmoji">🏃</span>
-          </div>
-          <div class="feed-caption" id="feedCaption">
-            Endless running... again! 🏃
-          </div>
-        </div>
       </div>
-      <div class="swipe-finger">👆</div>
-    </div>
 
-    <div class="scroll-label" id="scrollText">
-      Swipe... swipe... swipe...
-    </div>
 
-  </section>
+      <div
+        class="chant"
+        id="chant">
 
-  <!-- SCENE 2: PHONE GETS ANGRY -->
+        6
 
-  <section class="scene angry" id="sceneAngry">
+      </div>
 
-    <h1 class="story-title">WAIT A SECOND... ⚡</h1>
 
-    <div class="angry-phone">
+      <div class="caption">
 
-      <div class="phone-face" id="phoneFace">😠</div>
+        wait, why are they doing this again? 😭
 
-      <div class="phone-warning" id="phoneWarning">
-        HEY! STOP SCROLLING!
       </div>
 
     </div>
 
-    <div class="shocked-person">
-      <span>😱</span>
-      <strong id="shockText">WHAT JUST HAPPENED?!</strong>
-    </div>
-
-  </section>
-
-  <!-- SCENE 3: DOG PRESENTS BINGO -->
-
-  <section class="scene reveal" id="sceneReveal">
-
-    <div class="reveal-tag">
-      🐾 YOUR BINGO MASCOT HAS ARRIVED
-    </div>
-
-    <h1 class="story-title">SURPRISE! IT'S BINGO! 🎉</h1>
-
-    <div class="dog-card">
-
-      <img
-        class="dog-image"
-        id="dogImage"
-        src="Photorealistic Dog Side-Eye Cutout(1).png"
-        alt="The tan dog Bingo mascot in a yellow and blue harness"
-      >
-
-      <div class="dog-fallback" id="dogFallback" hidden>🐶</div>
-
-      <div class="dog-speech" id="dogSpeech">
-        “ENOUGH SCROLLING! HERE ARE YOUR FOUR NUMBERS!” 🐾
-      </div>
-
-    </div>
-
-    <div class="bingo-heading">🎱 DAY 4 · OCTOBER 22 · BINGO NUMBERS</div>
-
-    <div class="numbers" aria-label="Day 4 Bingo numbers: G56, O67, B1, N36">
-      <div class="ball">G56</div>
-      <div class="ball">O67</div>
-      <div class="ball">B1</div>
-      <div class="ball">N36</div>
-    </div>
-
-    <button class="primary-button" id="viewPrevious">
-      📅 VIEW PREVIOUS NUMBERS
-    </button>
-
-  </section>
-
-  <!-- PREVIOUS NUMBERS SCREEN -->
-
-  <section class="history" id="history" hidden
-           role="dialog" aria-modal="true"
-           aria-labelledby="historyTitle">
-
-    <h2 id="historyTitle">📅 Previous Numbers</h2>
-
-    <p class="history-note">
-      Official numbers from Days 1–3 (October 15, 20 and 21, 2026).
-    </p>
-
-    <div id="historyCards"></div>
-
-    <div class="history-actions">
-      <button class="download-button" id="downloadHistory">
-        ⬇ DOWNLOAD ALL 3 DAYS
-      </button>
-
-      <button class="back-button" id="backToBingo">
-        ← BACK TO TODAY'S BINGO
-      </button>
-    </div>
-
-  </section>
-
-  <div class="controls" id="controls">
-    <button id="replayBtn">↻ Replay</button>
-    <button id="skipBtn">⏭ Skip to Bingo</button>
   </div>
+
+
+  <div
+    class="float-number six"
+    id="floatingSix">
+
+    6
+
+  </div>
+
+
+  <div
+    class="float-number seven"
+    id="floatingSeven">
+
+    7
+
+  </div>
+
+
+  <!-- KIDS -->
+
+  <div class="kids">
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+    <div class="kid">
+
+      <div class="hair"></div>
+      <div class="head"></div>
+
+      <div class="eye one"></div>
+      <div class="eye two"></div>
+      <div class="smile"></div>
+
+      <div class="kid-body"></div>
+
+      <div class="arm left">
+        <div class="hand"></div>
+      </div>
+
+      <div class="arm right">
+        <div class="hand"></div>
+      </div>
+
+      <div class="leg one"></div>
+      <div class="leg two"></div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="wall-line"></div>
 
 </div>
 
+
+
+<!-- FLASH -->
+
+<div
+  class="flash"
+  id="flash">
+</div>
+
+
+
+<!-- FINAL REVEAL -->
+
+<div
+  class="final"
+  id="final">
+
+
+  <div class="final-small">
+
+    OH NO... NOT AGAIN!
+
+  </div>
+
+
+  <div class="final-number">
+
+    67
+
+  </div>
+
+
+  <div class="final-caption">
+
+    O67 was called YESTERDAY! 😂
+
+  </div>
+
+
+</div>
+
+
+
+
+<!-- Day 5 result screen -->
+<button class="skip-btn" id="skipBtn" type="button" aria-label="Skip animation and show today's BINGO numbers">Skip to numbers →</button>
+<section class="results" id="results" aria-label="Friday October 23 Day 5 BINGO numbers">
+  <div class="results-inner">
+    <div class="eyebrow">FRIDAY · OCTOBER 23, 2026 · DAY 5</div>
+    <h1>🎉 TODAY'S BINGO NUMBERS 🎉</h1>
+    <p class="subtitle">67 was yesterday's surprise. Here's what we're calling today!</p>
+    <div class="number-grid" aria-label="Today's four numbers">
+      <div class="number-card" aria-label="I 28"><span class="ball-letter i-ball">I</span><span class="ball-number">28</span></div>
+      <div class="number-card" aria-label="B 4"><span class="ball-letter b-ball">B</span><span class="ball-number">4</span></div>
+      <div class="number-card" aria-label="G 53"><span class="ball-letter g-ball">G</span><span class="ball-number">53</span></div>
+      <div class="number-card" aria-label="I 20"><span class="ball-letter i-ball">I</span><span class="ball-number">20</span></div>
+    </div>
+    <section class="history" aria-label="Previously called BINGO numbers">
+      <div class="history-top"><h2>📋 Previous numbers</h2><span class="history-tag">Don't forget to mark these on your cards!</span></div>
+      <div class="history-row"><span class="date">Mon, Oct 19</span><span class="past-number">G50</span><span class="past-number">I26</span><span class="past-number">O73</span><span class="past-number">O66</span></div>
+      <div class="history-row"><span class="date">Tue, Oct 20</span><span class="past-number">G52</span><span class="past-number">I21</span><span class="past-number">B14</span><span class="past-number">I22</span></div>
+      <div class="history-row"><span class="date">Wed, Oct 21</span><span class="past-number">G47</span><span class="past-number">B10</span><span class="past-number">O70</span><span class="past-number">I27</span></div>
+      <div class="history-row"><span class="date">Thu, Oct 22</span><span class="past-number">G56</span><span class="past-number famous" title="The infamous 67!">O67 👀</span><span class="past-number">B1</span><span class="past-number">N36</span></div>
+      <p class="history-note">😅 Oh no, 67! We are still not over yesterday.</p>
+    </section>
+    <div class="action-row"><button id="replayBtn" type="button">↻ Replay the 6-7 dance</button></div>
+  </div>
+</section>
+
 <script>
-
-/* =========================================
-   BINGO DATA
-   ========================================= */
-
-// Day 4 - Thursday, October 22, 2026
-
-const todayNumbers = [
-  "G56",
-  "O67",
-  "B1",
-  "N36"
-];
-
-// Actual previous Bingo numbers, newest first.
-
-const previousDays = [
-  {
-    date: "DAY 3 · 21 OCT",
-    numbers: ["O70", "B10", "G47", "I27"]
-  },
-  {
-    date: "DAY 2 · 20 OCT",
-    numbers: ["G52", "I21", "B14", "I22"]
-  },
-  {
-    date: "DAY 1 · 19 OCT",
-    numbers: ["G50", "I26", "O73", "O66"]
+'use strict';
+// Day 5 sequence. 67 (O67) was on Thursday Oct 22; today's numbers are I28 B4 G53 I20.
+const chant = document.getElementById('chant');
+const scene = document.getElementById('scene');
+const floatingSix = document.getElementById('floatingSix');
+const floatingSeven = document.getElementById('floatingSeven');
+const flash = document.getElementById('flash');
+const final = document.getElementById('final');
+const results = document.getElementById('results');
+const skipBtn = document.getElementById('skipBtn');
+const replayBtn = document.getElementById('replayBtn');
+let timers=[];
+let confettiPieces=[];
+let generation=0;
+function delay(fn,ms){let id=setTimeout(fn,ms); timers.push(id);}
+function stopTimers(){for(let id of timers) clearTimeout(id); timers=[];}
+function pop(text){
+  chant.textContent=text;
+  chant.classList.remove('pop');
+  void chant.offsetWidth;
+  chant.classList.add('pop');
+}
+function confetti(){
+  const colors=['#ff4757','#2ed573','#1e90ff','#ffdd59','#a55eea','#ff7f50'];
+  for(let i=0;i<100;i++){
+    const piece=document.createElement('div');
+    piece.className='confetti results-confetti';
+    piece.style.left=Math.random()*100+'vw';
+    piece.style.background=colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDuration=(Math.random()*2.5+2)+'s';
+    piece.style.animationDelay=(Math.random()*.6)+'s';
+    piece.style.borderRadius=Math.random()>.5?'50%':'2px';
+    document.body.appendChild(piece); confettiPieces.push(piece);
+    delay(()=>{piece.remove();confettiPieces=confettiPieces.filter(p=>p!==piece);},5700);
   }
-];
-
-/* =========================================
-   SCENES AND TIMER
-   ========================================= */
-
-const sceneScroll = document.getElementById("sceneScroll");
-const sceneAngry = document.getElementById("sceneAngry");
-const sceneReveal = document.getElementById("sceneReveal");
-
-const scenes = [
-  sceneScroll,
-  sceneAngry,
-  sceneReveal
-];
-
-const progress = [
-  document.getElementById("p1"),
-  document.getElementById("p2"),
-  document.getElementById("p3")
-];
-
-let timers = [];
-
-function schedule(fn, delay) {
-  timers.push(setTimeout(fn, delay));
 }
-
-function clearTimers() {
-  timers.forEach(clearTimeout);
-  timers = [];
+function showResults(){
+  scene.classList.remove('chaos');
+  final.classList.remove('show');
+  results.classList.add('show');
+  skipBtn.hidden=true;
+  skipBtn.style.display='none';
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) confetti();
 }
-
-function showScene(index) {
-  scenes.forEach((scene, i) => {
-    const active = i === index;
-    scene.classList.toggle("active", active);
-    scene.setAttribute("aria-hidden", String(!active));
-  });
-
-  progress.forEach((bar, i) => {
-    bar.classList.toggle("done", i <= index);
-  });
+function reset(){
+  generation++; stopTimers(); confettiPieces.forEach(p=>p.remove()); confettiPieces=[];
+  results.classList.remove('show'); final.classList.remove('show');
+  flash.classList.remove('go'); scene.classList.remove('chaos');
+  floatingSix.classList.remove('show-six'); floatingSeven.classList.remove('show-seven');
+  chant.classList.remove('pop'); chant.textContent='6';
+  skipBtn.hidden=false; skipBtn.style.display='block';
 }
-
-/* =========================================
-   PERSON SCROLLING THROUGH REELS
-   ========================================= */
-
-const feedVisual = document.getElementById("feedVisual");
-const feedEmoji = document.getElementById("feedEmoji");
-const feedCaption = document.getElementById("feedCaption");
-const feed = document.getElementById("feed");
-const scrollText = document.getElementById("scrollText");
-
-const posts = [
-  {
-    emoji: "🏃",
-    caption: "Endless running... again! 🏃",
-    background: "linear-gradient(#76bff2, #72ca9f)",
-    runner: true
-  },
-  {
-    emoji: "🍕",
-    caption: "This pizza looks AMAZING! 🍕",
-    background: "linear-gradient(#ffb56c, #e66369)"
-  },
-  {
-    emoji: "🐱",
-    caption: "The internet's funniest cat 😹",
-    background: "linear-gradient(#c0a4fb, #8061b6)"
-  },
-  {
-    emoji: "🎮",
-    caption: "One more game... just one! 🎮",
-    background: "linear-gradient(#6dd2d5, #4a6cb1)"
-  },
-  {
-    emoji: "💃",
-    caption: "Another viral dance reel 💃",
-    background: "linear-gradient(#ff99c3, #974fc4)"
-  }
-];
-
-function changePost(index) {
-  const post = posts[index];
-
-  feedEmoji.textContent = post.emoji;
-  feedCaption.textContent = post.caption;
-
-  feedVisual.style.background = post.background;
-
-  feedVisual.classList.toggle(
-    "runner-post",
-    Boolean(post.runner)
-  );
-
-  feed.animate(
-    [
-      { transform: "translateY(100%)", opacity: .4 },
-      { transform: "translateY(0)", opacity: 1 }
-    ],
-    {
-      duration: 330,
-      easing: "ease-out"
-    }
-  );
+function play(){
+  reset();
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){showResults(); return;}
+  delay(()=>{pop('6'); floatingSix.classList.add('show-six');},700);
+  delay(()=>{pop('7'); floatingSeven.classList.add('show-seven');},1500);
+  delay(()=>pop('6!'),2250);
+  delay(()=>pop('7!'),2900);
+  delay(()=>pop('6 7!'),3550);
+  delay(()=>{scene.classList.add('chaos');pop('6! 7!');},4200);
+  delay(()=>pop('67!'),4850);
+  delay(()=>pop('67 67 67'),5450);
+  delay(()=>{scene.classList.remove('chaos');flash.classList.add('go');},6200);
+  delay(()=>{final.classList.add('show');},6500);
+  delay(showResults,8650);
 }
-
-/* =========================================
-   MAIN FUNNY REEL ANIMATION
-   ========================================= */
-
-function playAnimation() {
-  clearTimers();
-
-  document.getElementById("history").hidden = true;
-
-  document.getElementById("phoneFace").textContent = "😠";
-  document.getElementById("phoneWarning").textContent =
-    "HEY! STOP SCROLLING!";
-
-  document.getElementById("shockText").textContent =
-    "WHAT JUST HAPPENED?!";
-
-  document.getElementById("dogSpeech").textContent =
-    "“ENOUGH SCROLLING! HERE ARE YOUR FOUR NUMBERS!” 🐾";
-
-  showScene(0);
-  changePost(0);
-
-  // The person keeps scrolling
-
-  schedule(() => {
-    changePost(1);
-    scrollText.textContent = "Swipe... swipe... 😑";
-  }, 1000);
-
-  schedule(() => {
-    changePost(2);
-    scrollText.textContent = "Still scrolling... 🤳";
-  }, 1950);
-
-  schedule(() => {
-    changePost(3);
-    scrollText.textContent = "One more reel...";
-  }, 2900);
-
-  schedule(() => {
-    changePost(4);
-    scrollText.textContent = "JUST. ONE. MORE. 😵";
-  }, 3750);
-
-  // The phone turns black and gets angry!
-
-  schedule(() => {
-    showScene(1);
-  }, 4700);
-
-  // The face changes from angry to shocked
-
-  schedule(() => {
-    document.getElementById("phoneFace").textContent = "😱";
-    document.getElementById("phoneWarning").textContent =
-      "NO MORE REELS!!";
-    document.getElementById("shockText").textContent =
-      "THE PHONE IS ALIVE?!";
-  }, 6100);
-
-  // Dog mascot arrives and shows Bingo numbers
-
-  schedule(() => {
-    showScene(2);
-  }, 7600);
-}
-
-/* =========================================
-   PREVIOUS NUMBERS
-   ========================================= */
-
-const history = document.getElementById("history");
-const historyCards = document.getElementById("historyCards");
-const viewPrevious = document.getElementById("viewPrevious");
-const backToBingo = document.getElementById("backToBingo");
-
-// Build previous number cards from data
-
-previousDays.forEach(day => {
-  const card = document.createElement("div");
-  card.className = "day-card";
-
-  const title = document.createElement("h3");
-  title.textContent = "📅 " + day.date;
-  card.appendChild(title);
-
-  const numbers = document.createElement("div");
-  numbers.className = "mini-numbers";
-
-  day.numbers.forEach(number => {
-    const ball = document.createElement("div");
-    ball.className = "mini-number";
-    ball.textContent = number;
-    numbers.appendChild(ball);
-  });
-
-  card.appendChild(numbers);
-  historyCards.appendChild(card);
-});
-
-viewPrevious.addEventListener("click", () => {
-  history.hidden = false;
-  document.getElementById("backToBingo").focus();
-});
-
-function closeHistory() {
-  history.hidden = true;
-  viewPrevious.focus();
-}
-
-backToBingo.addEventListener("click", closeHistory);
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && !history.hidden) {
-    closeHistory();
-  }
-});
-
-/* =========================================
-   DOWNLOAD ALL THREE DAYS
-   ========================================= */
-
-document.getElementById("downloadHistory")
-  .addEventListener("click", () => {
-
-    let content = "BINGO PREVIOUS NUMBERS\n";
-    content += "======================\n";
-
-
-    previousDays.forEach(day => {
-      content += day.date + "\n";
-      content += day.numbers.join("  |  ") + "\n\n";
-    });
-
-    const blob = new Blob([content], {
-      type: "text/plain;charset=utf-8"
-    });
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "bingo-previous-numbers.txt";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-
-/* =========================================
-   DOG MASCOT
-   ========================================= */
-
-const dogImage = document.getElementById("dogImage");
-const dogFallback = document.getElementById("dogFallback");
-
-const dogFiles = [
-  "Photorealistic Dog Side-Eye Cutout(1).png",
-  "Photorealistic Dog Side-Eye Cutout.png",
-  "dog.png"
-];
-
-let dogFileIndex = 0;
-
-dogImage.addEventListener("error", () => {
-  dogFileIndex++;
-
-  if (dogFileIndex < dogFiles.length) {
-    dogImage.src = dogFiles[dogFileIndex];
-  } else {
-    dogImage.hidden = true;
-    dogFallback.hidden = false;
-  }
-});
-
-dogImage.addEventListener("load", () => {
-  dogImage.hidden = false;
-  dogFallback.hidden = true;
-});
-
-// Optional funny silent dog reaction on click
-
-dogImage.addEventListener("click", () => {
-  document.getElementById("dogSpeech").textContent =
-    "“YOU GOT A PROBLEM WITH ME?!” 🐶";
-});
-
-/* =========================================
-   REPLAY AND SKIP
-   ========================================= */
-
-document.getElementById("replayBtn")
-  .addEventListener("click", playAnimation);
-
-document.getElementById("skipBtn")
-  .addEventListener("click", () => {
-    clearTimers();
-    history.hidden = true;
-    showScene(2);
-  });
-
-/* START AUTOMATICALLY */
-
-playAnimation();
-
+skipBtn.addEventListener('click',()=>{stopTimers();showResults();});
+replayBtn.addEventListener('click',play);
+window.addEventListener('load',()=>delay(play,400));
 </script>
+
 </body>
 </html>
