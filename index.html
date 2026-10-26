@@ -1,1520 +1,823 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>United Way BINGO | Day 5 | October 23, 2026</title>
+  <meta charset="UTF-8">
 
-<style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-*{
-  box-sizing:border-box;
-}
+  <meta name="theme-color" content="#0b1120">
 
-html,
-body{
-  margin:0;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  font-family:"Segoe UI",Arial,sans-serif;
-}
+  <title>Bingo Day 6 | The Mascot Takeover</title>
 
-body{
-  background:#f3ead9;
-}
+  <style>
 
+    :root {
 
-/* =====================================================
-   SCENE
-===================================================== */
+      --bg: #0b1120;
 
-.scene{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  overflow:hidden;
+      --panel: #152039;
 
-  background:
-    linear-gradient(
-      to bottom,
-      #f7efe0 0%,
-      #f7efe0 72%,
-      #d0b48b 72%,
-      #b99568 100%
-    );
-}
+      --panel-2: #1a2945;
 
+      --line: rgba(214, 227, 255, .16);
 
-/* =====================================================
-   CLASSROOM / GYM WALL
-===================================================== */
+      --text: #f4f7ff;
 
-.wall-line{
-  position:absolute;
-  left:0;
-  right:0;
-  top:72%;
-  height:5px;
-  background:#ad8b65;
-}
+      --muted: #aab8ce;
 
+      --yellow: #ffd34f;
 
-.banner{
-  position:absolute;
+      --yellow-dark: #201908;
 
-  top:28px;
-  left:50%;
+      --blue: #82cfff;
 
-  transform:translateX(-50%);
+      --pink: #ff9db7;
 
-  padding:12px 28px;
+    }
 
-  border-radius:50px;
+    * { box-sizing: border-box; }
 
-  background:#23364a;
+    html { scroll-behavior: smooth; }
 
-  color:white;
+    body {
 
-  font-size:clamp(17px,2vw,27px);
+      margin: 0;
 
-  font-weight:800;
+      min-height: 100vh;
 
-  letter-spacing:3px;
+      color: var(--text);
 
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.15);
+      background:
 
-  white-space:nowrap;
-}
+        radial-gradient(circle at 8% 9%, rgba(66, 101, 182, .22), transparent 31%),
 
+        radial-gradient(circle at 90% 14%, rgba(106, 68, 150, .17), transparent 28%),
 
-/* =====================================================
-   BOARD
-===================================================== */
+        var(--bg);
 
-.board-frame{
+      font: 16px/1.5 "Segoe UI", Arial, sans-serif;
 
-  position:absolute;
+    }
 
-  left:50%;
-  top:37%;
+    button { font: inherit; cursor: pointer; }
 
-  transform:translate(-50%,-50%);
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 
-  width:min(78vw,1000px);
-  height:43vh;
+    [hidden] { display: none !important; }
 
-  padding:15px;
+    .shell { width: min(1190px, calc(100% - 40px)); margin: 0 auto; padding: 22px 0 36px; }
 
-  background:#9a673c;
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 17px; }
 
-  border-radius:8px;
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 900; letter-spacing: .08em; }
 
-  box-shadow:
-    0 18px 35px rgba(0,0,0,.22);
-}
+    .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: var(--yellow-dark); background: var(--yellow); font-size: 23px; }
 
+    .pills { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 
-.board{
+    .pill { padding: 7px 12px; border: 1px solid var(--line); border-radius: 100px; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .06em; }
 
-  position:relative;
+    .pill.hot { color: var(--yellow); border-color: rgba(255, 211, 79, .45); background: rgba(255, 211, 79, .06); }
 
-  width:100%;
-  height:100%;
+    .headline { margin: 0 0 19px; }
 
-  overflow:hidden;
+    .headline h1 { margin: 0 0 3px; font-size: clamp(28px, 3.1vw, 43px); letter-spacing: -.04em; line-height: 1.12; }
 
-  display:flex;
-  flex-direction:column;
+    .headline p { margin: 0; color: var(--muted); font-size: 15px; }
 
-  align-items:center;
-  justify-content:center;
+    .main-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 1.1fr); gap: 18px; align-items: stretch; }
 
-  background:
-    radial-gradient(
-      circle at center,
-      #315b46,
-      #173c2b
-    );
+    .card { border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: linear-gradient(160deg, #192744 0%, #121c31 100%); box-shadow: 0 18px 55px rgba(0, 0, 0, .17); }
 
-  color:white;
-}
+    .takeover { position: relative; min-height: 392px; padding: 22px 24px; isolation: isolate; }
 
+    .takeover::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 60% 65%, rgba(255,211,79,.10), transparent 51%); z-index: -1; }
 
-.board::after{
+    .eyebrow { text-transform: uppercase; color: var(--yellow); font-size: 12px; font-weight: 900; letter-spacing: .16em; }
 
-  content:"";
+    .speech { position: relative; z-index: 4; width: min(100%, 465px); margin-top: 8px; padding: 15px 18px; border: 1px solid rgba(255, 211, 79, .35); border-radius: 15px 15px 15px 4px; background: #243251; box-shadow: 0 9px 20px rgba(0,0,0,.25); }
 
-  position:absolute;
+    .speech strong { display: block; font-size: clamp(17px, 1.9vw, 22px); line-height: 1.25; }
 
-  inset:0;
+    .speech small { display: block; margin-top: 6px; color: #d3dcef; font-size: 13px; }
 
-  opacity:.09;
+    .mascot-photo { position: absolute; right: 4%; bottom: -17px; width: 60%; height: 265px; object-fit: contain; object-position: right bottom; filter: drop-shadow(0 15px 23px #0009); transform: translateX(15px); animation: catEntrance .9s .3s both; z-index: 2; }
 
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 7px,
-      white 8px
-    );
+    @keyframes catEntrance { from { opacity: 0; transform: translate(80px,20px) rotate(8deg); } to { opacity: 1; transform: translate(15px,0) rotate(0); } }
 
-  pointer-events:none;
-}
+    .nameplate { position: absolute; z-index: 4; bottom: 21px; right: 17px; padding: 8px 11px; border: 1px solid #ffffff33; border-radius: 9px; background: #070b15dd; text-align: center; transform: rotate(-3deg); }
 
+    .nameplate b { display: block; font-size: 12px; letter-spacing: .1em; color: var(--yellow); }
 
-.board-small{
+    .nameplate span { display: block; font-size: 11px; color: var(--muted); }
 
-  position:absolute;
+    .dog-poster { position: absolute; left: 6%; bottom: 34px; width: 157px; height: 188px; z-index: 3; transform: rotate(-8deg); filter: drop-shadow(0 9px 8px #0006); pointer-events: none; }
 
-  top:22px;
+    .poster-half { position: absolute; inset: 0; border: 5px solid #fff3d7; border-radius: 3px; background: #eacb95; overflow: hidden; backface-visibility: hidden; }
 
-  font-family:"Comic Sans MS",cursive;
+    .poster-half img { display: block; width: 100%; height: 78%; object-fit: contain; background: #d4b784; }
 
-  font-size:clamp(15px,1.5vw,21px);
+    .poster-half span { display: grid; place-items: center; height: 22%; color: #3a2a1c; font-weight: 900; font-size: 10px; letter-spacing: .09em; }
 
-  opacity:.72;
+    .poster-left { clip-path: polygon(0 0, 52% 0, 48% 13%, 53% 25%, 46% 43%, 54% 62%, 48% 82%, 52% 100%, 0 100%); }
 
-  letter-spacing:2px;
-}
+    .poster-right { clip-path: polygon(52% 0,100% 0,100% 100%,52% 100%,48% 82%,54% 62%,46% 43%,53% 25%,48% 13%); }
 
+    .dog-poster.rip .poster-left { animation: ripLeft 1.15s cubic-bezier(.23,.79,.26,1) forwards; }
 
-/* =====================================================
-   CHANT TEXT
-===================================================== */
+    .dog-poster.rip .poster-right { animation: ripRight 1.15s cubic-bezier(.23,.79,.26,1) forwards; }
 
-.chant{
+    @keyframes ripLeft { to { transform: translate(-75px, 100px) rotate(-38deg); opacity: .18; } }
 
-  position:relative;
+    @keyframes ripRight { to { transform: translate(54px, 99px) rotate(30deg); opacity: .18; } }
 
-  z-index:5;
+    .soundless { position: absolute; bottom: 14px; left: 24px; font-size: 11px; color: var(--muted); z-index: 4; }
 
-  font-size:clamp(100px,17vw,220px);
+    .replay { position: absolute; top: 20px; right: 19px; z-index: 5; padding: 5px 9px; color: #d7dfef; border: 1px solid #ffffff3a; background: #07101e90; border-radius: 8px; font-size: 12px; }
 
-  line-height:.9;
+    .replay:hover { background: #304467; }
 
-  font-weight:1000;
+    .draw { padding: 25px; display: flex; flex-direction: column; min-height: 392px; }
 
-  letter-spacing:-8px;
+    .draw-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
 
-  opacity:0;
+    .draw-title { margin: 8px 0 3px; font-size: clamp(28px, 3vw, 40px); letter-spacing: -.04em; line-height: 1; }
 
-  text-shadow:
-    0 8px 0 rgba(0,0,0,.17);
-}
+    .draw-sub { margin: 0; color: var(--muted); font-size: 13px; }
 
+    .draw-status { padding: 6px 10px; border-radius: 30px; background: #35445e; font-size: 11px; letter-spacing: .07em; font-weight: 800; white-space: nowrap; }
 
-.chant.pop{
+    .draw-status.live { background: rgba(255,211,79,.13); color: var(--yellow); }
 
-  animation:
-    chantPop .6s
-    cubic-bezier(.15,1.55,.4,1)
-    forwards;
-}
+    .numbers { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin: auto 0; padding: 30px 0 21px; }
 
+    .number-tile { aspect-ratio: 1; max-height: 125px; min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 17px; border: 2px solid #ffd34f55; background: linear-gradient(145deg, #ffe38e, #ffcb3c); color: #2e2615; box-shadow: 0 7px 0 #a77918, 0 14px 22px #0006; opacity: 0; transform: translateY(25px) scale(.65) rotate(-10deg); }
 
-@keyframes chantPop{
+    .number-tile.show { animation: numberPop .55s cubic-bezier(.18,1.4,.4,1) forwards; }
 
-  0%{
-    opacity:0;
+    .number-tile .tile-label { font-size: 9px; font-weight: 900; opacity: .65; text-transform: uppercase; letter-spacing: .14em; }
 
-    transform:
-      scale(.2)
-      rotate(-12deg);
-  }
+    .number-tile .tile-number { font-weight: 1000; font-size: clamp(18px, 2.4vw, 34px); line-height: 1.15; white-space: nowrap; }
 
-  65%{
-    opacity:1;
+    @keyframes numberPop { to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
 
-    transform:
-      scale(1.2)
-      rotate(5deg);
-  }
+    .countdown { color: var(--muted); font-size: 13px; min-height: 23px; }
 
-  100%{
-    opacity:1;
+    .draw-footer { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
 
-    transform:
-      scale(1)
-      rotate(0);
-  }
-}
+    .edit-hint { color: #e6ca75; font-size: 11px; }
 
+    .note { color: var(--muted); font-size: 12px; }
 
-.caption{
+    .history { margin-top: 18px; padding: 21px 24px; }
 
-  position:absolute;
+    .section-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 15px; }
 
-  bottom:20px;
+    .section-heading h2 { margin: 0; font-size: 21px; letter-spacing: -.02em; }
 
-  font-size:clamp(15px,1.7vw,23px);
+    .section-heading span { color: var(--muted); font-size: 12px; }
 
-  font-weight:700;
+    .history-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 10px; }
 
-  opacity:.75;
-}
+    .history-day { min-width: 0; padding: 13px 12px; border: 1px solid var(--line); border-radius: 13px; background: #0e192b; }
 
+    .history-day h3 { margin: 0 0 9px; font-size: 12px; color: #f1f4ff; }
 
-/* =====================================================
-   KIDS
-===================================================== */
+    .old-numbers { display: flex; flex-wrap: wrap; gap: 6px; }
 
-.kids{
+    .old-number { display: inline-flex; align-items: center; justify-content: center; padding: 5px 7px; border-radius: 7px; border: 1px solid rgba(255,211,79,.25); background: rgba(255,211,79,.10); color: #ffdc78; font-size: 11px; font-weight: 900; }
 
-  position:absolute;
+    .vote-panel { margin-top: 18px; padding: 23px 25px; }
 
-  left:50%;
-  bottom:67px;
+    .vote-panel h2 { margin: 4px 0 7px; font-size: 23px; }
 
-  transform:translateX(-50%);
+    .vote-panel p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
 
-  width:min(94vw,1200px);
-  height:270px;
+    .choice-buttons, .cast-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  display:flex;
+    .btn { min-height: 43px; padding: 10px 17px; border-radius: 12px; border: 1px solid #ffffff42; background: #2d4260; color: white; font-weight: 800; font-size: 14px; transition: transform .15s, background .15s; }
 
-  justify-content:space-around;
+    .btn:hover { transform: translateY(-2px); background: #415a7d; }
 
-  align-items:flex-end;
+    .btn.primary { background: var(--yellow); border-color: var(--yellow); color: var(--yellow-dark); }
 
-  z-index:20;
-}
+    .btn.primary:hover { background: #ffdf78; }
 
+    .btn.ghost { background: transparent; }
 
-.kid{
+    .btn.selected { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
-  position:relative;
+    .response { display: grid; grid-template-columns: 155px minmax(0,1fr); align-items: center; gap: 20px; margin-top: 19px; padding: 16px; border-radius: 15px; background: #0c1629; border: 1px solid var(--line); animation: responseIn .4s ease both; }
 
-  width:120px;
-  height:230px;
+    @keyframes responseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-  transform-origin:bottom center;
-}
+    .reaction-img { width: 150px; height: 152px; object-fit: contain; border-radius: 12px; background: #273954; }
 
+    .response h3 { margin: 0 0 6px; color: var(--yellow); font-size: 23px; line-height: 1.16; }
 
-/* alternate dancing timing */
+    .response p { margin: 0 0 12px; color: #dce5f4; }
 
-.kid:nth-child(1){
-  animation:danceA .38s infinite alternate ease-in-out;
-}
+    .cast-caption { margin-top: 11px !important; font-size: 11px !important; color: var(--muted) !important; }
 
-.kid:nth-child(2){
-  animation:danceB .42s infinite alternate ease-in-out;
-}
+    #voteMessage { margin-top: 10px; color: #ffdb78; font-weight: 800; font-size: 13px; min-height: 20px; }
 
-.kid:nth-child(3){
-  animation:danceA .34s infinite alternate ease-in-out;
-}
+    .footer { margin-top: 17px; text-align: center; color: #7789a6; font-size: 12px; }
 
-.kid:nth-child(4){
-  animation:danceB .39s infinite alternate ease-in-out;
-}
 
-.kid:nth-child(5){
-  animation:danceA .36s infinite alternate ease-in-out;
-}
+    /* One-click mascot ballot */
+    .mascot-choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+    .mascot-choice { display: flex; align-items: center; justify-content: center; gap: 15px; min-height: 94px; padding: 17px 16px; border-radius: 15px; text-align: left; transition: transform .15s, box-shadow .15s; }
+    .mascot-choice:hover { transform: translateY(-3px); }
+    .mascot-choice .choice-icon { font-size: 37px; line-height: 1; }
+    .mascot-choice strong { display: block; font-size: 22px; line-height: 1.2; }
+    .mascot-choice small { display: block; margin-top: 4px; font-size: 12px; font-weight: 600; }
+    .mascot-choice.cat-choice { background: #ffd34f; color: #2c2308; border: 2px solid #fff1ad; }
+    .mascot-choice.dog-choice { background: #a5ddff; color: #082d48; border: 2px solid #d1efff; }
+    .mascot-choice.selected { box-shadow: 0 0 0 3px #ffffff, 0 0 0 6px #ffd34f80; }
+    .mascot-choice:disabled { cursor: wait; opacity: .72; }
+    .vote-message { margin-top: 17px; min-height: 25px; font-weight: 800; color: #ffdc78; }
+    .vote-panel .cast-caption { margin-bottom: 0; }
+    @media (max-width: 580px) {
+      .mascot-choices { grid-template-columns: 1fr; }
+      .mascot-choice { min-height: 80px; }
+    }
 
-.kid:nth-child(6){
-  animation:danceB .41s infinite alternate ease-in-out;
-}
+    @media (max-width: 860px) {
 
+      .main-grid { grid-template-columns: 1fr; }
 
-@keyframes danceA{
+      .takeover { min-height: 365px; }
 
-  from{
-    transform:
-      translateY(4px)
-      rotate(-3deg);
-  }
+      .draw { min-height: 305px; }
 
-  to{
-    transform:
-      translateY(-22px)
-      rotate(4deg);
-  }
-}
+      .history-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
 
+      .numbers { padding: 20px 0; }
 
-@keyframes danceB{
+    }
 
-  from{
-    transform:
-      translateY(-17px)
-      rotate(4deg);
-  }
+    @media (max-width: 580px) {
 
-  to{
-    transform:
-      translateY(5px)
-      rotate(-4deg);
-  }
-}
+      .shell { width: min(100% - 22px, 520px); padding-top: 15px; }
 
+      .brand { font-size: 15px; }
 
-/* head */
+      .pills .pill:last-child { display: none; }
 
-.head{
+      .takeover { min-height: 390px; padding: 18px; }
 
-  position:absolute;
+      .speech { max-width: 100%; }
 
-  left:34px;
-  top:10px;
+      .mascot-photo { width: 72%; height: 240px; right: -2%; }
 
-  width:54px;
-  height:58px;
+      .dog-poster { width: 117px; height: 144px; bottom: 52px; }
 
-  border-radius:48%;
+      .draw { padding: 20px 16px; }
 
-  background:#d99766;
+      .numbers { gap: 6px; }
 
-  z-index:5;
-}
+      .number-tile { min-height: 65px; border-radius: 11px; }
 
+      .number-tile .tile-number { font-size: clamp(16px, 4.4vw, 25px); }
 
-/* hair */
+      .history, .vote-panel { padding: 19px 16px; }
 
-.hair{
+      .history-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 
-  position:absolute;
+      .response { grid-template-columns: 1fr; text-align: center; }
 
-  left:32px;
-  top:6px;
+      .reaction-img { margin: 0 auto; }
 
-  width:58px;
-  height:28px;
+      .cast-buttons { justify-content: center; }
 
-  border-radius:
-    35px 35px 10px 15px;
+    }
 
-  background:#30231c;
+    @media (prefers-reduced-motion: reduce) {
 
-  z-index:6;
-}
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 
+    }
 
-/* face */
+  </style>
 
-.eye{
-
-  position:absolute;
-
-  top:33px;
-
-  width:5px;
-  height:5px;
-
-  background:#222;
-
-  border-radius:50%;
-
-  z-index:7;
-}
-
-.eye.one{
-  left:49px;
-}
-
-.eye.two{
-  left:70px;
-}
-
-
-.smile{
-
-  position:absolute;
-
-  left:55px;
-  top:47px;
-
-  width:18px;
-  height:9px;
-
-  border-bottom:3px solid #8e4c42;
-
-  border-radius:50%;
-
-  z-index:7;
-}
-
-
-/* body */
-
-.kid-body{
-
-  position:absolute;
-
-  left:24px;
-  top:62px;
-
-  width:75px;
-  height:105px;
-
-  border-radius:
-    22px 22px 10px 10px;
-
-  background:#4477b5;
-
-  z-index:3;
-}
-
-
-.kid:nth-child(2) .kid-body{
-  background:#d15f5f;
-}
-
-.kid:nth-child(3) .kid-body{
-  background:#4f9368;
-}
-
-.kid:nth-child(4) .kid-body{
-  background:#7b63b5;
-}
-
-.kid:nth-child(5) .kid-body{
-  background:#d88940;
-}
-
-.kid:nth-child(6) .kid-body{
-  background:#438c9a;
-}
-
-
-/* =====================================================
-   ARMS
-   This is the stupid alternating 6-7 style motion 😂
-===================================================== */
-
-.arm{
-
-  position:absolute;
-
-  top:83px;
-
-  width:82px;
-  height:17px;
-
-  border-radius:20px;
-
-  background:#d99766;
-
-  transform-origin:10px center;
-
-  z-index:2;
-}
-
-
-.arm.left{
-
-  left:-17px;
-
-  animation:
-    armLeft .32s
-    infinite alternate
-    ease-in-out;
-}
-
-
-.arm.right{
-
-  right:-17px;
-
-  transform-origin:72px center;
-
-  animation:
-    armRight .32s
-    infinite alternate
-    ease-in-out;
-}
-
-
-@keyframes armLeft{
-
-  from{
-    transform:
-      rotate(-52deg)
-      translateY(-8px);
-  }
-
-  to{
-    transform:
-      rotate(25deg)
-      translateY(10px);
-  }
-}
-
-
-@keyframes armRight{
-
-  from{
-    transform:
-      rotate(-25deg)
-      translateY(10px);
-  }
-
-  to{
-    transform:
-      rotate(52deg)
-      translateY(-8px);
-  }
-}
-
-
-/* hands */
-
-.hand{
-
-  position:absolute;
-
-  width:23px;
-  height:23px;
-
-  border-radius:50%;
-
-  background:#d99766;
-}
-
-
-.arm.left .hand{
-
-  left:-8px;
-  top:-3px;
-}
-
-
-.arm.right .hand{
-
-  right:-8px;
-  top:-3px;
-}
-
-
-/* =====================================================
-   LEGS
-===================================================== */
-
-.leg{
-
-  position:absolute;
-
-  top:160px;
-
-  width:18px;
-  height:70px;
-
-  border-radius:10px;
-
-  background:#253445;
-
-  z-index:1;
-}
-
-
-.leg.one{
-  left:37px;
-
-  transform:rotate(4deg);
-}
-
-
-.leg.two{
-  left:70px;
-
-  transform:rotate(-4deg);
-}
-
-
-/* =====================================================
-   GIANT FLOATING 6 AND 7
-===================================================== */
-
-.float-number{
-
-  position:absolute;
-
-  z-index:18;
-
-  font-size:95px;
-
-  font-weight:1000;
-
-  opacity:0;
-
-  color:#23364a;
-
-  text-shadow:
-    0 5px 0 rgba(0,0,0,.12);
-}
-
-
-.float-number.six{
-
-  left:7%;
-  top:43%;
-}
-
-
-.float-number.seven{
-
-  right:7%;
-  top:43%;
-}
-
-
-.float-number.show-six{
-
-  animation:
-    floatSix .7s ease forwards;
-}
-
-
-.float-number.show-seven{
-
-  animation:
-    floatSeven .7s ease forwards;
-}
-
-
-@keyframes floatSix{
-
-  0%{
-    opacity:0;
-
-    transform:
-      translateX(-80px)
-      rotate(-25deg)
-      scale(.4);
-  }
-
-  70%{
-    opacity:1;
-
-    transform:
-      translateX(10px)
-      rotate(5deg)
-      scale(1.2);
-  }
-
-  100%{
-    opacity:1;
-
-    transform:
-      translateX(0)
-      scale(1);
-  }
-}
-
-
-@keyframes floatSeven{
-
-  0%{
-    opacity:0;
-
-    transform:
-      translateX(80px)
-      rotate(25deg)
-      scale(.4);
-  }
-
-  70%{
-    opacity:1;
-
-    transform:
-      translateX(-10px)
-      rotate(-5deg)
-      scale(1.2);
-  }
-
-  100%{
-    opacity:1;
-
-    transform:
-      translateX(0)
-      scale(1);
-  }
-}
-
-
-/* =====================================================
-   SCREEN SHAKE
-===================================================== */
-
-.scene.chaos{
-
-  animation:
-    wholeSceneShake .1s infinite;
-}
-
-
-@keyframes wholeSceneShake{
-
-  0%{
-    transform:translate(0,0);
-  }
-
-  25%{
-    transform:translate(-3px,1px);
-  }
-
-  50%{
-    transform:translate(3px,-1px);
-  }
-
-  75%{
-    transform:translate(-2px,-2px);
-  }
-
-  100%{
-    transform:translate(2px,2px);
-  }
-}
-
-
-/* =====================================================
-   FLASH
-===================================================== */
-
-.flash{
-
-  position:fixed;
-
-  inset:0;
-
-  background:white;
-
-  opacity:0;
-
-  z-index:80;
-
-  pointer-events:none;
-}
-
-
-.flash.go{
-
-  animation:
-    flash .55s ease;
-}
-
-
-@keyframes flash{
-
-  0%{
-    opacity:0;
-  }
-
-  30%{
-    opacity:1;
-  }
-
-  100%{
-    opacity:0;
-  }
-}
-
-
-/* =====================================================
-   FINAL REVEAL
-===================================================== */
-
-.final{
-
-  position:fixed;
-
-  inset:0;
-
-  z-index:100;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  background:
-
-    radial-gradient(
-      circle at center,
-      #ffec78 0%,
-      #ffbf36 38%,
-      #f47b20 100%
-    );
-}
-
-
-.final.show{
-
-  animation:
-    finalBackground .5s forwards;
-}
-
-
-@keyframes finalBackground{
-
-  to{
-    opacity:1;
-  }
-}
-
-
-.final-small{
-
-  font-size:
-    clamp(17px,2vw,28px);
-
-  font-weight:900;
-
-  letter-spacing:7px;
-
-  color:#382813;
-
-  margin-bottom:20px;
-
-  opacity:0;
-}
-
-
-.final.show .final-small{
-
-  animation:
-    fadeUp .6s .2s forwards;
-}
-
-
-.final-number{
-
-  font-size:
-    clamp(180px,31vw,430px);
-
-  line-height:.8;
-
-  font-weight:1000;
-
-  letter-spacing:-20px;
-
-  color:#171717;
-
-  text-shadow:
-
-    0 8px 0 white,
-
-    0 18px 35px
-    rgba(0,0,0,.25);
-
-  transform:
-    scale(0)
-    rotate(-12deg);
-}
-
-
-.final.show .final-number{
-
-  animation:
-    massive67
-    1s
-    .15s
-    cubic-bezier(.15,1.55,.4,1)
-    forwards;
-}
-
-
-@keyframes massive67{
-
-  0%{
-    transform:
-      scale(0)
-      rotate(-15deg);
-  }
-
-  65%{
-    transform:
-      scale(1.23)
-      rotate(5deg);
-  }
-
-  82%{
-    transform:
-      scale(.94)
-      rotate(-2deg);
-  }
-
-  100%{
-    transform:
-      scale(1)
-      rotate(0);
-  }
-}
-
-
-.final-caption{
-
-  margin-top:40px;
-
-  padding:13px 24px;
-
-  border-radius:50px;
-
-  background:rgba(255,255,255,.65);
-
-  font-size:
-    clamp(18px,2vw,27px);
-
-  font-weight:900;
-
-  color:#3a2916;
-
-  opacity:0;
-}
-
-
-.final.show .final-caption{
-
-  animation:
-    fadeUp .7s 1s forwards;
-}
-
-
-@keyframes fadeUp{
-
-  from{
-    opacity:0;
-
-    transform:
-      translateY(20px);
-  }
-
-  to{
-    opacity:1;
-
-    transform:
-      translateY(0);
-  }
-}
-
-
-/* =====================================================
-   CONFETTI
-===================================================== */
-
-.confetti{
-
-  position:fixed;
-
-  top:-30px;
-
-  width:12px;
-  height:20px;
-
-  z-index:130;
-
-  animation:
-    confettiFall
-    linear
-    forwards;
-}
-
-
-@keyframes confettiFall{
-
-  to{
-
-    transform:
-      translateY(115vh)
-      rotate(1000deg);
-
-    opacity:.5;
-  }
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:800px){
-
-  .kid:nth-child(1),
-  .kid:nth-child(6){
-    display:none;
-  }
-
-  .kids{
-    width:100%;
-  }
-
-  .kid{
-    transform:scale(.8);
-  }
-
-  .float-number{
-    font-size:65px;
-  }
-
-}
-
-
-/* -------------------------------------------------------
-   DAY 5: THE REAL NUMBERS + PREVIOUS NUMBERS
-------------------------------------------------------- */
-.skip-btn {
-  position:fixed; right:20px; bottom:17px; z-index:145;
-  background:rgba(35,54,74,.9); border:1px solid rgba(255,255,255,.4);
-  color:#fff; border-radius:999px; padding:10px 17px;
-  font:700 13px "Segoe UI",Arial,sans-serif; cursor:pointer;
-  box-shadow:0 5px 14px rgba(0,0,0,.15);
-}
-.skip-btn:hover,.skip-btn:focus-visible {background:#476079; outline:2px solid #fff; outline-offset:2px;}
-.results {
-  position:fixed; inset:0; z-index:150; opacity:0;
-  visibility:hidden; pointer-events:none;
-  background:radial-gradient(circle at 51% 0%,#fff8e3 0%,#f5e8cd 50%,#e6d1ab 100%);
-  overflow-y:auto; padding:clamp(18px,3.5vh,36px) 18px;
-  transition:opacity .5s ease,visibility .5s ease;
-}
-.results.show {opacity:1; visibility:visible; pointer-events:auto;}
-.results-inner {width:min(960px,100%); margin:0 auto; text-align:center;}
-.eyebrow {display:inline-block; background:#243a4b; color:white; padding:9px 18px;
-  border-radius:999px; font-size:clamp(12px,1.3vw,15px); letter-spacing:2px;
-  font-weight:900;}
-.results h1 {font-size:clamp(28px,5vw,55px); margin:17px 0 7px;
-  line-height:1.08; color:#25384b; letter-spacing:-1.6px;}
-.subtitle {color:#674c38; margin:0 0 21px; font-size:clamp(14px,1.6vw,18px); font-weight:650;}
-.number-grid {display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px;
-  margin:0 auto 22px;}
-.number-card {min-height:132px; display:flex; flex-direction:column; justify-content:center;
-  align-items:center; border-radius:20px; border:3px solid rgba(43,58,73,.12);
-  background:#fffef9; box-shadow:0 8px 0 rgba(111,74,42,.12),0 14px 22px rgba(72,51,32,.10);
-  opacity:0; transform:translateY(60px) scale(.7);}
-.results.show .number-card {animation:cardPop .7s cubic-bezier(.15,1.45,.3,1) forwards;}
-.results.show .number-card:nth-child(1) {animation-delay:.15s;}
-.results.show .number-card:nth-child(2) {animation-delay:.45s;}
-.results.show .number-card:nth-child(3) {animation-delay:.75s;}
-.results.show .number-card:nth-child(4) {animation-delay:1.05s;}
-@keyframes cardPop{70%{opacity:1;transform:translateY(-9px) scale(1.05)}100%{opacity:1;transform:translateY(0) scale(1)}}
-.ball-letter {display:flex; align-items:center; justify-content:center; font-weight:1000;
-  color:#fff; width:45px; height:45px; border-radius:50%; font-size:27px;
-  box-shadow:inset -4px -6px 0 rgba(0,0,0,.13), 0 4px 10px rgba(0,0,0,.12);}
-.ball-number {font-size:clamp(34px,5vw,63px); font-weight:1000; color:#1c3045;
-  line-height:1.05; margin-top:7px;}
-.i-ball {background:#117d97;} .b-ball {background:#ad3a50;} .g-ball {background:#348660;}
-.history {background:rgba(255,255,255,.77); border:2px solid rgba(112,82,54,.15);
-  box-shadow:0 10px 26px rgba(86,61,35,.1); border-radius:18px; padding:17px 20px 13px;}
-.history-top {display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:10px;}
-.history h2 {font-size:20px; margin:0; color:#25384b; text-align:left;}
-.history-tag {font-size:12px; font-weight:750; color:#805333;}
-.history-row {display:grid; grid-template-columns:130px repeat(4,1fr); gap:5px;
-  text-align:center; padding:9px 3px; border-top:1px solid #e9dfcf;
-  align-items:center; font-weight:800; color:#3b4857;}
-.history-row .date {text-align:left; font-size:13px; color:#746453;}
-.past-number {display:inline-flex; justify-content:center; align-items:center; min-height:26px;
-  padding:3px 7px; border-radius:8px; font-size:14px;}
-.famous {background:#ffe17b; color:#5d3710; border:2px solid #ec9a24; box-shadow:0 0 0 3px rgba(236,154,36,.13);}
-.history-note {color:#745437; font-size:12px; margin:9px 0 0; font-weight:700;}
-.action-row {display:flex; align-items:center; justify-content:center; gap:10px; margin-top:16px;}
-.action-row button {cursor:pointer; border:0; border-radius:999px; padding:11px 20px;
-  background:#243a4b; color:white; font-weight:800; font-size:14px;}
-.action-row button:hover,.action-row button:focus-visible {background:#43637e;}
-.results-confetti {pointer-events:none;}
-@media(max-width:650px){
-  .number-grid {grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px;}
-  .number-card {min-height:110px;}
-  .ball-letter {width:36px; height:36px; font-size:22px;}
-  .results h1 {font-size:clamp(27px,7vw,42px);}
-  .history {padding:12px 9px;}
-  .history-top {flex-direction:column; align-items:start;}
-  .history-row {grid-template-columns:90px repeat(4,minmax(0,1fr)); gap:2px; padding:8px 0;}
-  .history-row .date {font-size:11px;}
-  .past-number {font-size:12px; padding:4px 0;}
-  .history h2 {font-size:17px;}
-  .banner {font-size:11px; letter-spacing:1px; padding:12px 14px;}
-  .final-number {letter-spacing:-6px;}
-  .final-caption {font-size:17px; text-align:center; margin:28px 15px 0;}
-}
-@media(prefers-reduced-motion:reduce){
-  .results.show .number-card{animation:none; opacity:1; transform:none;}
-  .kid,.arm.left,.arm.right {animation:none!important;}
-  .scene.chaos {animation:none!important;}
-  .results {transition:none;}
-}
-
-</style>
 </head>
-
 
 <body>
 
+  <main class="shell">
 
-<div
-  class="scene"
-  id="scene">
+    <div class="topbar">
 
+      <div class="brand"><span class="brand-mark">B</span><span>OFFICE BINGO</span></div>
 
-  <div class="banner">
-
-    UNITED WAY BINGO · DAY 5 · OCT 23
-
-  </div>
-
-
-  <div class="board-frame">
-
-    <div class="board">
-
-      <div class="board-small">
-
-        One more thing about yesterday...
-
-      </div>
-
-
-      <div
-        class="chant"
-        id="chant">
-
-        6
-
-      </div>
-
-
-      <div class="caption">
-
-        wait, why are they doing this again? 😭
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="float-number six"
-    id="floatingSix">
-
-    6
-
-  </div>
-
-
-  <div
-    class="float-number seven"
-    id="floatingSeven">
-
-    7
-
-  </div>
-
-
-  <!-- KIDS -->
-
-  <div class="kids">
-
-
-    <div class="kid">
-
-      <div class="hair"></div>
-      <div class="head"></div>
-
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
-
-      <div class="kid-body"></div>
-
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
-
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
-
-      <div class="leg one"></div>
-      <div class="leg two"></div>
+      <div class="pills"><span class="pill hot">DAY 06</span><span class="pill">MONDAY • OCT 26</span><span class="pill">MASCOT UPDATE</span></div>
 
     </div>
 
 
-    <div class="kid">
 
-      <div class="hair"></div>
-      <div class="head"></div>
+    <header class="headline">
 
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
+      <h1>New week. New management. <span aria-hidden="true">🐾</span></h1>
 
-      <div class="kid-body"></div>
+      <p>Welcome to another completely normal day of office Bingo.</p>
 
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
-
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
-
-      <div class="leg one"></div>
-      <div class="leg two"></div>
-
-    </div>
+    </header>
 
 
-    <div class="kid">
 
-      <div class="hair"></div>
-      <div class="head"></div>
+    <div class="main-grid">
 
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
+      <section class="card takeover" aria-label="Mascot takeover animation">
 
-      <div class="kid-body"></div>
+        <div class="eyebrow">Breaking office news</div>
 
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
+        <button class="replay" type="button" id="replayBtn">↻ Replay intro</button>
 
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
+        <div class="speech" role="status" aria-live="polite">
 
-      <div class="leg one"></div>
-      <div class="leg two"></div>
+          <strong id="speechTitle">Happy Monday, everyone.</strong>
 
-    </div>
+          <small id="speechSub">This is your new Bingo mascot speaking.</small>
 
+        </div>
 
-    <div class="kid">
+        <div class="dog-poster" id="dogPoster" aria-hidden="true">
 
-      <div class="hair"></div>
-      <div class="head"></div>
+          <div class="poster-half poster-left"><img id="posterDogLeft" alt=""><span>FORMER MASCOT</span></div>
 
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
+          <div class="poster-half poster-right"><img id="posterDogRight" alt=""><span>FORMER MASCOT</span></div>
 
-      <div class="kid-body"></div>
+        </div>
 
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
+        <img class="mascot-photo" id="bossCat" alt="Cat dressed as an office boss" loading="eager">
 
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
+        <div class="nameplate"><b>THE NEW BOSS</b><span>Officially self-appointed</span></div>
 
-      <div class="leg one"></div>
-      <div class="leg two"></div>
+        <div class="soundless">No sound. Maximum drama.</div>
 
-    </div>
+      </section>
 
 
-    <div class="kid">
 
-      <div class="hair"></div>
-      <div class="head"></div>
+      <section class="card draw" id="draw" aria-label="Today's Bingo numbers">
 
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
+        <div class="draw-head">
 
-      <div class="kid-body"></div>
+          <div>
 
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
+            <div class="eyebrow">Monday, October 26, 2026</div>
 
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
+            <h2 class="draw-title">Today's Bingo Numbers</h2>
 
-      <div class="leg one"></div>
-      <div class="leg two"></div>
+            <p class="draw-sub">Four numbers, courtesy of your new mascot.</p>
+
+          </div>
+
+          <span class="draw-status" id="drawStatus">COMING UP</span>
+
+        </div>
+
+        <div class="numbers" id="numbers" aria-live="polite">
+
+          <div class="number-tile"><span class="tile-label">Ball 01</span><span class="tile-number">?</span></div>
+
+          <div class="number-tile"><span class="tile-label">Ball 02</span><span class="tile-number">?</span></div>
+
+          <div class="number-tile"><span class="tile-label">Ball 03</span><span class="tile-number">?</span></div>
+
+          <div class="number-tile"><span class="tile-label">Ball 04</span><span class="tile-number">?</span></div>
+
+        </div>
+
+        <div class="countdown" id="revealMessage">Please stand by. Mascot management is changing.</div>
+
+        <div class="draw-footer">
+
+          <span class="note">The draw reveals automatically. No clicking required.</span>
+
+          <span class="edit-hint" id="placeholderHint" hidden>Verified: all four Day 6 numbers are entered.</span>
+
+        </div>
+
+      </section>
 
     </div>
 
 
-    <div class="kid">
 
-      <div class="hair"></div>
-      <div class="head"></div>
+    <section class="card history" aria-label="Previous Bingo numbers">
 
-      <div class="eye one"></div>
-      <div class="eye two"></div>
-      <div class="smile"></div>
+      <div class="section-heading"><h2>Previous Numbers</h2><span>October 19–23, 2026</span></div>
 
-      <div class="kid-body"></div>
+      <div class="history-grid" id="historyGrid"></div>
 
-      <div class="arm left">
-        <div class="hand"></div>
-      </div>
-
-      <div class="arm right">
-        <div class="hand"></div>
-      </div>
-
-      <div class="leg one"></div>
-      <div class="leg two"></div>
-
-    </div>
-
-
-  </div>
-
-
-  <div class="wall-line"></div>
-
-</div>
-
-
-
-<!-- FLASH -->
-
-<div
-  class="flash"
-  id="flash">
-</div>
-
-
-
-<!-- FINAL REVEAL -->
-
-<div
-  class="final"
-  id="final">
-
-
-  <div class="final-small">
-
-    OH NO... NOT AGAIN!
-
-  </div>
-
-
-  <div class="final-number">
-
-    67
-
-  </div>
-
-
-  <div class="final-caption">
-
-    O67 was called YESTERDAY! 😂
-
-  </div>
-
-
-</div>
-
-
-
-
-<!-- Day 5 result screen -->
-<button class="skip-btn" id="skipBtn" type="button" aria-label="Skip animation and show today's BINGO numbers">Skip to numbers →</button>
-<section class="results" id="results" aria-label="Friday October 23 Day 5 BINGO numbers">
-  <div class="results-inner">
-    <div class="eyebrow">FRIDAY · OCTOBER 23, 2026 · DAY 5</div>
-    <h1>🎉 TODAY'S BINGO NUMBERS 🎉</h1>
-    <p class="subtitle">67 was yesterday's surprise. Here's what we're calling today 😖 (You can blame one of our slightly distracted analysts for the confusion!🫥)!</p>
-    <div class="number-grid" aria-label="Today's four numbers">
-      <div class="number-card" aria-label="I 28"><span class="ball-letter i-ball">I</span><span class="ball-number">28</span></div>
-      <div class="number-card" aria-label="B 4"><span class="ball-letter b-ball">B</span><span class="ball-number">4</span></div>
-      <div class="number-card" aria-label="G 53"><span class="ball-letter g-ball">G</span><span class="ball-number">53</span></div>
-      <div class="number-card" aria-label="I 20"><span class="ball-letter i-ball">I</span><span class="ball-number">20</span></div>
-    </div>
-    <section class="history" aria-label="Previously called BINGO numbers">
-      <div class="history-top"><h2>📋 Previous numbers</h2><span class="history-tag">Don't forget to mark these on your cards!</span></div>
-      <div class="history-row"><span class="date">Mon, Oct 19</span><span class="past-number">G50</span><span class="past-number">I26</span><span class="past-number">O73</span><span class="past-number">O66</span></div>
-      <div class="history-row"><span class="date">Tue, Oct 20</span><span class="past-number">G52</span><span class="past-number">I21</span><span class="past-number">B14</span><span class="past-number">I22</span></div>
-      <div class="history-row"><span class="date">Wed, Oct 21</span><span class="past-number">G47</span><span class="past-number">B10</span><span class="past-number">O70</span><span class="past-number">I27</span></div>
-      <div class="history-row"><span class="date">Thu, Oct 22</span><span class="past-number">G56</span><span class="past-number famous" title="The infamous 67!">O67 👀</span><span class="past-number">B1</span><span class="past-number">N36</span></div>
-      <p class="history-note">😅 Oh no, 67! We are still not over yesterday.</p>
     </section>
-    <div class="action-row"><button id="replayBtn" type="button">↻ Replay the 6-7 dance</button></div>
-  </div>
-</section>
 
-<script>
-'use strict';
-// Day 5 sequence. 67 (O67) was on Thursday Oct 22; today's numbers are I28 B4 G53 I20.
-const chant = document.getElementById('chant');
-const scene = document.getElementById('scene');
-const floatingSix = document.getElementById('floatingSix');
-const floatingSeven = document.getElementById('floatingSeven');
-const flash = document.getElementById('flash');
-const final = document.getElementById('final');
-const results = document.getElementById('results');
-const skipBtn = document.getElementById('skipBtn');
-const replayBtn = document.getElementById('replayBtn');
-let timers=[];
-let confettiPieces=[];
-let generation=0;
-function delay(fn,ms){let id=setTimeout(fn,ms); timers.push(id);}
-function stopTimers(){for(let id of timers) clearTimeout(id); timers=[];}
-function pop(text){
-  chant.textContent=text;
-  chant.classList.remove('pop');
-  void chant.offsetWidth;
-  chant.classList.add('pop');
-}
-function confetti(){
-  const colors=['#ff4757','#2ed573','#1e90ff','#ffdd59','#a55eea','#ff7f50'];
-  for(let i=0;i<100;i++){
-    const piece=document.createElement('div');
-    piece.className='confetti results-confetti';
-    piece.style.left=Math.random()*100+'vw';
-    piece.style.background=colors[Math.floor(Math.random()*colors.length)];
-    piece.style.animationDuration=(Math.random()*2.5+2)+'s';
-    piece.style.animationDelay=(Math.random()*.6)+'s';
-    piece.style.borderRadius=Math.random()>.5?'50%':'2px';
-    document.body.appendChild(piece); confettiPieces.push(piece);
-    delay(()=>{piece.remove();confettiPieces=confettiPieces.filter(p=>p!==piece);},5700);
-  }
-}
-function showResults(){
-  scene.classList.remove('chaos');
-  final.classList.remove('show');
-  results.classList.add('show');
-  skipBtn.hidden=true;
-  skipBtn.style.display='none';
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) confetti();
-}
-function reset(){
-  generation++; stopTimers(); confettiPieces.forEach(p=>p.remove()); confettiPieces=[];
-  results.classList.remove('show'); final.classList.remove('show');
-  flash.classList.remove('go'); scene.classList.remove('chaos');
-  floatingSix.classList.remove('show-six'); floatingSeven.classList.remove('show-seven');
-  chant.classList.remove('pop'); chant.textContent='6';
-  skipBtn.hidden=false; skipBtn.style.display='block';
-}
-function play(){
-  reset();
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){showResults(); return;}
-  delay(()=>{pop('6'); floatingSix.classList.add('show-six');},700);
-  delay(()=>{pop('7'); floatingSeven.classList.add('show-seven');},1500);
-  delay(()=>pop('6!'),2250);
-  delay(()=>pop('7!'),2900);
-  delay(()=>pop('6 7!'),3550);
-  delay(()=>{scene.classList.add('chaos');pop('6! 7!');},4200);
-  delay(()=>pop('67!'),4850);
-  delay(()=>pop('67 67 67'),5450);
-  delay(()=>{scene.classList.remove('chaos');flash.classList.add('go');},6200);
-  delay(()=>{final.classList.add('show');},6500);
-  delay(showResults,8650);
-}
-skipBtn.addEventListener('click',()=>{stopTimers();showResults();});
-replayBtn.addEventListener('click',play);
-window.addEventListener('load',()=>delay(play,400));
-</script>
+
+
+    <section class="card vote-panel" aria-label="Mascot election">
+
+      <div class="eyebrow">Unofficial mascot committee</div>
+
+      <h2>Who should be the Bingo mascot? 🐾</h2>
+
+      <p>Cast your vote below. Will the new boss keep the job, or is the dog making a comeback?</p>
+
+      <div class="choice-buttons mascot-choices" role="group" aria-label="Choose your mascot">
+
+        <button class="btn mascot-choice cat-choice" id="keepCatBtn" type="button" aria-pressed="false">
+          <span class="choice-icon" aria-hidden="true">😎</span>
+          <span><strong>Vote Cat</strong><small>Keep the new boss!</small></span>
+        </button>
+
+        <button class="btn mascot-choice dog-choice" id="changeMascotBtn" type="button" aria-pressed="false">
+          <span class="choice-icon" aria-hidden="true">🐶</span>
+          <span><strong>Vote Dog</strong><small>Bring back the legend!</small></span>
+        </button>
+
+      </div>
+
+      <div id="voteMessage" class="vote-message" role="status" aria-live="polite">Choose Cat or Dog to make your selection.</div>
+      <p class="cast-caption" id="voteHelp">Preview mode: a Power Automate URL is needed to record votes and notify the organizer.</p>
+
+      <div class="response" id="reactionPanel" hidden>
+        <img id="reactionImage" class="reaction-img" alt="Mascot reaction">
+        <div>
+          <h3 id="reactionTitle"></h3>
+          <p id="reactionText"></p>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="footer">Please direct all mascot-related complaints to the Department of Absolutely Serious Bingo Matters.</footer>
+
+  </main>
+
+
+
+  <script>
+
+    /* =========================================================
+
+       OFFICIAL DAY 6 BINGO NUMBERS • MONDAY, OCTOBER 26, 2026.
+
+       ========================================================= */
+
+    const TODAY_NUMBERS = ["N39", "G60", "O71", "O73"];
+
+
+
+    const PREVIOUS_DAYS = [
+
+      { label: "MON • OCT 19", numbers: ["G50", "I26", "O73", "O66"] },
+
+      { label: "TUE • OCT 20", numbers: ["G52", "I21", "B14", "I22"] },
+
+      { label: "WED • OCT 21", numbers: ["G47", "B10", "O70", "I27"] },
+
+      { label: "THU • OCT 22", numbers: ["G56", "O67", "B1", "N36"] },
+
+      { label: "FRI • OCT 23", numbers: ["G53", "B4", "I28", "I20"] }
+
+    ];
+
+
+
+    /* =========================================================
+
+       OPTIONAL ORIGINAL PHOTOS IN THE SAME FOLDER AS THIS HTML.
+
+       If unavailable, self-contained illustrations are shown.
+
+       ========================================================= */
+
+    /* Illustrated fallback mascots keep this a working single-file HTML.
+       If you have the original mascot PNGs, place them beside this file
+       and those photographs take precedence automatically. */
+    const mascotFallback = {
+      bossCat: `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500"><defs><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#324c6e"/><stop offset="1" stop-color="#182237"/></linearGradient><filter id="shadow"><feGaussianBlur stdDeviation="8"/></filter></defs><ellipse cx="265" cy="470" rx="160" ry="19" fill="#000" opacity=".22" filter="url(#shadow)"/><path d="M117 500q-15-185 60-224l72-27 77 25q85 28 63 226Z" fill="url(#coat)"/><path d="m199 277 52 110 52-111-54-10Z" fill="#eef4ff"/><path d="m251 303-25 33 22 100 25-101Z" fill="#f9c73a"/><path d="m224 340 27-40 28 38-28 33Z" fill="#fbe184"/><path d="M161 151 134 39l99 64 43-3 87-62-12 124q36 39 22 92-18 85-113 97-99 3-132-80-20-59 33-120Z" fill="#b9bfc5" stroke="#667480" stroke-width="6"/><path d="m151 69 22 85 39-48ZM341 70l-6 87-42-49Z" fill="#f9adac"/><path d="M181 198q28-18 54 3M275 201q29-25 53-10" stroke="#344453" stroke-width="11" fill="none" stroke-linecap="round"/><ellipse cx="210" cy="213" rx="10" ry="13" fill="#253243"/><ellipse cx="301" cy="209" rx="10" ry="13" fill="#253243"/><path d="m245 236 20 0-11 11Z" fill="#a8676b"/><path d="M252 250q-11 14-28 10m29-10q11 13 25 7" fill="none" stroke="#66727d" stroke-width="4" stroke-linecap="round"/><path d="M176 247 85 238m89 27-87 14m240-35 97-11m-97 28 91 23" stroke="#d9e6f2" stroke-width="4" stroke-linecap="round"/><rect x="330" y="354" width="110" height="90" rx="7" fill="#273a55" stroke="#e4b74f" stroke-width="6" transform="rotate(10 385 399)"/><text x="385" y="391" fill="#ffe59d" font-size="16" font-family="Arial" text-anchor="middle" font-weight="900" transform="rotate(10 385 399)">CEO</text><text x="385" y="412" fill="#fff" font-size="13" font-family="Arial" text-anchor="middle" transform="rotate(10 385 399)">OF BINGO</text></svg>`,
+      dog: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="440" viewBox="0 0 400 440"><ellipse cx="205" cy="393" rx="135" ry="23" fill="#a17a45" opacity=".3"/><path d="M128 170q-76-57-91 34-9 76 43 88l59-70Z" fill="#9a5e38"/><path d="M270 165q77-61 98 31 10 74-47 89l-63-68Z" fill="#9a5e38"/><path d="M89 195q23-102 112-107 102 4 129 120l-23 120q-34 76-107 80-86-8-116-100Z" fill="#ddb37d" stroke="#8f5f3b" stroke-width="6"/><path d="M120 200q27-20 61-3m44 1q31-18 56-3" stroke="#66482c" stroke-width="11" stroke-linecap="round"/><circle cx="158" cy="218" r="10" fill="#29282b"/><circle cx="258" cy="220" r="10" fill="#29282b"/><path d="M138 281q65-31 133 2l-25 65q-45 34-80-4Z" fill="#f7d8ad"/><ellipse cx="205" cy="283" rx="26" ry="17" fill="#29282b"/><path d="M205 299q-2 26-21 31m21-31q16 28 37 29" stroke="#665147" stroke-width="6" fill="none" stroke-linecap="round"/></svg>`,
+      cat: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="440" viewBox="0 0 400 440"><path d="M90 188 74 59l96 69q42-23 85 0l72-70-9 137q35 38 21 106-18 94-130 102Q94 399 67 303q-15-66 23-115Z" fill="#abb8c4" stroke="#6d7f8f" stroke-width="8"/><path d="m102 105 12 77 51-50Zm202-1-8 79-49-48Z" fill="#f6a7b0"/><path d="M111 245q39-24 72 0m47 0q29-20 61-7" stroke="#2a3849" stroke-width="14" fill="none" stroke-linecap="round"/><ellipse cx="144" cy="256" rx="10" ry="14" fill="#263443"/><ellipse cx="255" cy="253" rx="10" ry="14" fill="#263443"/><path d="m190 284 25 0-13 14Z" fill="#d18d91"/><path d="M199 300q-10 20-33 10m35-10q12 17 32 8" stroke="#4f6575" stroke-width="5" fill="none"/><path d="m118 296-72-10m76 31-74 11m223-34 76-14m-73 37 73 9" stroke="#ddeaf7" stroke-width="5" stroke-linecap="round"/></svg>`,
+      sadDog: `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="440" viewBox="0 0 400 440"><path d="M121 155Q44 107 36 221q9 68 63 63m181-129q76-50 88 65-6 73-64 61" fill="#9c633a" stroke="#8f5f3b" stroke-width="7"/><path d="M78 204q15-111 116-119 116 5 128 128l-20 120q-34 72-107 79-89-2-119-94Z" fill="#dbb07b" stroke="#8f5f3b" stroke-width="7"/><path d="M113 222q38-37 71 0m35-2q35-34 67 0" stroke="#705336" stroke-width="12" fill="none" stroke-linecap="round"/><circle cx="151" cy="234" r="13" fill="#252b31"/><circle cx="252" cy="233" r="13" fill="#252b31"/><path d="m151 253-10 55q0 19 15 19 14-2 14-20l-11-54m94 0-9 48q0 17 14 18 13-2 13-17l-11-50" fill="#90d4f7" opacity=".85"/><ellipse cx="201" cy="289" rx="29" ry="20" fill="#382d2e"/><path d="M180 338q23-17 46 0" stroke="#68472c" stroke-width="7" fill="none" stroke-linecap="round"/></svg>`
+    };
+    const svgUrl = name => 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(mascotFallback[name]);
+
+    const IMAGE_FILES = {
+
+      bossCat: ["bosscat.png", svgUrl("bossCat")],
+
+      cat: ["cat.png", svgUrl("cat")],
+
+      dog: ["Photorealistic Dog Side-Eye Cutout.png", svgUrl("dog")],
+
+      sadDog: ["sadDog.png", svgUrl("sadDog")]
+
+  };
+
+
+
+    function loadImage(element, choices) {
+
+      let index = 0;
+
+      element.onerror = function () {
+
+        index += 1;
+
+        if (index < choices.length) {
+
+          element.src = choices[index];
+
+        } else {
+
+          element.onerror = null;
+
+          element.alt = "Mascot image not found. Check its filename in this folder.";
+
+        }
+
+      };
+
+      element.src = choices[index];
+
+    }
+
+
+
+    loadImage(document.getElementById("bossCat"), IMAGE_FILES.bossCat);
+
+    loadImage(document.getElementById("posterDogLeft"), IMAGE_FILES.dog);
+
+    loadImage(document.getElementById("posterDogRight"), IMAGE_FILES.dog);
+
+
+
+    const historyGrid = document.getElementById("historyGrid");
+
+    PREVIOUS_DAYS.forEach(day => {
+
+      const box = document.createElement("div");
+
+      box.className = "history-day";
+
+      const heading = document.createElement("h3");
+
+      heading.textContent = day.label;
+
+      const numbers = document.createElement("div");
+
+      numbers.className = "old-numbers";
+
+      day.numbers.forEach(number => {
+
+        const tag = document.createElement("span");
+
+        tag.className = "old-number";
+
+        tag.textContent = number;
+
+        numbers.append(tag);
+
+      });
+
+      box.append(heading, numbers);
+
+      historyGrid.append(box);
+
+    });
+
+
+
+    if (true) {
+
+      document.getElementById("placeholderHint").hidden = true;
+
+    }
+
+
+
+    const speechTitle = document.getElementById("speechTitle");
+
+    const speechSub = document.getElementById("speechSub");
+
+    const poster = document.getElementById("dogPoster");
+
+    const tiles = Array.from(document.querySelectorAll(".number-tile"));
+
+    const drawStatus = document.getElementById("drawStatus");
+
+    const revealMessage = document.getElementById("revealMessage");
+
+    let timers = [];
+
+
+
+    function after(ms, fn) {
+
+      timers.push(window.setTimeout(fn, ms));
+
+    }
+
+    function setSpeech(title, subtitle) {
+
+      speechTitle.textContent = title;
+
+      speechSub.textContent = subtitle;
+
+    }
+
+    function startStory() {
+
+      timers.forEach(window.clearTimeout);
+
+      timers = [];
+
+      poster.classList.remove("rip");
+
+      void poster.offsetWidth; // reset the poster-ripping animation
+
+      tiles.forEach(tile => {
+
+        tile.classList.remove("show");
+
+        tile.querySelector(".tile-number").textContent = "?";
+
+      });
+
+      drawStatus.classList.remove("live");
+
+      drawStatus.textContent = "COMING UP";
+
+      revealMessage.textContent = "Please stand by. Mascot management is changing.";
+
+      setSpeech("Happy Monday, everyone!", "I'm your NEW Bingo mascot. A very exciting promotion. For me.");
+
+
+
+      after(1500, () => {
+
+        setSpeech("The old mascot?", "Let's just say... there has been a tiny organizational restructure.");
+
+        poster.classList.add("rip");
+
+      });
+
+      after(3050, () => {
+
+        setSpeech("Anyway. I'm in charge now.", "Please hold your applause. Here are today's four Bingo numbers.");
+
+        revealMessage.textContent = "Incoming Bingo balls...";
+
+      });
+
+      after(3500, () => {
+
+        drawStatus.textContent = "REVEALING";
+
+        drawStatus.classList.add("live");
+
+      });
+
+      TODAY_NUMBERS.forEach((number, i) => {
+
+        after(3650 + i * 420, () => {
+
+          tiles[i].querySelector(".tile-number").textContent = number;
+
+          tiles[i].classList.add("show");
+
+        });
+
+      });
+
+      after(5600, () => {
+
+        drawStatus.textContent = "REVEALED ✓";
+
+        revealMessage.textContent = "All four numbers are ready. Good luck, everyone!";
+
+        setSpeech("And there you have it.", "The numbers are official. The mascot decision... apparently isn't.");
+
+      });
+
+    }
+
+    document.getElementById("replayBtn").addEventListener("click", startStory);
+
+    startStory();
+
+
+
+    /* =========================================================
+
+       ONE-CLICK MASCOT VOTE → OPTIONAL POWER AUTOMATE
+
+       Add an approved POST URL from Power Automate below.
+       A URL embedded in shared HTML is publicly visible to readers.
+       Use an approved secured voting service instead where required.
+
+       The simple text/plain body is "Cat" or "Dog".
+       A no-cors request cannot read or confirm the response.
+
+       ========================================================= */
+
+    const VOTE_FLOW_URL = "https://defaultbe62a12b2cad49a1a5fa85f4f3156a.7d.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/15/workflows/1e5117157f3e49699ad34327193e63c8/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=kVnepb0DODNHLSFyNVMsrqKQGVMZ8LHCG-9OTHktLuI";
+
+    const catBtn = document.getElementById("keepCatBtn");
+    const dogBtn = document.getElementById("changeMascotBtn");
+    const reactionPanel = document.getElementById("reactionPanel");
+    const reactionImage = document.getElementById("reactionImage");
+    const reactionTitle = document.getElementById("reactionTitle");
+    const reactionText = document.getElementById("reactionText");
+    const voteMessage = document.getElementById("voteMessage");
+    const voteHelp = document.getElementById("voteHelp");
+    const flowConnected = /^https:\/\//i.test(VOTE_FLOW_URL) && !VOTE_FLOW_URL.includes("PASTE_YOUR_");
+    let sendingVote = false;
+    let choice = "";
+
+    try {
+      choice = window.localStorage.getItem("bingo-day6-mascot-choice") || "";
+    } catch (error) { /* Storage may not be available. */ }
+
+    function updateVoteButtons() {
+      catBtn.classList.toggle("selected", choice === "cat");
+      dogBtn.classList.toggle("selected", choice === "dog");
+      catBtn.setAttribute("aria-pressed", String(choice === "cat"));
+      dogBtn.setAttribute("aria-pressed", String(choice === "dog"));
+    }
+
+    updateVoteButtons();
+    if (choice === "cat" || choice === "dog") {
+      voteMessage.textContent = `Your last selection on this browser: Team ${choice === "cat" ? "Cat 😎" : "Dog 🐶"}. This is not proof of a recorded vote.`;
+    }
+    voteHelp.textContent = flowConnected
+      ? "Each click attempts to send a vote to the organizer. The browser cannot verify delivery; the organizer can confirm it."
+      : "Preview mode: choices are saved in this browser only. Connect the approved Power Automate flow URL before sharing to send notifications.";
+
+    function showReaction(who) {
+      reactionPanel.hidden = false;
+      if (who === "cat") {
+        loadImage(reactionImage, IMAGE_FILES.cat);
+        reactionImage.alt = "Cat reacting to a vote";
+        reactionTitle.textContent = '"An excellent business decision." 😎';
+        reactionText.textContent = "The new boss approves your loyalty. Your reward is... more Bingo.";
+      } else {
+        loadImage(reactionImage, IMAGE_FILES.sadDog);
+        reactionImage.alt = "Dog reacting to a vote";
+        reactionTitle.textContent = '"Wait... you picked ME?!" 🥹';
+        reactionText.textContent = "The former mascot is making an emotional comeback. Someone bring the treats!";
+      }
+    }
+
+    async function voteFor(who) {
+      if (sendingVote || (who !== "cat" && who !== "dog")) return;
+
+      choice = who;
+      try { window.localStorage.setItem("bingo-day6-mascot-choice", choice); }
+      catch (error) { /* Continue without browser storage. */ }
+      updateVoteButtons();
+      showReaction(who);
+      const selectedLabel = who === "cat" ? "Cat 😎" : "Dog 🐶";
+
+      if (!flowConnected) {
+        voteMessage.textContent = `You selected Team ${selectedLabel}! This is a local preview. No notification was sent.`;
+        return;
+      }
+
+      sendingVote = true;
+      catBtn.disabled = true;
+      dogBtn.disabled = true;
+      voteMessage.textContent = `Sending Team ${selectedLabel} vote request...`;
+      try {
+        // A simple text/plain request avoids the JSON CORS preflight.
+        // Its opaque response cannot verify the server accepted the vote.
+        await fetch(VOTE_FLOW_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: who === "cat" ? "Cat" : "Dog",
+          keepalive: true
+        });
+        voteMessage.textContent = `Team ${selectedLabel} vote request dispatched. The organizer should confirm receipt.`;
+      } catch (error) {
+        voteMessage.textContent = `Could not dispatch your Team ${selectedLabel} vote. Check your connection and try again.`;
+      } finally {
+        sendingVote = false;
+        catBtn.disabled = false;
+        dogBtn.disabled = false;
+      }
+    }
+
+    catBtn.addEventListener("click", () => voteFor("cat"));
+    dogBtn.addEventListener("click", () => voteFor("dog"));
+
+  </script>
 
 </body>
+
 </html>
